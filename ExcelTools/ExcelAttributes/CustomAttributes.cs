@@ -23,7 +23,7 @@ namespace ExcelTools.ExcelAttributes
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true, Inherited = true)]
     public class BoolValueConvertAttribute : Attribute
     {
-        public Dictionary<string,bool> BoolValues { get; }
+		public Dictionary<string, bool> BoolValues { get; }
 
         public bool DefaultBool { get;}
 
@@ -32,9 +32,10 @@ namespace ExcelTools.ExcelAttributes
             BoolValues = new Dictionary<string, bool>();
             if (trueValues.Length + falseValues.Length < 1)
             {
-                throw new ArgumentNullException($"both param {nameof(trueValues)} and {nameof(falseValues)} are empty");
+                throw new ArgumentNullException($"both params {nameof(trueValues)} and {nameof(falseValues)} are empty");
             }
             DefaultBool = defaultBool;
+            
             foreach (var item in trueValues)
             {
                 BoolValues.Add(item, true);

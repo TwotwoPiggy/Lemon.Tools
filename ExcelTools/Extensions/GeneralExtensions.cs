@@ -7,19 +7,24 @@ namespace ExcelTools.Extensions
 {
     public static class GeneralExtensions
     {
-        public static bool ContainString(this object obj,string strSecond)
+        public static bool ContainsString(this object obj,string strSecond)
         {
             if (obj == null || string.IsNullOrWhiteSpace(obj.ToString()))
             {
                 throw new ArgumentNullException(nameof(obj));
             }
-            return obj.ToString().ToLower().Replace(" ", "").Contains(strSecond);
+            return obj.ToString().Replace(" ", "").Contains(strSecond,StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static string ToPosition(this string position)
+        /// <summary>
+        /// 获取cell的位置
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public static string ToCellPosition(this string position)
         {
             var pattern = @"^[A-Za-z]*";
-            return Regex.Match(position, pattern, RegexOptions.IgnoreCase).Value;
+            return Regex.Match(position, pattern, RegexOptions.IgnoreCase)?.Value;
         }
     }
 }
