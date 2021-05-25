@@ -55,9 +55,17 @@ namespace ExcelTools.Excel
 						}
 						if (entityProperty.PropertyType == typeof(bool))
 						{
-							boolValueConvertAttribute = entityProperty.GetCustomAttributes(true).OfType<BoolValueConvertAttribute>().FirstOrDefault();
+							boolValueConvertAttribute = entityProperty
+												.GetCustomAttributes(true)
+												.OfType<BoolValueConvertAttribute>()
+												.FirstOrDefault();
 							boolValueDic = boolValueConvertAttribute.BoolValues;
-							entityProperty.SetValue(entityData, boolValueDic.ContainsKey(cellValue) ? boolValueDic[cellValue] : boolValueConvertAttribute.DefaultBool);
+							entityProperty.SetValue(
+										entityData, 
+										boolValueDic.ContainsKey(cellValue) 
+										? boolValueDic[cellValue] 
+										: boolValueConvertAttribute.DefaultBool
+									);
 						}
 						else
 						{
