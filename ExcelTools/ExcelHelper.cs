@@ -86,8 +86,8 @@ namespace ExcelTools
 		/// <returns></returns>
 		public async Task<List<T>> ImportExcelToListDOM<T>(string sheetName) where T : new()
 		{
-			IExcelReader excelBySAX = new ExcelReaderDOM();
-			return await ImportExcelToListAsync<T>(excelBySAX, sheetName);
+			IExcelReader excelReader = new ExcelReaderDOM();
+			return await ImportExcelToListAsync<T>(excelReader, sheetName);
 		}
 
 		/// <summary>
@@ -99,8 +99,8 @@ namespace ExcelTools
 		/// <returns></returns>
 		public async Task<List<T>> ImportExcelToListSAX<T>(string sheetName) where T : new()
 		{
-			IExcelReader excelBySAX = new ExcelReaderSAX();
-			return await ImportExcelToListAsync<T>(excelBySAX, sheetName);
+			IExcelReader excelReader = new ExcelReaderSAX();
+			return await ImportExcelToListAsync<T>(excelReader, sheetName);
 		}
 
 		#endregion
