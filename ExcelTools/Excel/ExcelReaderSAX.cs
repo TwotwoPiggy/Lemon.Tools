@@ -52,15 +52,15 @@ namespace ExcelTools.Excel
 						cellPosition = cell.CellReference.Value.ToCellPosition();
 						cellValue = cell.CellValue.Text;
 						entityProperty = entityData
-												.GetType()
-												.GetProperties()
-												.FirstOrDefault(property =>
-													property
-														.GetCustomAttributes(true)
-														.OfType<ExcelHeaderAttribute>()
-														.FirstOrDefault()
-														.HeaderName.Trim() == excelHeaders[cellPosition]
-												);
+									.GetType()
+									.GetProperties()
+									.FirstOrDefault(property =>
+										property
+											.GetCustomAttributes(true)
+											.OfType<ExcelHeaderAttribute>()
+											.FirstOrDefault()
+											.HeaderName.Trim() == excelHeaders[cellPosition]
+									);
 						if (entityProperty == null)
 						{
 							continue;
