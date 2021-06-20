@@ -84,7 +84,7 @@ namespace ExcelTools
 		/// <typeparam name="T"></typeparam>
 		/// <param name="sheetName"></param>
 		/// <returns></returns>
-		public async Task<List<T>> ImportExcelToListDOM<T>(string sheetName) where T : new()
+		public async Task<List<T>> ImportExcelDOMAsync<T>(string sheetName) where T : new()
 		{
 			IExcelReader excelReader = new ExcelReaderDOM();
 			return await ImportExcelToListAsync<T>(excelReader, sheetName);
@@ -97,12 +97,17 @@ namespace ExcelTools
 		/// <typeparam name="T"></typeparam>
 		/// <param name="sheetName"></param>
 		/// <returns></returns>
-		public async Task<List<T>> ImportExcelToListSAX<T>(string sheetName) where T : new()
+		public async Task<List<T>> ImportExcelSAXAsync<T>(string sheetName) where T : new()
 		{
 			IExcelReader excelReader = new ExcelReaderSAX();
 			return await ImportExcelToListAsync<T>(excelReader, sheetName);
 		}
 
+
+		public async Task<bool> ExportAsync(string fileName,string sheetName)
+		{
+			return true;
+		}
 		#endregion
 
 		#region 私有方法

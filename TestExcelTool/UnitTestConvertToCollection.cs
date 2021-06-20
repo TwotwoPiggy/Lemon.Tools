@@ -14,10 +14,10 @@ namespace TestExcelTool
         public void TestImportPartSAX()
         {
             var excelHelper = new ExcelHelper() { FilePath = filePath };
-            //var datas = excelHelper.ImportExcelToListSAX<TestModel>("sheet5");
+            //var datas = excelHelper.ImportExcelSAXAsync<TestModel>("sheet5");
             //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
 
-            var datas2 = excelHelper.ImportExcelToListSAX<TestModel>("afaf");
+            var datas2 = excelHelper.ImportExcelSAXAsync<TestModel>("afaf");
             Assert.AreEqual(data, datas2.Count);
         }
 
@@ -25,10 +25,10 @@ namespace TestExcelTool
         public void TestImportPartDOM()
         {
             var excelHelper = new ExcelHelper() { FilePath = filePath };
-            //var datas = excelHelper.ImportExcelToListDOM<TestModel>("sheet4");
+            //var datas = excelHelper.ImportExcelDOMAsync<TestModel>("sheet4");
             //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
 
-            var datas2 = excelHelper.ImportExcelToListDOM<TestModel>("afaf");
+            var datas2 = excelHelper.ImportExcelDOMAsync<TestModel>("afaf");
             Assert.AreEqual(data, datas2.Count);
         }
     }
