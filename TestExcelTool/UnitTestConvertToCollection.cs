@@ -18,7 +18,7 @@ namespace TestExcelTool
             //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
 
             var datas2 = excelHelper.ImportExcelSAXAsync<TestModel>("afaf");
-            Assert.AreEqual(data, datas2.Count);
+            Assert.AreEqual(data, datas2.Result.Count);
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace TestExcelTool
             //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
 
             var datas2 = excelHelper.ImportExcelDOMAsync<TestModel>("afaf");
-            Assert.AreEqual(data, datas2.Count);
+            Assert.AreEqual(data, datas2.Result.Count);
         }
     }
 

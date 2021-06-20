@@ -24,55 +24,12 @@ namespace ExcelTools.Excel
 				throw new ArgumentNullException(nameof(worksheetPart));
 			}
 			var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
-			T entityData;
-			PropertyInfo entityProperty;
-			string cellValue;
-			string cellPosition;
-			Dictionary<string, bool> boolValueDic;
-			BoolValueConvertAttribute boolValueConvertAttribute;
 			var result = new List<T>();
 			return Task.Run(()=>
 			{
 				foreach (var row in sheetData.Elements<Row>().Where(row => row.RowIndex != 1))
 				{
-					entityData = new T();
-					foreach (var cell in row.Elements<Cell>())
-					{
-						cellPosition = cell.CellReference.Value.ToCellPosition();
-						cellValue = cell.CellValue.Text;
-						entityProperty = entityData.GetType()
-										.GetProperties()
-										.FirstOrDefault(property =>
-											property
-												.GetCustomAttributes(true)
-												.OfType<ExcelHeaderAttribute>()
-												.FirstOrDefault()
-												.HeaderName.Trim() == excelHeaders[cellPosition]
-										);
-						if (entityProperty == null)
-						{
-							continue;
-						}
-						if (entityProperty.PropertyType == typeof(bool))
-						{
-							boolValueConvertAttribute = entityProperty
-												.GetCustomAttributes(true)
-												.OfType<BoolValueConvertAttribute>()
-												.FirstOrDefault();
-							boolValueDic = boolValueConvertAttribute.BoolValues;
-							entityProperty.SetValue(
-										entityData, 
-										boolValueDic.ContainsKey(cellValue) 
-										? boolValueDic[cellValue] 
-										: boolValueConvertAttribute.DefaultBool
-									);
-						}
-						else
-						{
-							entityProperty.SetValue(entityData, Convert.ChangeType(cellValue, entityProperty.PropertyType));
-						}
-					}
-					result.Add(entityData);
+					result.Add(FillEntityData<T>(row, excelHeaders));
 				}
 				return result;
 			});

@@ -104,8 +104,9 @@ namespace ExcelTools
 		}
 
 
-		public async Task<bool> ExportAsync(string fileName,string sheetName)
+		public async Task<bool> ExportAsync<T>(string fileName, string sheetName, IEnumerable<T> entities) where T : new()
 		{
+
 			return true;
 		}
 		#endregion

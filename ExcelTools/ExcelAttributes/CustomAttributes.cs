@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ExcelTools.ExcelAttributes
@@ -10,8 +11,6 @@ namespace ExcelTools.ExcelAttributes
         public string HeaderName { get; }
 
         public string HeaderPosition { get; }
-
-
 
         public ExcelHeaderAttribute(string headerName = "", string headerPosition = "")
         {
@@ -35,15 +34,19 @@ namespace ExcelTools.ExcelAttributes
                 throw new ArgumentNullException($"both params {nameof(trueValues)} and {nameof(falseValues)} are empty");
             }
             DefaultBool = defaultBool;
-            
-            foreach (var item in trueValues)
-            {
-                BoolValues.Add(item, true);
+			try
+			{
+                BoolValues = trueValues.ToDictionary(key => key, value => true);
+                foreach (var item in falseValues)
+                {
+                    BoolValues.Add(item, false);
+                }
             }
-            foreach (var item in falseValues)
-            {
-                BoolValues.Add(item, false);
-            }
+			catch (ArgumentException)
+			{
+                throw new ArgumentException("An element with Key already exists.");
+			}
+
         }
     }
 
