@@ -83,7 +83,7 @@ namespace ExcelTools
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="sheetName"></param>
-		/// <returns></returns>
+		/// <returns></returns>    
 		public async Task<List<T>> ImportExcelDOMAsync<T>(string sheetName) where T : new()
 		{
 			IExcelReader excelReader = new ExcelReaderDOM();
@@ -120,12 +120,13 @@ namespace ExcelTools
 			{
 				return null;
 			}
-			var excelHeaderTask = excelReader.GetExcelHeaderAsync(worksheetPart, document);
-			if (!excelHeaderTask.Result.Any())
+			var stringTable = document.WorkbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+			var excelHeaderTask = await excelReader.GetExcelHeaderAsync(worksheetPart, stringTable);
+			if (!excelHeaderTask.Any())
 			{
 				return null;
 			}
-			return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, excelHeaderTask.Result);
+			return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, stringTable, excelHeaderTask);
 		}
 
 

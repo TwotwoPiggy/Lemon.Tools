@@ -8,16 +8,14 @@ namespace TestExcelTool
     [TestClass]
     public class UnitTestConvertToCollection
     {
-        private int data = 50000;
-        private string filePath = @"D:\CustouchProject\test1.xlsx";
+        private int data = 10;
+        private string filePath = @"D:\Computers\develop\.NetCore\0.Lemon\ToolsTestFiles\alphabet.xlsx";
+        string sheet = "sheet1";
         [TestMethod]
         public void TestImportPartSAX()
         {
             var excelHelper = new ExcelHelper() { FilePath = filePath };
-            //var datas = excelHelper.ImportExcelSAXAsync<TestModel>("sheet5");
-            //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
-
-            var datas2 = excelHelper.ImportExcelSAXAsync<TestModel>("afaf");
+            var datas2 = excelHelper.ImportExcelSAXAsync<TestModel>(sheet);
             Assert.AreEqual(data, datas2.Result.Count);
         }
 
@@ -25,10 +23,7 @@ namespace TestExcelTool
         public void TestImportPartDOM()
         {
             var excelHelper = new ExcelHelper() { FilePath = filePath };
-            //var datas = excelHelper.ImportExcelDOMAsync<TestModel>("sheet4");
-            //Assert.AreEqual(typeof(bool), datas[0].A.GetType());
-
-            var datas2 = excelHelper.ImportExcelDOMAsync<TestModel>("afaf");
+            var datas2 = excelHelper.ImportExcelDOMAsync<TestModel>(sheet);
             Assert.AreEqual(data, datas2.Result.Count);
         }
     }

@@ -17,27 +17,29 @@ namespace ExcelTools.Excel
 	/// </summary>
 	public class ExcelReaderSAX : ExcelReader
 	{
-		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, Dictionary<string, string> excelHeaders)
+		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders)
 		{
 			if (worksheetPart == null)
 			{
 				throw new ArgumentNullException(nameof(worksheetPart));
 			}
 			var excelReader = OpenXmlReader.Create(worksheetPart);
-			T entityData;
 			Row row;
 			var result = new List<T>();
-			return Task.Run(()=>
+			return Task.Run(() =>
 			{
 				while (excelReader.Read())
 				{
-					entityData = new T();
-					row = excelReader.LoadCurrentElement() as Row;
-					if (row == null || row.RowIndex == 1)
+					if (excelReader.ElementType != typeof(Row))
 					{
 						continue;
 					}
-					result.Add(FillEntityData<T>(row, excelHeaders));
+					row = excelReader.LoadCurrentElement() as Row;
+					if (row.RowIndex == 1)
+					{
+						continue;
+					}
+					result.Add(FillEntityData<T>(row, stringTable, excelHeaders));
 				}
 				return result;
 			});
