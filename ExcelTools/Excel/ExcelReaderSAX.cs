@@ -1,4 +1,4 @@
-﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ExcelTools.ExcelAttributes;
@@ -24,16 +24,18 @@ namespace ExcelTools.Excel
 				throw new ArgumentNullException(nameof(worksheetPart));
 			}
 			var excelReader = OpenXmlReader.Create(worksheetPart);
-			T entityData;
 			Row row;
 			var result = new List<T>();
-			return Task.Run(()=>
+			return Task.Run(() =>
 			{
 				while (excelReader.Read())
 				{
-					entityData = new T();
+					if (excelReader.ElementType != typeof(Row))
+					{
+						continue;
+					}
 					row = excelReader.LoadCurrentElement() as Row;
-					if (row == null || row.RowIndex == 1)
+					if (row.RowIndex == 1)
 					{
 						continue;
 					}
