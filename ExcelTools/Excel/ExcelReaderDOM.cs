@@ -17,7 +17,7 @@ namespace ExcelTools.Excel
 	/// </summary>
 	public class ExcelReaderDOM : ExcelReader
 	{
-		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart,Dictionary<string,string> excelHeaders)
+		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders)
 		{
 			if (worksheetPart == null)
 			{
@@ -25,11 +25,12 @@ namespace ExcelTools.Excel
 			}
 			var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
 			var result = new List<T>();
-			return Task.Run(()=>
+
+			return Task.Run(() =>
 			{
 				foreach (var row in sheetData.Elements<Row>().Where(row => row.RowIndex != 1))
 				{
-					result.Add(FillEntityData<T>(row, excelHeaders));
+					result.Add(FillEntityData<T>(row, stringTable, excelHeaders));
 				}
 				return result;
 			});

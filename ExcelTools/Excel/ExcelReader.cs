@@ -21,7 +21,7 @@ namespace ExcelTools.Excel
 		public WorksheetPart OpenExcelFiles(SpreadsheetDocument excel, string sheetName)
 		{
 			var workbookPart = excel.WorkbookPart;
-			var sheet = workbookPart.Workbook.Descendants<Sheet>().FirstOrDefault(sheet => sheet.Name == sheetName);
+			var sheet = workbookPart.Workbook.Descendants<Sheet>().FirstOrDefault(sheet => sheet.Name.ToString().EqualsString(sheetName));
 			if (sheet == null)
 			{
 				throw new ArgumentException($"param {nameof(sheetName)} contains no specific sheet");
@@ -30,70 +30,51 @@ namespace ExcelTools.Excel
 		}
 
 
-		public Task<Dictionary<string, string>> GetExcelHeaderAsync(WorksheetPart worksheetPart, SpreadsheetDocument document)
+		public Task<Dictionary<string, string>> GetExcelHeaderAsync(WorksheetPart worksheetPart, SharedStringTablePart stringTable)
 		{
 			if (worksheetPart == null)
 			{
 				throw new ArgumentNullException(nameof(worksheetPart));
 			}
-			var excelHeaders = new Dictionary<string, string>();
-			string position;
-			string headerName;
-			Row row;
 			var excelReader = OpenXmlReader.Create(worksheetPart);
-			return Task.Run(() =>
+			try
 			{
-				while (excelReader.Read())
+				var excelHeaders = new Dictionary<string, string>();
+				string position;
+				string headerName;
+				Row row;
+				return Task.Run(() =>
 				{
-					if (excelReader.ElementType != typeof(Row))
+					while (excelReader.Read())
 					{
-						continue;
-					}
-					row = excelReader.LoadCurrentElement() as Row;
-					if (row.RowIndex == 1)
-					{
-						var stringTable = document.WorkbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
-						foreach (var cell in row.Elements<Cell>())
+						if (excelReader.ElementType != typeof(Row))
 						{
-							position = cell.CellReference.Value.ToCellPosition();
-							headerName = cell.InnerText;
-							if (cell.DataType != null)
-							{
-								switch (cell.DataType.Value)
-								{
-									case CellValues.Boolean:
-										break;
-									case CellValues.Number:
-										break;
-									case CellValues.Error:
-										break;
-									case CellValues.SharedString:
-										if (stringTable != null)
-										{
-											headerName = stringTable.SharedStringTable.ElementAt(int.Parse(headerName)).InnerText.Trim();
-										}
-										break;
-									case CellValues.String:
-										break;
-									case CellValues.InlineString:
-										break;
-									case CellValues.Date:
-										break;
-									default:
-										break;
-								}
-							}
-							if (string.IsNullOrWhiteSpace(headerName))
-							{
-								continue;
-							}
-							excelHeaders.Add(position, headerName);
+							continue;
 						}
-						break;
+						row = excelReader.LoadCurrentElement() as Row;
+						if (row.RowIndex == 1)
+						{
+							foreach (var cell in row.Elements<Cell>())
+							{
+								position = cell.CellReference.Value.GetCellPosition();
+								headerName = cell.GetCellValue(stringTable);
+								if (string.IsNullOrWhiteSpace(headerName))
+								{
+									continue;
+								}
+								excelHeaders.Add(position, headerName);
+							}
+							break;
+						}
 					}
-				}
-				return excelHeaders;
-			});
+					excelReader.Dispose();
+					return excelHeaders;
+				});
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
@@ -103,7 +84,7 @@ namespace ExcelTools.Excel
 		/// <param name="row"></param>
 		/// <param name="excelHeaders"></param>
 		/// <returns></returns>
-		public T FillEntityData<T>(Row row, Dictionary<string, string> excelHeaders) where T : new()
+		public T FillEntityData<T>(Row row, SharedStringTablePart stringTable,Dictionary<string, string> excelHeaders) where T : new()
 		{
 			var entityData = new T();
 			PropertyInfo entityProperty;
@@ -113,8 +94,8 @@ namespace ExcelTools.Excel
 			BoolValueConvertAttribute boolValueConvertAttribute;
 			foreach (var cell in row.Elements<Cell>())
 			{
-				cellPosition = cell.CellReference.Value.ToCellPosition();
-				cellValue = cell.CellValue.Text;
+				cellPosition = cell.CellReference.Value.GetCellPosition();
+				cellValue = cell.GetCellValue(stringTable);
 				entityProperty = entityData.GetCustomProperty<ExcelHeaderAttribute>(excelHeaders[cellPosition]);
 				if (entityProperty == null)
 				{
@@ -142,6 +123,6 @@ namespace ExcelTools.Excel
 			return entityData;
 		}
 
-		public abstract Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, Dictionary<string, string> excelHeaders) where T : new();
+		public abstract Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new();
 	}
 }

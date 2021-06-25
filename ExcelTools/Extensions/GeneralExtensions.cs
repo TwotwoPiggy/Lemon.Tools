@@ -1,4 +1,6 @@
-﻿using ExcelTools.ExcelAttributes;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using ExcelTools.ExcelAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +24,61 @@ namespace ExcelTools.Extensions
 			return obj.ToString().Replace(" ", "").Contains(strSecond, StringComparison.CurrentCultureIgnoreCase);
 		}
 
+		public static bool EqualsString(this string strEqualed, string strToEqual)
+		{
+			return strEqualed.Trim().Equals(strToEqual, StringComparison.CurrentCultureIgnoreCase);
+		}
+
 		/// <summary>
 		/// 获取cell的位置
 		/// </summary>
 		/// <param name="position"></param>
 		/// <returns></returns>
-		public static string ToCellPosition(this string position)
+		public static string GetCellPosition(this string position)
 		{
 			var pattern = @"^[A-Za-z]*";
 			return Regex.Match(position, pattern, RegexOptions.IgnoreCase)?.Value;
 		}
+
+		/// <summary>
+		/// 获取cell值
+		/// </summary>
+		/// <param name="cell"></param>
+		/// <param name="stringTable"></param>
+		/// <returns></returns>
+		public static string GetCellValue(this Cell cell, SharedStringTablePart stringTable)
+		{
+			var cellValue = cell.CellValue.InnerText;
+
+			if (cell.DataType != null)
+			{
+				switch (cell.DataType.Value)
+				{
+					case CellValues.Boolean:
+						break;
+					case CellValues.Number:
+						break;
+					case CellValues.Error:
+						break;
+					case CellValues.SharedString:
+						if (stringTable != null)
+						{
+							cellValue = stringTable.SharedStringTable.ElementAt(int.Parse(cellValue)).InnerText.Trim();
+						}
+						break;
+					case CellValues.String:
+						break;
+					case CellValues.InlineString:
+						break;
+					case CellValues.Date:
+						break;
+					default:
+						break;
+				}
+			}
+			return cellValue;
+		}
+
 
 		/// <summary>
 		/// 获取对象的自定义特性

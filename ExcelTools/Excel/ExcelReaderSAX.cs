@@ -17,7 +17,7 @@ namespace ExcelTools.Excel
 	/// </summary>
 	public class ExcelReaderSAX : ExcelReader
 	{
-		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, Dictionary<string, string> excelHeaders)
+		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders)
 		{
 			if (worksheetPart == null)
 			{
@@ -39,7 +39,7 @@ namespace ExcelTools.Excel
 					{
 						continue;
 					}
-					result.Add(FillEntityData<T>(row, excelHeaders));
+					result.Add(FillEntityData<T>(row, stringTable, excelHeaders));
 				}
 				return result;
 			});
