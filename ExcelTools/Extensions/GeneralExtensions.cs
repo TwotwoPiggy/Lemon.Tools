@@ -81,7 +81,7 @@ namespace ExcelTools.Extensions
 
 
 		/// <summary>
-		/// 获取对象的自定义特性
+		/// 根据自定义特性来获取对象属性
 		/// </summary>
 		/// <typeparam name="TProperty">自定义特性类型</typeparam>
 		/// <param name="object"></param>
@@ -99,5 +99,6 @@ namespace ExcelTools.Extensions
 												.HeaderName.Trim() == headerName
 										);
 		}
+
 	}
 }

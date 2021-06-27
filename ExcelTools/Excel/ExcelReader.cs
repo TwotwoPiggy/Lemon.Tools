@@ -28,8 +28,6 @@ namespace ExcelTools.Excel
 			}
 			return workbookPart.GetPartById(sheet.Id) as WorksheetPart;
 		}
-
-
 		public Task<Dictionary<string, string>> GetExcelHeaderAsync(WorksheetPart worksheetPart, SharedStringTablePart stringTable)
 		{
 			if (worksheetPart == null)
@@ -56,12 +54,12 @@ namespace ExcelTools.Excel
 						{
 							foreach (var cell in row.Elements<Cell>())
 							{
-								position = cell.CellReference.Value.GetCellPosition();
 								headerName = cell.GetCellValue(stringTable);
 								if (string.IsNullOrWhiteSpace(headerName))
 								{
 									continue;
 								}
+								position = cell.CellReference.Value.GetCellPosition();
 								excelHeaders.Add(position, headerName);
 							}
 							break;
@@ -95,12 +93,12 @@ namespace ExcelTools.Excel
 			foreach (var cell in row.Elements<Cell>())
 			{
 				cellPosition = cell.CellReference.Value.GetCellPosition();
-				cellValue = cell.GetCellValue(stringTable);
 				entityProperty = entityData.GetCustomProperty<ExcelHeaderAttribute>(excelHeaders[cellPosition]);
 				if (entityProperty == null)
 				{
 					continue;
 				}
+				cellValue = cell.GetCellValue(stringTable);
 				if (entityProperty.PropertyType == typeof(bool))
 				{
 					boolValueConvertAttribute = entityProperty
