@@ -10,7 +10,7 @@ namespace TestExcelTool
     {
         private int data = 10;
         private string filePath = @"D:\Computers\develop\.NetCore\0.Lemon\ToolsTestFiles\alphabet.xlsx";
-        private string fileExportPath = @"D:\develop\export.xlsx";
+        private string fileExportPath = @"D:\Computers\develop\.NetCore\0.Lemon\ToolsTestFiles\export.xlsx";
         string sheet = "sheet1";
         [TestMethod]
         public void TestImportPartSAX()
@@ -96,58 +96,58 @@ namespace TestExcelTool
 
     public class TestModel
     {
-        [ExcelHeader("a")]
-        [BoolValueConvert(new string[] { "1" }, new string[] { "0" })]
+        [ExcelHeader("a", 1)]
+        //[BoolValueConvert(new string[] { "1" }, new string[] { "0" })]
         public int A { get; set; }
-        [ExcelHeader("b")]
+        [ExcelHeader("b", 2)]
         public int B { get; set; }
-        [ExcelHeader("c")]
+        [ExcelHeader("c", 3)]
         public int C { get; set; }
-        [ExcelHeader("d")]
+        [ExcelHeader("d", 4)]
         public int D { get; set; }
-        [ExcelHeader("e")]
+        [ExcelHeader("e", 5)]
         public int E { get; set; }
-        [ExcelHeader("f")]
+        [ExcelHeader("f", 6)]
         public int F { get; set; }
-        [ExcelHeader("g")]
+        [ExcelHeader("g", 7)]
         public int G { get; set; }
-        [ExcelHeader("h")]
+        [ExcelHeader("h", 8)]
         public int H { get; set; }
-        [ExcelHeader("i")]
+        [ExcelHeader("i", 9)]
         public int I { get; set; }
-        [ExcelHeader("j")]
+        [ExcelHeader("j", 10)]
         public int J { get; set; }
-        [ExcelHeader("k")]
+        [ExcelHeader("k", 11)]
         public int K { get; set; }
-        [ExcelHeader("l")]
+        [ExcelHeader("l", 12)]
         public int L { get; set; }
-        [ExcelHeader("m")]
+        [ExcelHeader("m", 13)]
         public int M { get; set; }
-        [ExcelHeader("n")]
+        [ExcelHeader("n", 14)]
         public int N { get; set; }
-        [ExcelHeader("o")]
+        [ExcelHeader("o", 15)]
         public int O { get; set; }
-        [ExcelHeader("p")]
+        [ExcelHeader("p", 16)]
         public int P { get; set; }
-        [ExcelHeader("q")]
+        [ExcelHeader("q", 17)]
         public int Q { get; set; }
-        [ExcelHeader("r")]
+        [ExcelHeader("r", 18)]
         public int R { get; set; }
-        [ExcelHeader("s")]
+        [ExcelHeader("s", 19)]
         public int S { get; set; }
-        [ExcelHeader("t")]
+        [ExcelHeader("t", 20)]
         public int T { get; set; }
-        [ExcelHeader("u")]
+        [ExcelHeader("u", 21)]
         public int U { get; set; }
-        [ExcelHeader("v")]
+        [ExcelHeader("v", 22)]
         public int V { get; set; }
-        [ExcelHeader("w")]
+        [ExcelHeader("w", 23)]
         public int W { get; set; }
-        [ExcelHeader("x")]
+        [ExcelHeader("x", 24)]
         public int X { get; set; }
-        [ExcelHeader("y")]
+        [ExcelHeader("y", 25)]
         public int Y { get; set; }
-        [ExcelHeader("z")]
+        [ExcelHeader("z", 26)]
         public int Z { get; set; }
     }
 }
