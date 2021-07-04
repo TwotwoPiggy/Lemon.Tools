@@ -11,7 +11,6 @@ namespace ExcelTools.Interfaces
 	/// </summary>
 	public interface IExcelReader
 	{
-
 		/// <summary>
 		/// 打开excel并获取指定sheet
 		/// </summary>

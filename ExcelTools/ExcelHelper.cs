@@ -103,10 +103,24 @@ namespace ExcelTools
 			return await ImportExcelToListAsync<T>(excelReader, sheetName);
 		}
 
-
-		public async Task<bool> ExportAsync<T>(string fileName, string sheetName, IEnumerable<T> entities) where T : new()
+		/// <summary>
+		/// 导出excel数据
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="sheetName"></param>
+		/// <param name="entities"></param>
+		/// <returns></returns>
+		public async Task<bool> ExportAsync<T>(string sheetName, IEnumerable<T> entities, bool? isEditable = null) where T : new()
 		{
-
+			IExcelWriter excelWriter = new ExcelWriter();
+			var result = await excelWriter.CreateExcelAsync(_filePath, sheetName);
+			if (!result)
+			{
+				return false;
+			}
+			using var document = SpreadsheetDocument.Open(_filePath, isEditable.HasValue ? isEditable.Value : _isEditable);
+			await excelWriter.SetExcelHeaderAsync<T>(document.WorkbookPart, sheetName);
+			await excelWriter.ExportExcelAsync<T>(document.WorkbookPart, sheetName, entities);
 			return true;
 		}
 		#endregion
@@ -128,8 +142,6 @@ namespace ExcelTools
 			}
 			return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, stringTable, excelHeaderTask);
 		}
-
-
 		#endregion
 	}
 }
