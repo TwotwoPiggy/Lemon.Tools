@@ -13,7 +13,12 @@ namespace ExcelTools.ExcelAttributes
 		public int? HeaderIndex { get; }
 
 		public string HeaderPosition { get; }
-
+		/// <summary>
+		/// excel表头特性
+		/// </summary>
+		/// <param name="headerName">表头名称</param>
+		/// <param name="headerIndex">表头序号,从1开始,最大为16384</param>
+		/// <param name="headerPosition">表头位置字母,ex:AA BB A B</param>
 		public ExcelHeaderAttribute(string headerName, int headerIndex = -1, string headerPosition = null)
 		{
 			HeaderName = headerName;
@@ -28,7 +33,12 @@ namespace ExcelTools.ExcelAttributes
 		public Dictionary<string, bool> BoolValues { get; }
 
 		public bool DefaultBool { get; }
-
+		/// <summary>
+		/// 标识自定义字段类型为boolean类型的数据,(导入操作时使用)
+		/// </summary>
+		/// <param name="trueValues">true值对应的字符串类型数据,可传入多个</param>
+		/// <param name="falseValues">false值对应的字符串类型数据,可传入多个</param>
+		/// <param name="defaultBool">标识自定义boolean类型字段的默认值</param>
 		public BoolValueConvertAttribute(string[] trueValues, string[] falseValues, bool defaultBool = false)
 		{
 			BoolValues = new Dictionary<string, bool>();

@@ -1,19 +1,15 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using ExcelTools.ExcelAttributes;
+﻿using ExcelTools.ExcelAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace ExcelTools.Extensions
 {
     /// <summary>
     /// 通用扩展方法
     /// </summary>
-    public static class GeneralExtensions
+    static class GeneralExtensions
     {
         public static bool ContainsString(this object obj, string strSecond)
         {
@@ -46,10 +42,6 @@ namespace ExcelTools.Extensions
                         .FirstOrDefault(_ => _.GetCustomAttributes<TAttribute>(true)
                                                 .FirstOrDefault()
                                                 .HeaderName.Trim() == headerName
-                                        //_.GetCustomAttributes(true)
-                                        //.OfType<TProperty>()
-                                        //.FirstOrDefault()
-                                        //.HeaderName.Trim() == headerName
                                         );
         }
 

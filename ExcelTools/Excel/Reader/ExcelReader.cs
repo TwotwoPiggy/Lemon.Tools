@@ -16,7 +16,7 @@ namespace ExcelTools.Excel
 	/// <summary>
 	/// excel读取抽象类模块
 	/// </summary>
-	public abstract class ExcelReader : IExcelReader
+	abstract class ExcelReader : IExcelReader
 	{
 		public WorksheetPart OpenExcelFiles(SpreadsheetDocument excel, string sheetName)
 		{
@@ -82,7 +82,7 @@ namespace ExcelTools.Excel
 		/// <param name="row"></param>
 		/// <param name="excelHeaders"></param>
 		/// <returns></returns>
-		public T FillEntityData<T>(Row row, SharedStringTablePart stringTable,Dictionary<string, string> excelHeaders) where T : new()
+		public T FillEntityData<T>(Row row, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new()
 		{
 			var entityData = new T();
 			PropertyInfo entityProperty;
@@ -121,6 +121,6 @@ namespace ExcelTools.Excel
 			return entityData;
 		}
 
-		public abstract Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new();
+		public abstract Task<IEnumerable<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new();
 	}
 }

@@ -1,11 +1,8 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using ExcelTools.Utils;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ExcelTools.Extensions
@@ -13,7 +10,7 @@ namespace ExcelTools.Extensions
     /// <summary>
     /// excel操作扩展方法
     /// </summary>
-    public static class ExcelOperationExtensions
+    static class ExcelOperationExtensions
     {
         /// <summary>
         /// 获取cell的位置
