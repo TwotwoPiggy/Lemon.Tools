@@ -1,13 +1,9 @@
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using ExcelTools.ExcelAttributes;
-using ExcelTools.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ExcelTools.Excel
@@ -15,9 +11,9 @@ namespace ExcelTools.Excel
 	/// <summary>
 	/// 通过SAX方法读取excel文件
 	/// </summary>
-	public class ExcelReaderSAX : ExcelReader
+	class ExcelReaderSAX : ExcelReader
 	{
-		public override Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders)
+		public override Task<IEnumerable<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders)
 		{
 			if (worksheetPart == null)
 			{
@@ -41,7 +37,7 @@ namespace ExcelTools.Excel
 					}
 					result.Add(FillEntityData<T>(row, stringTable, excelHeaders));
 				}
-				return result;
+				return result.AsEnumerable<T>();
 			});
 		}
 	}

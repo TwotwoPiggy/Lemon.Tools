@@ -1,147 +1,201 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
 using ExcelTools.Excel;
-using ExcelTools.ExcelAttributes;
-using ExcelTools.Extensions;
 using ExcelTools.Interfaces;
-using ExcelTools.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ExcelTools
 {
 
-	public class ExcelHelper
-	{
-		#region 构造函数
-		public ExcelHelper() { }
+    public class ExcelHelper
+    {
+        #region 构造函数
+        /// <summary>
+        /// 初始化Excel操作工具
+        /// </summary>
+        public ExcelHelper() { }
 
-		public ExcelHelper(bool isEditable)
-		{
-			_isEditable = isEditable;
-		}
-		public ExcelHelper(string filePath, bool isEditable = false) : this(isEditable)
-		{
-			if (string.IsNullOrWhiteSpace(filePath))
-			{
-				throw new ArgumentNullException(nameof(filePath));
-			}
-			_filePath = filePath;
-		}
+        /// <summary>
+        /// 初始化Excel操作工具
+        /// </summary>
+        /// <param name="isEditable">操作的excel是否可编辑, 当操作类型为修改时, 请传入true值</param>
+        public ExcelHelper(bool isEditable)
+        {
+            IsEditable = isEditable;
+        }
 
-		public ExcelHelper(Stream fileStream, bool isEditable = false) : this(isEditable)
-		{
-			_fileStream = fileStream ?? throw new ArgumentNullException(nameof(fileStream));
-		}
-		#endregion
+        /// <summary>
+        /// 初始化Excel操作工具
+        /// </summary>
+        /// <param name="filePath">操作的excel文件完整路径</param>
+        /// <param name="isEditable">操作的excel是否可编辑, 当操作类型为修改时, 请传入true值</param>
+        public ExcelHelper(string filePath, bool isEditable = true) : this(isEditable)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+            FilePath = filePath;
+        }
 
-		#region 私有变量
+        /// <summary>
+        /// 初始化Excel操作工具
+        /// </summary>
+        /// <param name="filePath">操作的excel文件字节流</param>
+        /// <param name="isEditable">操作的excel是否可编辑, 当操作类型为修改时, 请传入true值</param>
+        public ExcelHelper(Stream fileStream, bool isEditable = true) : this(isEditable)
+        {
+            FileStream = fileStream ?? throw new ArgumentNullException(nameof(fileStream));
+        }
+        #endregion
 
-		private string _filePath;
+        #region 公共属性
+        /// <summary>
+        /// excel文件完整路径
+        /// </summary>
+        public string FilePath { get; set; }
+        /// <summary>
+        /// excel文件是否可修改
+        /// </summary>
+        public bool IsEditable { get; set; } = true;
+        /// <summary>
+        /// excel文件字节流
+        /// </summary>
+        public Stream FileStream { get; set; }
+        #endregion
 
-		private bool _isEditable;
+        #region 公共方法
+        /// <summary>
+        /// 使用DOM方式导入excel文件
+        /// 建议：当excel文件较小时使用
+        /// </summary>
+        /// <typeparam name="T">指定存放数据的自定义类型</typeparam>
+        /// <param name="sheetName">导入excel的sheet名称</param>
+        /// <returns></returns>    
+        public async Task<IEnumerable<T>> ImportExcelDOMAsync<T>(string sheetName) where T : new()
+        {
+            IExcelReader excelReader = new ExcelReaderDOM();
+            IEnumerable<T> result = null;
+            if (!string.IsNullOrWhiteSpace(FilePath))
+            {
+                result = await ImportExcelByFilePathAsync<T>(excelReader, sheetName);
+            }
+            if ((result == null || !result.Any()) && FileStream.Length > 0)//上一个操作错误导致result为空, 同时文件字节流不为空时
+            {
+                result = await ImportExcelByStreamAsync<T>(excelReader, sheetName);
+            }
+            return result;
+        }
 
-		private Stream _fileStream;
+        /// <summary>
+        /// 使用SAX方式导入excel文件
+        /// 建议：当excel文件较大时使用
+        /// </summary>
+        /// <typeparam name="T">指定存放数据的自定义类型</typeparam>
+        /// <param name="sheetName">导入excel的sheet名称</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<T>> ImportExcelSAXAsync<T>(string sheetName) where T : new()
+        {
+            IExcelReader excelReader = new ExcelReaderSAX();
+            IEnumerable<T> result = null;
+            if (!string.IsNullOrWhiteSpace(FilePath))
+            {
+                result = await ImportExcelByFilePathAsync<T>(excelReader, sheetName);
+            }
+            if ((result == null || !result.Any()) && FileStream.Length > 0)//上一个操作错误导致result为空, 同时文件字节流不为空时
+            {
+                result = await ImportExcelByStreamAsync<T>(excelReader, sheetName);
+            }
+            return result;
+        }
 
-		#endregion
+        /// <summary>
+        /// 导出excel数据
+        /// </summary>
+        /// <typeparam name="T">待导出的自定义数据类型</typeparam>
+        /// <param name="sheetName">导入excel的sheet名称</param>
+        /// <param name="entities">待导出的数据集合</param>
+        /// <returns></returns>
+        public async Task<bool> ExportAsync<T>(string sheetName, IEnumerable<T> entities, bool? isEditable = null) where T : new()
+        {
+            IExcelWriter excelWriter = new ExcelWriter();
+            var result = await excelWriter.CreateExcelAsync(FilePath, sheetName);
+            if (!result)
+            {
+                return result;
+            }
+            if (!string.IsNullOrWhiteSpace(FilePath))
+            {
+                result = await ExportByFilePathAsync<T>(excelWriter, sheetName, entities, isEditable.HasValue ? isEditable.Value : IsEditable);
+            }
+            if (!result && FileStream.Length > 0)//上一个操作错误result=false, 同时文件字节流不为空时
+            {
+                result = await ExportByFileStreamAsync<T>(excelWriter, sheetName, entities, isEditable.HasValue ? isEditable.Value : IsEditable);
+            }
+            return result;
+        }
+        #endregion
 
-		#region 公共属性
+        #region 私有方法
+        private async Task<bool> ExportByFilePathAsync<T>(IExcelWriter excelWriter, string sheetName, IEnumerable<T> entities, bool isEditable) where T : new()
+        {
+            using var document = SpreadsheetDocument.Open(FilePath, isEditable);
+            var setHeaderResult = await excelWriter.SetExcelHeaderAsync<T>(document.WorkbookPart, sheetName);
+            if (!setHeaderResult)
+            {
+                return false;
+            }
+            return await excelWriter.ExportExcelAsync<T>(document.WorkbookPart, sheetName, entities);
+        }
 
-		/// <summary>
-		/// excel文件完整路径
-		/// </summary>
-		public string FilePath
-		{
-			get => _filePath;
-			set { _filePath = value; }
-		}
+        private async Task<bool> ExportByFileStreamAsync<T>(IExcelWriter excelWriter, string sheetName, IEnumerable<T> entities, bool isEditable) where T : new()
+        {
+            using var document = SpreadsheetDocument.Open(FileStream, isEditable);
+            var setHeaderResult = await excelWriter.SetExcelHeaderAsync<T>(document.WorkbookPart, sheetName);
+            if (!setHeaderResult)
+            {
+                return false;
+            }
+            return await excelWriter.ExportExcelAsync<T>(document.WorkbookPart, sheetName, entities);
+        }
 
-		/// <summary>
-		/// excel文件是否可修改
-		/// </summary>
-		public bool IsEditable
-		{
-			get => _isEditable;
-			set { _isEditable = value; }
-		}
+        private async Task<IEnumerable<T>> ImportExcelByFilePathAsync<T>(IExcelReader excelReader, string sheetName) where T : new()
+        {
+            using var document = SpreadsheetDocument.Open(FilePath, IsEditable);
+            var worksheetPart = excelReader.OpenExcelFiles(document, sheetName);
+            if (worksheetPart == null)
+            {
+                return null;
+            }
+            var stringTable = document.WorkbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+            var excelHeaderTask = await excelReader.GetExcelHeaderAsync(worksheetPart, stringTable);
+            if (!excelHeaderTask.Any())
+            {
+                return null;
+            }
+            return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, stringTable, excelHeaderTask);
+        }
 
-		public Stream FileStream
-		{
-			set { _fileStream = value; }
-		}
-		#endregion
-
-		#region 公共方法
-		/// <summary>
-		/// 使用DOM方式导入excel文件
-		/// 建议：当excel文件较小时使用
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="sheetName"></param>
-		/// <returns></returns>    
-		public async Task<List<T>> ImportExcelDOMAsync<T>(string sheetName) where T : new()
-		{
-			IExcelReader excelReader = new ExcelReaderDOM();
-			return await ImportExcelToListAsync<T>(excelReader, sheetName);
-		}
-
-		/// <summary>
-		/// 使用SAX方式导入excel文件
-		/// 建议：当excel文件较大时使用
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="sheetName"></param>
-		/// <returns></returns>
-		public async Task<List<T>> ImportExcelSAXAsync<T>(string sheetName) where T : new()
-		{
-			IExcelReader excelReader = new ExcelReaderSAX();
-			return await ImportExcelToListAsync<T>(excelReader, sheetName);
-		}
-
-		/// <summary>
-		/// 导出excel数据
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="sheetName"></param>
-		/// <param name="entities"></param>
-		/// <returns></returns>
-		public async Task<bool> ExportAsync<T>(string sheetName, IEnumerable<T> entities, bool? isEditable = null) where T : new()
-		{
-			IExcelWriter excelWriter = new ExcelWriter();
-			var result = await excelWriter.CreateExcelAsync(_filePath, sheetName);
-			if (!result)
-			{
-				return false;
-			}
-			using var document = SpreadsheetDocument.Open(_filePath, isEditable.HasValue ? isEditable.Value : _isEditable);
-			await excelWriter.SetExcelHeaderAsync<T>(document.WorkbookPart, sheetName);
-			await excelWriter.ExportExcelAsync<T>(document.WorkbookPart, sheetName, entities);
-			return true;
-		}
-		#endregion
-
-		#region 私有方法
-		private async Task<List<T>> ImportExcelToListAsync<T>(IExcelReader excelReader, string sheetName) where T : new()
-		{
-			using var document = SpreadsheetDocument.Open(_filePath, _isEditable);
-			var worksheetPart = excelReader.OpenExcelFiles(document, sheetName);
-			if (worksheetPart == null)
-			{
-				return null;
-			}
-			var stringTable = document.WorkbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
-			var excelHeaderTask = await excelReader.GetExcelHeaderAsync(worksheetPart, stringTable);
-			if (!excelHeaderTask.Any())
-			{
-				return null;
-			}
-			return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, stringTable, excelHeaderTask);
-		}
-		#endregion
-	}
+        private async Task<IEnumerable<T>> ImportExcelByStreamAsync<T>(IExcelReader excelReader, string sheetName) where T : new()
+        {
+            using var document = SpreadsheetDocument.Open(FilePath, IsEditable);
+            var worksheetPart = excelReader.OpenExcelFiles(document, sheetName);
+            if (worksheetPart == null)
+            {
+                return null;
+            }
+            var stringTable = document.WorkbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+            var excelHeaderTask = await excelReader.GetExcelHeaderAsync(worksheetPart, stringTable);
+            if (!excelHeaderTask.Any())
+            {
+                return null;
+            }
+            return await excelReader.ConvertExcelToEntityAsync<T>(worksheetPart, stringTable, excelHeaderTask);
+        }
+        #endregion
+    }
 }

@@ -31,6 +31,6 @@ namespace ExcelTools.Interfaces
 		/// <typeparam name="T"></typeparam>
 		/// <param name="worksheetPart"></param>
 		/// <returns></returns>
-		Task<List<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new();
+		Task<IEnumerable<T>> ConvertExcelToEntityAsync<T>(WorksheetPart worksheetPart, SharedStringTablePart stringTable, Dictionary<string, string> excelHeaders) where T : new();
 	}
 }
