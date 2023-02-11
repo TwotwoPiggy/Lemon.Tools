@@ -18,8 +18,8 @@ namespace TestExcelTool
         {
             var excelHelper = new ExcelHelper() { FilePath = filePath };
             var datas2 = excelHelper.ImportExcelSAXAsync<TestModel>(sheet);
-            Assert.AreEqual(data, datas2.Result.ToList().Count);
-        }
+			Assert.AreEqual(data, datas2.Result.ToList().Count);
+		}
 
         [TestMethod]
         public void TestImportPartDOM()
