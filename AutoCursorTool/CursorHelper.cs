@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using static AutoCursorTool.MouseAction;
 using static AutoCursorTool.User32Input;
 
 namespace AutoCursorTool
@@ -22,6 +21,7 @@ namespace AutoCursorTool
 		{
 			CursorApi.mouse_event(actions, dx, dy, cButtons, dwExtraInfo);
 		}
+
 		public void MoveCursor(int xIncrement, int yIncrement)
 		{
 			Cursor.Position = new Point(Cursor.Position.X + xIncrement, Cursor.Position.Y + yIncrement);

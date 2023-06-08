@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\Computers\develop\.NetCore\0.Lemon\CommonDlls\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Program.cs" />
   </ItemGroup>

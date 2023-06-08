@@ -13,7 +13,7 @@ namespace FormTest
 {
 	public partial class FormTestAutoCursor : Form
 	{
-		private CursorHelper _cursorHelper = new CursorHelper();
+		private readonly CursorHelper _cursorHelper = new CursorHelper();
 		private int _handleNum = 0;
 
 		public FormTestAutoCursor()
@@ -28,8 +28,6 @@ namespace FormTest
 
 			timerManager.SetTimer(KeepActiveEvent, default);
 			timerManager.EnableTimer();
-
-
 		}
 
 		private void KeepActiveEvent(Object source, ElapsedEventArgs e)
@@ -39,8 +37,8 @@ namespace FormTest
 				_cursorHelper.InitCursor(1, 1);
 				_handleNum = 0;
 			}
-			_cursorHelper.MoveCursor(10, 10);
-			_cursorHelper.ClickMouse(MouseEvent_LeftUp | MouseEvent_LeftDown, 0, 0, 0, 0);
+			//_cursorHelper.MoveCursor(10, 10);
+			//_cursorHelper.ClickMouse(MouseEvent_LeftUp | MouseEvent_LeftDown, 0, 0, 0, 0);
 			_handleNum++;
 		}
 

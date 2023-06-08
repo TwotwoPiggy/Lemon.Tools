@@ -11,9 +11,16 @@ namespace CommonTools
 
 		public Timer Timer { get; private set; }
 
-		public TimerManager(int intervalSeconds)
+		public TimerManager(int? intervalSeconds = null)
 		{
-			Timer = new Timer(intervalSeconds * 1000);
+			if (intervalSeconds.HasValue)
+			{
+				Timer = new Timer(intervalSeconds.Value * 1000);
+			}
+			else
+			{
+				Timer = new Timer();
+			}
 		}
 
 		public void SetTimer(ElapsedEventHandler elapsedEvent, int? intervalSeconds, bool IsAutoReset = true)
@@ -31,5 +38,9 @@ namespace CommonTools
 			Timer.Enabled = true;
 		}
 
+		public void DisableTimer()
+		{
+			Timer.Enabled = false;
+		}
 	}
 }
