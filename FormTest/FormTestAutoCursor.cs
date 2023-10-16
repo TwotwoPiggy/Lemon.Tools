@@ -1,9 +1,14 @@
 ﻿using AutoCursorTool;
 using Azure.Storage.Blobs;
 using CommonTools;
+using GptApi;
+using GptApi.Models;
+using HttpManager;
 using ScreenshotTools;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -76,6 +81,42 @@ namespace FormTest
 			var timerManager = new TimerManager(2);
 			timerManager.SetTimer(TakeScreenshotEvent, 5, false);
 			timerManager.EnableTimer();
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			using (var client = new HttpClient())
+			{
+				var httpRequest = new HttpRequest(client);
+				var apiKey = "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";
+				httpRequest.AddAuthorization(apiKey);
+				var gpt = new Gpt3Api(httpRequest, apiKey);
+				var endpoint = @"https://api.openai.com/v1/chat/completions";
+				var message = new GptApi.Models.Message
+				{
+					Role = Role.User,
+					Content = "Hello"
+				};
+
+				var request = new Request()
+				{
+					Model = GptModel.GPT3_5_turbo,
+					Messages = new List<GptApi.Models.Message> { message }
+				};
+				var result = gpt.GenerateResponseAsync(endpoint, request);
+			}
+
+		}
+
+		
+		private void button3_Click(object sender, EventArgs e)
+		{
+			SystemManager.ShutDownMachine(4000);
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			SystemManager.Cancel();
 		}
 	}
 }

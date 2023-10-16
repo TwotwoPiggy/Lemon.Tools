@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 
-namespace HttpClient
+namespace HttpManager
 {
 	public class HttpRequest : IDisposable
 	{
