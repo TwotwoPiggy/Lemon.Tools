@@ -111,7 +111,7 @@ namespace FormTest
 		
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine(4000);
+			SystemManager.ShutDownMachine(30 * 60);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
