@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <BaseOutputPath></BaseOutputPath>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>E:\Coding\0.Lemon\CommonDlls\</OutputPath>
+    <OutputPath>D:\Computers\develop\.NetCore\0.Lemon\CommonDlls\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

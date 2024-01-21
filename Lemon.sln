@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32014.148
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelTools", "ExcelTools\ExcelTools.csproj", "{2BE6543F-A0C0-4773-8BF5-797C061AD728}"
 EndProject
@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadFiles", "UploadFiles\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Win32Api", "Win32Api\Win32Api.csproj", "{641A3026-CEA5-45FA-8CCC-F90770A445F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpManager", "HttpManager\HttpManager.csproj", "{0A4E0A75-05F5-4509-B00B-AFF0BFB21C68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpManager", "HttpManager\HttpManager.csproj", "{0A4E0A75-05F5-4509-B00B-AFF0BFB21C68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GptApi", "GptApi\GptApi.csproj", "{2B872D15-B672-4EF6-946E-CAD8604EA757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GptApi", "GptApi\GptApi.csproj", "{2B872D15-B672-4EF6-946E-CAD8604EA757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemon.UI.Controls", "Lemon.UI.Controls\Lemon.UI.Controls.csproj", "{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{2B872D15-B672-4EF6-946E-CAD8604EA757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B872D15-B672-4EF6-946E-CAD8604EA757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B872D15-B672-4EF6-946E-CAD8604EA757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

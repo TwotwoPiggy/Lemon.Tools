@@ -111,12 +111,34 @@ namespace FormTest
 		
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine(30 * 60);
+			SystemManager.ShutDownMachine();
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
 			SystemManager.Cancel();
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			var dir = @"\\SEAGATE-D2\OneTwoNas\Films";
+			var result = FileManager.IsDirectory(dir);
+			var sourcePath = @"\\SEAGATE-D2\OneTwoNas\Films\test2.txt";
+			var targetPath = @"\\SEAGATE-D2\OneTwoNas\Films\test3.txt";
+			result = FileManager.IsFile(sourcePath);
+			FileManager.RenameFile(sourcePath,targetPath);
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			FolderBrowserDialog dialog = new FolderBrowserDialog();
+			dialog.Description = "请选择文件路径";
+
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				var savePath = dialog.SelectedPath;
+				//textBox2.Text = savePath;
+			}
 		}
 	}
 }

@@ -11,6 +11,10 @@ namespace Lemon.UI.Controls
 			{
 				return this.tb_Directory.Text;
 			}
+			set
+			{
+				this.tb_Directory.Text = value;
+			}
 		}
 		public DirectorySelector()
 		{

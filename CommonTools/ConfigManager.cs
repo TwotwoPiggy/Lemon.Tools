@@ -96,7 +96,7 @@ namespace CommonTools
 				}
 				config.Save(ConfigurationSaveMode.Modified);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
