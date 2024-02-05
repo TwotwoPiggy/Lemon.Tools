@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AutoCursorTool">
+      <HintPath>..\..\..\0.Lemon\CommonDlls\netcoreapp3.1\AutoCursorTool.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonTools">
+      <HintPath>..\..\..\0.Lemon\CommonDlls\netcoreapp3.1\CommonTools.dll</HintPath>
+    </Reference>
+    <Reference Include="ScreenshotTools">
+      <HintPath>..\..\..\0.Lemon\CommonDlls\netcoreapp3.1\ScreenshotTools.dll</HintPath>
+    </Reference>
+    <Reference Include="UploadFiles">
+      <HintPath>..\..\..\0.Lemon\CommonDlls\netcoreapp3.1\UploadFiles.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
