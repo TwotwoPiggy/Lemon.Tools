@@ -29,6 +29,7 @@ namespace FormTest
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.btnMoveCursor = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
@@ -36,6 +37,8 @@ namespace FormTest
 			this.button4 = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
+			this.smoothProgressBar1 = new Lemon.UI.Controls.SmoothProgressBar();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// btnMoveCursor
@@ -108,12 +111,29 @@ namespace FormTest
 			this.button6.UseVisualStyleBackColor = true;
 			this.button6.Click += new System.EventHandler(this.button6_Click);
 			// 
+			// smoothProgressBar1
+			// 
+			this.smoothProgressBar1.Location = new System.Drawing.Point(59, 354);
+			this.smoothProgressBar1.Maximum = 100;
+			this.smoothProgressBar1.Minimum = 0;
+			this.smoothProgressBar1.Name = "smoothProgressBar1";
+			this.smoothProgressBar1.ProgressBarColor = System.Drawing.ColorTranslator.FromHtml("#99ff99");
+			this.smoothProgressBar1.Size = new System.Drawing.Size(181, 30);
+			this.smoothProgressBar1.TabIndex = 7;
+			this.smoothProgressBar1.Value = 0;
+			//this.smoothProgressBar1.
+			// 
+			// timer1
+			// 
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
 			// FormTestAutoCursor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnMoveCursor;
-			this.ClientSize = new System.Drawing.Size(420, 339);
+			this.ClientSize = new System.Drawing.Size(465, 539);
+			this.Controls.Add(this.smoothProgressBar1);
 			this.Controls.Add(this.button6);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.button4);
@@ -136,6 +156,8 @@ namespace FormTest
 		private System.Windows.Forms.Button button4;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.Button button6;
+		private Lemon.UI.Controls.SmoothProgressBar smoothProgressBar1;
+		private System.Windows.Forms.Timer timer1;
 	}
 }
 

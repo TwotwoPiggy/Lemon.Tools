@@ -45,7 +45,15 @@ namespace CommonTools
 
 		public static void RenameFile(string oldFileName, string newFileName)
 		{
-			File.Move(oldFileName, newFileName, true);
+			try
+			{
+				File.Move(oldFileName, newFileName, true);
+			}
+			catch (Exception)
+			{
+				throw;
+			}
+
 		}
 	}
 }

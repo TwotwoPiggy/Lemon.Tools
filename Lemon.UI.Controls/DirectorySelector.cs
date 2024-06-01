@@ -16,6 +16,18 @@ namespace Lemon.UI.Controls
 				this.tb_Directory.Text = value;
 			}
 		}
+
+		public string ButtonText
+		{
+			get
+			{
+				return this.btn_SelectDir.Text;
+			}
+			set
+			{
+				this.btn_SelectDir.Text = value;
+			}
+		}
 		public DirectorySelector()
 		{
 			InitializeComponent();

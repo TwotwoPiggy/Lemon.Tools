@@ -37,10 +37,10 @@ namespace Lemon.UI.Controls
 			// 
 			// tb_Directory
 			// 
-			this.tb_Directory.Location = new System.Drawing.Point(0, 0);
+			this.tb_Directory.Location = new System.Drawing.Point(0, 3);
 			this.tb_Directory.Margin = new System.Windows.Forms.Padding(0);
 			this.tb_Directory.Name = "tb_Directory";
-			this.tb_Directory.AutoSize = false;
+			//this.tb_Directory.AutoSize = false;
 			this.tb_Directory.Size = new System.Drawing.Size(170, 30);
 			this.tb_Directory.TabIndex = 0;
 			// 
@@ -49,7 +49,7 @@ namespace Lemon.UI.Controls
 			this.btn_SelectDir.Location = new System.Drawing.Point(172, 0);
 			this.btn_SelectDir.Margin = new System.Windows.Forms.Padding(0);
 			this.btn_SelectDir.Name = "btn_SelectDir";
-			this.btn_SelectDir.AutoSize = false;
+			//this.btn_SelectDir.AutoSize = false;
 			this.btn_SelectDir.Size = new System.Drawing.Size(78, 30);
 			this.btn_SelectDir.TabIndex = 1;
 			this.btn_SelectDir.Text = "选择路径";

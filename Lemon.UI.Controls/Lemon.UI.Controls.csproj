@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>二二的winform自定义控件</Description>
+    <Company>OneoneTwotwo</Company>
+    <Authors>Twotwo</Authors>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

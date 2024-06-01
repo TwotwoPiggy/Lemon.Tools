@@ -111,7 +111,7 @@ namespace FormTest
 		
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine();
+			SystemManager.ShutDownMachine(minutes:40);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
@@ -131,13 +131,21 @@ namespace FormTest
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			FolderBrowserDialog dialog = new FolderBrowserDialog();
-			dialog.Description = "请选择文件路径";
+			this.smoothProgressBar1.Value = 0;
 
-			if (dialog.ShowDialog() == DialogResult.OK)
+			this.timer1.Interval = 1;
+			this.timer1.Enabled = true;
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			if (this.smoothProgressBar1.Value <100)
 			{
-				var savePath = dialog.SelectedPath;
-				//textBox2.Text = savePath;
+				this.smoothProgressBar1.Value++;
+			}
+			else
+			{
+				this.timer1.Enabled = false;
 			}
 		}
 	}
