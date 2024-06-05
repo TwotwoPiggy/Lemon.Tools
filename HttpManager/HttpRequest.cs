@@ -1,22 +1,61 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Collections.Generic;
 
 namespace HttpManager
 {
-	public class HttpRequest
+	public class HttpRequest: IHttpManager
 	{
-		private HttpClient _client;
+		protected HttpClient _client;
+
+		public IEnumerable<KeyValuePair<string, string>> Parameters => throw new NotImplementedException();
 
 		public HttpRequest(HttpClient client)
 		{
 			_client = client;
 		}
 
-		public void AddAuthorization(string token)
+		#region Headers
+
+		public void AddAuthorization(string scheme, string token)
 		{
-			_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+			//_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
 		}
+
+		public void AddHeader(string key, string value)
+		{
+			if (string.IsNullOrWhiteSpace(key))
+			{
+				throw new ArgumentNullException(nameof(key));
+			}
+			_client.DefaultRequestHeaders.Add(key, value);
+		}
+		public void AddParameter(string key, string value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveParameter(string key)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateParameter(string key, string value)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void AddParameters(IEnumerable<KeyValuePair<string, string>> parameters)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
+
+
+		#region Http requests
 
 		public async Task<string> GetAsync(string url)
 		{
@@ -32,25 +71,26 @@ namespace HttpManager
 			}
 		}
 
-		public async Task<string> PostAsync(string url, string content)
+
+		public async Task<string> PostAsync(string url, HttpContent content)
 		{
 			try
 			{
-				var response = await _client.PostAsync(url, new StringContent(content));
+				var response = await _client.PostAsync(url, content);
 				response.EnsureSuccessStatusCode();
 				return await response.Content.ReadAsStringAsync();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
 		}
 
-		public async Task<string> PutAsync(string url, string content)
+		public async Task<string> PutAsync(string url, HttpContent content)
 		{
 			try
 			{
-				var response = await _client.PutAsync(url, new StringContent(content));
+				var response = await _client.PutAsync(url, content);
 				response.EnsureSuccessStatusCode();
 				return await response.Content.ReadAsStringAsync();
 			}
@@ -73,5 +113,8 @@ namespace HttpManager
 				throw;
 			}
 		}
+
+
+		#endregion
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using CommonTools;
+using HttpManager;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,8 @@ namespace Test
 				{
 
 					var response = await httpClient.GetAsync(urlToGet);
+					var request = new FormHttpRequest(httpClient);
+					//request.PostAsync();
 					Console.WriteLine($"{url} result is {response.StatusCode}");
 				}
 				catch (Exception ex)

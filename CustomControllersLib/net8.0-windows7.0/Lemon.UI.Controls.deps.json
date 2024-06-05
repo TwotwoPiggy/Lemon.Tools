@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Lemon.UI.Controls/1.0.2": {
+        "runtime": {
+          "Lemon.UI.Controls.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Lemon.UI.Controls/1.0.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -89,7 +89,7 @@ namespace FormTest
 			{
 				var httpRequest = new HttpRequest(client);
 				var apiKey = "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";
-				httpRequest.AddAuthorization(apiKey);
+				httpRequest.AddAuthorization("Bearer",apiKey);
 				var gpt = new Gpt3Api(httpRequest, apiKey);
 				var endpoint = @"https://api.openai.com/v1/chat/completions";
 				var message = new GptApi.Models.Message
