@@ -35,7 +35,7 @@ namespace Test
 					//request.PostAsync();
 					Console.WriteLine($"{url} result is {response.StatusCode}");
 				}
-				catch (Exception ex)
+				catch (Exception)
 				{
 
 					throw;

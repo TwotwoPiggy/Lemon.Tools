@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace HttpManager
 {
-	public class HttpRequest: IHttpManager
+	public abstract class HttpRequest: IHttpManager
 	{
 		protected HttpClient _client;
 
@@ -55,7 +55,7 @@ namespace HttpManager
 		#endregion
 
 
-		#region Http requests
+		#region public Http requests
 
 		public async Task<string> GetAsync(string url)
 		{
@@ -113,7 +113,6 @@ namespace HttpManager
 				throw;
 			}
 		}
-
 
 		#endregion
 	}
