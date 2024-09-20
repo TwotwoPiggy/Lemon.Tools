@@ -19,11 +19,19 @@ namespace CommonTools
 			switch (configType)
 			{
 				case ConfigTypes.ConnectionString:
-					var config = ConfigurationManager.ConnectionStrings[configName];
-					configExists = config != null;
+					try
+					{
+						var config = ConfigurationManager.ConnectionStrings[configName];
+						configExists = config != null;
+					}
+					catch (ConfigurationErrorsException)
+					{
+						configExists = false;
+					}
+
 					break;
 				case ConfigTypes.AppSettings:
-					configExists = ConfigurationManager.AppSettings.AllKeys.Contains(configName);
+					configExists = ConfigurationManager.AppSettings.AllKeys!.Contains(configName);
 					break;
 				default:
 					break;

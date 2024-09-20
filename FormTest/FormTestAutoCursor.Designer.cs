@@ -29,122 +29,154 @@ namespace FormTest
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this.btnMoveCursor = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
-			this.button4 = new System.Windows.Forms.Button();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button6 = new System.Windows.Forms.Button();
-			this.smoothProgressBar1 = new Lemon.UI.Controls.SmoothProgressBar();
-			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.SuspendLayout();
+			components = new System.ComponentModel.Container();
+			btnMoveCursor = new System.Windows.Forms.Button();
+			button1 = new System.Windows.Forms.Button();
+			button2 = new System.Windows.Forms.Button();
+			button3 = new System.Windows.Forms.Button();
+			button4 = new System.Windows.Forms.Button();
+			button5 = new System.Windows.Forms.Button();
+			button6 = new System.Windows.Forms.Button();
+			smoothProgressBar1 = new Lemon.UI.Controls.SmoothProgressBar();
+			timer1 = new System.Windows.Forms.Timer(components);
+			button7 = new System.Windows.Forms.Button();
+			button8 = new System.Windows.Forms.Button();
+			richTextBox1 = new System.Windows.Forms.RichTextBox();
+			SuspendLayout();
 			// 
 			// btnMoveCursor
 			// 
-			this.btnMoveCursor.Location = new System.Drawing.Point(12, 12);
-			this.btnMoveCursor.Name = "btnMoveCursor";
-			this.btnMoveCursor.Size = new System.Drawing.Size(147, 35);
-			this.btnMoveCursor.TabIndex = 0;
-			this.btnMoveCursor.Text = "MoveCursor";
-			this.btnMoveCursor.UseVisualStyleBackColor = true;
-			this.btnMoveCursor.Click += new System.EventHandler(this.btnMoveCursor_Click);
+			btnMoveCursor.Location = new System.Drawing.Point(12, 12);
+			btnMoveCursor.Name = "btnMoveCursor";
+			btnMoveCursor.Size = new System.Drawing.Size(147, 35);
+			btnMoveCursor.TabIndex = 0;
+			btnMoveCursor.Text = "MoveCursor";
+			btnMoveCursor.UseVisualStyleBackColor = true;
+			btnMoveCursor.Click += btnMoveCursor_Click;
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(224, 12);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(93, 35);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Screenshot";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			button1.Location = new System.Drawing.Point(224, 12);
+			button1.Name = "button1";
+			button1.Size = new System.Drawing.Size(93, 35);
+			button1.TabIndex = 1;
+			button1.Text = "Screenshot";
+			button1.UseVisualStyleBackColor = true;
+			button1.Click += button1_Click;
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(22, 93);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(106, 49);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "gpt";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
+			button2.Location = new System.Drawing.Point(22, 93);
+			button2.Name = "button2";
+			button2.Size = new System.Drawing.Size(106, 49);
+			button2.TabIndex = 2;
+			button2.Text = "gpt";
+			button2.UseVisualStyleBackColor = true;
+			button2.Click += button2_Click;
 			// 
 			// button3
 			// 
-			this.button3.Location = new System.Drawing.Point(224, 97);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(97, 45);
-			this.button3.TabIndex = 3;
-			this.button3.Text = "shutdown";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click);
+			button3.Location = new System.Drawing.Point(224, 97);
+			button3.Name = "button3";
+			button3.Size = new System.Drawing.Size(97, 45);
+			button3.TabIndex = 3;
+			button3.Text = "shutdown";
+			button3.UseVisualStyleBackColor = true;
+			button3.Click += button3_Click;
 			// 
 			// button4
 			// 
-			this.button4.Location = new System.Drawing.Point(22, 198);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(121, 54);
-			this.button4.TabIndex = 4;
-			this.button4.Text = "cancelProcess";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
+			button4.Location = new System.Drawing.Point(22, 198);
+			button4.Name = "button4";
+			button4.Size = new System.Drawing.Size(121, 54);
+			button4.TabIndex = 4;
+			button4.Text = "cancelProcess";
+			button4.UseVisualStyleBackColor = true;
+			button4.Click += button4_Click;
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(224, 203);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(113, 45);
-			this.button5.TabIndex = 5;
-			this.button5.Text = "renameFile";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
+			button5.Location = new System.Drawing.Point(224, 203);
+			button5.Name = "button5";
+			button5.Size = new System.Drawing.Size(113, 45);
+			button5.TabIndex = 5;
+			button5.Text = "renameFile";
+			button5.UseVisualStyleBackColor = true;
+			button5.Click += button5_Click;
 			// 
 			// button6
 			// 
-			this.button6.Location = new System.Drawing.Point(31, 281);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(75, 23);
-			this.button6.TabIndex = 6;
-			this.button6.Text = "button6";
-			this.button6.UseVisualStyleBackColor = true;
-			this.button6.Click += new System.EventHandler(this.button6_Click);
+			button6.Location = new System.Drawing.Point(31, 281);
+			button6.Name = "button6";
+			button6.Size = new System.Drawing.Size(75, 23);
+			button6.TabIndex = 6;
+			button6.Text = "button6";
+			button6.UseVisualStyleBackColor = true;
+			button6.Click += button6_Click;
 			// 
 			// smoothProgressBar1
 			// 
-			this.smoothProgressBar1.Location = new System.Drawing.Point(59, 354);
-			this.smoothProgressBar1.Maximum = 100;
-			this.smoothProgressBar1.Minimum = 0;
-			this.smoothProgressBar1.Name = "smoothProgressBar1";
-			this.smoothProgressBar1.ProgressBarColor = System.Drawing.ColorTranslator.FromHtml("#99ff99");
-			this.smoothProgressBar1.Size = new System.Drawing.Size(181, 30);
-			this.smoothProgressBar1.TabIndex = 7;
-			this.smoothProgressBar1.Value = 0;
-			//this.smoothProgressBar1.
+			smoothProgressBar1.Location = new System.Drawing.Point(22, 414);
+			smoothProgressBar1.Maximum = 100;
+			smoothProgressBar1.Minimum = 0;
+			smoothProgressBar1.Name = "smoothProgressBar1";
+			smoothProgressBar1.ProgressBarColor = System.Drawing.Color.FromArgb(153, 255, 153);
+			smoothProgressBar1.Size = new System.Drawing.Size(181, 30);
+			smoothProgressBar1.TabIndex = 7;
+			smoothProgressBar1.Value = 0;
 			// 
 			// timer1
 			// 
-			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			timer1.Tick += timer1_Tick;
+			// 
+			// button7
+			// 
+			button7.Location = new System.Drawing.Point(208, 281);
+			button7.Name = "button7";
+			button7.Size = new System.Drawing.Size(113, 23);
+			button7.TabIndex = 8;
+			button7.Text = "testRestApi";
+			button7.UseVisualStyleBackColor = true;
+			button7.Click += button7_Click;
+			// 
+			// button8
+			// 
+			button8.Location = new System.Drawing.Point(31, 328);
+			button8.Name = "button8";
+			button8.Size = new System.Drawing.Size(75, 23);
+			button8.TabIndex = 9;
+			button8.Text = "button8";
+			button8.UseVisualStyleBackColor = true;
+			button8.Click += button8_Click;
+			// 
+			// richTextBox1
+			// 
+			richTextBox1.Location = new System.Drawing.Point(302, 384);
+			richTextBox1.Name = "richTextBox1";
+			richTextBox1.Size = new System.Drawing.Size(100, 96);
+			richTextBox1.TabIndex = 10;
+			richTextBox1.Text = "";
 			// 
 			// FormTestAutoCursor
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnMoveCursor;
-			this.ClientSize = new System.Drawing.Size(465, 539);
-			this.Controls.Add(this.smoothProgressBar1);
-			this.Controls.Add(this.button6);
-			this.Controls.Add(this.button5);
-			this.Controls.Add(this.button4);
-			this.Controls.Add(this.button3);
-			this.Controls.Add(this.button2);
-			this.Controls.Add(this.button1);
-			this.Controls.Add(this.btnMoveCursor);
-			this.Name = "FormTestAutoCursor";
-			this.Text = "FormTestAutoCursor";
-			this.ResumeLayout(false);
-
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			CancelButton = btnMoveCursor;
+			ClientSize = new System.Drawing.Size(465, 539);
+			Controls.Add(richTextBox1);
+			Controls.Add(button8);
+			Controls.Add(button7);
+			Controls.Add(smoothProgressBar1);
+			Controls.Add(button6);
+			Controls.Add(button5);
+			Controls.Add(button4);
+			Controls.Add(button3);
+			Controls.Add(button2);
+			Controls.Add(button1);
+			Controls.Add(btnMoveCursor);
+			Name = "FormTestAutoCursor";
+			Text = "FormTestAutoCursor";
+			ResumeLayout(false);
 		}
 
 		#endregion
@@ -158,6 +190,9 @@ namespace FormTest
 		private System.Windows.Forms.Button button6;
 		private Lemon.UI.Controls.SmoothProgressBar smoothProgressBar1;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Button button7;
+		private System.Windows.Forms.Button button8;
+		private System.Windows.Forms.RichTextBox richTextBox1;
 	}
 }
 

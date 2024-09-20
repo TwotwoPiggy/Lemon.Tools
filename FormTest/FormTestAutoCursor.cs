@@ -4,10 +4,12 @@ using CommonTools;
 using GptApi;
 using GptApi.Models;
 using HttpManager;
+using Microsoft.Extensions.DependencyInjection;
 using ScreenshotTools;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Timers;
@@ -89,7 +91,7 @@ namespace FormTest
 			{
 				var httpRequest = new HttpRequest(client);
 				var apiKey = "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";
-				httpRequest.AddAuthorization("Bearer",apiKey);
+				httpRequest.AddAuthorization("Bearer", apiKey);
 				var gpt = new Gpt3Api(httpRequest, apiKey);
 				var endpoint = @"https://api.openai.com/v1/chat/completions";
 				var message = new GptApi.Models.Message
@@ -108,10 +110,10 @@ namespace FormTest
 
 		}
 
-		
+
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine(minutes:40);
+			SystemManager.ShutDownMachine(minutes: 40);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
@@ -126,7 +128,7 @@ namespace FormTest
 			var sourcePath = @"\\SEAGATE-D2\OneTwoNas\Films\test2.txt";
 			var targetPath = @"\\SEAGATE-D2\OneTwoNas\Films\test3.txt";
 			result = FileManager.IsFile(sourcePath);
-			FileManager.RenameFile(sourcePath,targetPath);
+			FileManager.RenameFile(sourcePath, targetPath);
 		}
 
 		private void button6_Click(object sender, EventArgs e)
@@ -139,7 +141,7 @@ namespace FormTest
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			if (this.smoothProgressBar1.Value <100)
+			if (this.smoothProgressBar1.Value < 100)
 			{
 				this.smoothProgressBar1.Value++;
 			}
@@ -147,6 +149,37 @@ namespace FormTest
 			{
 				this.timer1.Enabled = false;
 			}
+		}
+
+		private void button7_Click(object sender, EventArgs e)
+		{
+			var serviceProvider = new ServiceCollection().AddHttpClient().BuildServiceProvider();
+			var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
+			var client = new RestClient(httpClientFactory);
+			var result = client.GetAsync<string>("https://jsonplaceholder.typicode.com/todos", null).Result;
+
+			MessageBox.Show(result);
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			var timerManager = new TimerManager(2);
+			_test1 = new TestClass();
+			timerManager.SetTimer(GetClassDateTimeEvent, 5);
+			timerManager.EnableTimer();
+			richTextBox1.Text += _result;
+		}
+
+		private TestClass _test1;
+		private TestClass _test2;
+		private TestClass _test3;
+		private TestClass _test4;
+		private string _result;
+		private void GetClassDateTimeEvent(Object source, ElapsedEventArgs e)
+		{
+			var result = _test1.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+			_result += result + "\r\n";
+			
 		}
 	}
 }
