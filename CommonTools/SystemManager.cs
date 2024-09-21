@@ -11,23 +11,24 @@ namespace CommonTools
 		public static void ShutDownMachine(int hours = 0, int minutes = 0, int seconds = 0)
 		{
 			var totalSeconds = hours * 3600 + minutes * 60 + seconds;
-			ShutDown(totalSeconds);
+			var arg = $"-s -t {totalSeconds}";
+			ExecuteCommand("ShutDown", arg);
 		}
 
 		public static void Cancel()
 		{
-			ShutDown("-a");
+			ExecuteCommand("ShutDown", "-a");
 		}
 		#endregion
 
 
 		#region private methods
-		private static void ShutDown(int seconds)
+		private static void ExecuteCommand(string command, string arg = null)
 		{
-			var arg = $"-s -t {seconds}";
+			
 			try
 			{
-				ShutDown(arg);
+				Process.Start(command, arg);
 			}
 			catch (Exception)
 			{
@@ -35,17 +36,6 @@ namespace CommonTools
 			}
 		}
 
-		private static void ShutDown(string arg)
-		{
-			try
-			{
-				Process.Start("ShutDown",arg);
-			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
 		#endregion
 	}
 }

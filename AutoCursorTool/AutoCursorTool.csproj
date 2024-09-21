@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>D:\Computers\develop\.NetCore\0.Lemon\CommonDlls\</OutputPath>
+    <OutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
