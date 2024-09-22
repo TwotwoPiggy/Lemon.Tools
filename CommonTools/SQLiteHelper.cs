@@ -32,13 +32,6 @@ namespace CommonTools
 			_dbAsyncLazy = new (new SQLiteAsyncConnection(_connectStr));
 		}
 
-		#region DML
-		public CreateTableResult CreateTable<T>()
-		{
-			return Db.CreateTable<T>();
-		}
-		#endregion
-
 		#region DDL
 		public void SetConnectionString(string connectionString)
 		{
@@ -71,7 +64,6 @@ namespace CommonTools
 			{
 				throw;
 			}
-
 		}
 	}
 }

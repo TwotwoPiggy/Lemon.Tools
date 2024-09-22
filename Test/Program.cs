@@ -24,8 +24,7 @@ namespace Test
 		{
 			var sqlHelper = new SQLiteHelper();
 			sqlHelper.SetConnectionString(@".\default.db");
-			//sqlHelper.CreateTable<Student>();
-			//var map = sqlHelper.Db.TableMappings.ToList();
+			sqlHelper.Db.CreateTable<Student>();
 			var result = sqlHelper.Db.Table<Student>().FirstOrDefault(student=>student.Name == "Mike");
             Console.WriteLine($"Student {result.Name}'s Id is {result.Id}.");
 		}
