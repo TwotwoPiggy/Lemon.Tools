@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-
 namespace CommonTools
 {
 	public static class FileManager
 	{
-		#region extension methods
-		public static bool IsFile(this string path)
+        #region extension methods
+        public static bool IsOrExistFile(this string path)
 		{
 			return File.Exists(path);
 		}
 
-		public static bool IsDirectory(this string path)
+		public static bool IsOrExistDirectory(this string path)
 		{
 			return Directory.Exists(path);
 		}
@@ -55,5 +53,10 @@ namespace CommonTools
 			}
 
 		}
+
+		//public static string GetPath(string path, string fileName, string type)
+		//{
+		//	path = string.IsNullOrWhiteSpace(path) ? EnvironmentManager
+		//}
 	}
 }

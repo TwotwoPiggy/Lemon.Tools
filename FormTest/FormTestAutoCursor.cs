@@ -116,10 +116,10 @@ namespace FormTest
 		private void button5_Click(object sender, EventArgs e)
 		{
 			var dir = @"\\SEAGATE-D2\OneTwoNas\Films";
-			var result = FileManager.IsDirectory(dir);
+			var result = FileManager.IsOrExistDirectory(dir);
 			var sourcePath = @"\\SEAGATE-D2\OneTwoNas\Films\test2.txt";
 			var targetPath = @"\\SEAGATE-D2\OneTwoNas\Films\test3.txt";
-			result = FileManager.IsFile(sourcePath);
+			result = FileManager.IsOrExistFile(sourcePath);
 			FileManager.RenameFile(sourcePath, targetPath);
 		}
 

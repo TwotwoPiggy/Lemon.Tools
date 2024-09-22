@@ -1,5 +1,6 @@
 ﻿using CommonTools;
 using HttpManager;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,15 +12,38 @@ using System.Web;
 
 namespace Test
 {
-	class Program
+    class Program
 	{
 		public static void Main(string[] args)
 		{
-			var urls = new List<string> { "7" };
-			GetPictures(urls);
-
+			TestDb();
 		}
 
+
+		public static void TestDb()
+		{
+			var sqlHelper = new SQLiteHelper();
+			sqlHelper.SetConnectionString(@".\default.db");
+			//sqlHelper.CreateTable<Student>();
+			//var map = sqlHelper.Db.TableMappings.ToList();
+			var result = sqlHelper.Db.Table<Student>().FirstOrDefault(student=>student.Name == "Mike");
+            Console.WriteLine($"Student {result.Name}'s Id is {result.Id}.");
+		}
+
+		#region old tests
+
+		public static void TestLazy()
+		{
+			var lazyTest = new Lazy<Test>();
+			var test = lazyTest.Value;
+			test.Action();
+		}
+
+		public static void TestLazyInstance()
+		{
+			var t = Test.Instance;
+			t.Action();
+		}
 		public static async void GetPictures(IEnumerable<string> urls)
 		{
 			var httpClient = new HttpClient();
@@ -40,7 +64,7 @@ namespace Test
 
 					throw;
 				}
-				
+
 			}
 		}
 
@@ -74,7 +98,33 @@ namespace Test
 			var mc = re.Match(s).Groups.Values.LastOrDefault();
 			return mc.Value;
 		}
+		#endregion
+
 
 
 	}
+
+	public class Student
+	{
+		[PrimaryKey,Column("id")]
+        public long Id { get; set; }
+		[Column("name")]
+        public string Name { get; set; }
+    }
+
+	public class Test
+	{
+		private static readonly Lazy<Test> _instance = new(() => new());
+		public static Test Instance => _instance.Value;
+
+		private Test()
+        {
+            Console.WriteLine("this is constructor");
+        }
+
+		public void Action()
+		{
+            Console.WriteLine("this is the action method");
+		}
+    }
 }

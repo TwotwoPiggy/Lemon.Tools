@@ -7,6 +7,8 @@ namespace CommonTools
 {
 	public static class SystemManager
 	{
+
+
 		#region public methods
 		public static void ShutDownMachine(int hours = 0, int minutes = 0, int seconds = 0)
 		{
