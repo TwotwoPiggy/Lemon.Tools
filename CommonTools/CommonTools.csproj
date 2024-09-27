@@ -3,7 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <BaseOutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls</BaseOutputPath>
+    <PackageId>Twotwo.CommonTools</PackageId>
     <Version>1.0.4</Version>
+    <Authors>twotwo</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
