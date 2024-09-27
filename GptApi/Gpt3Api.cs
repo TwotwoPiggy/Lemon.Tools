@@ -37,7 +37,7 @@ namespace GptApi
 				ContractResolver = new DefaultContractResolver()
 			};
 			var content = JsonConvert.SerializeObject(request, settings);
-			//var result = await _httpRequest.PostAsync(endPoint, content);
+			var result = await _httpRequest.PostAsync(endPoint, new StringContent(content));
 			var response = JsonConvert.DeserializeObject<Response>(content);
 			return response;
 		}

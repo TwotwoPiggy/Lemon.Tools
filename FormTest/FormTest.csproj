@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -17,5 +17,7 @@
     <ProjectReference Include="..\Lemon.UI.Controls\Lemon.UI.Controls.csproj" />
     <ProjectReference Include="..\ScreenshotTools\ScreenshotTools.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
+  </ItemGroup>
 </Project>

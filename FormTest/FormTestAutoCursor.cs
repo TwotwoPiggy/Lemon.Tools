@@ -49,7 +49,7 @@ namespace FormTest
 			var connectionString = "DefaultEndpointsProtocol=https;AccountName=screenshot12;AccountKey=oPpVrxNJLytxUNikr8+eD3syd4LL4KAs4wCTu+pT0B0/tnZZO9eVTEr8rl/lOvTdU1lsZTjopMVD+ASts3N0Jw==;EndpointSuffix=core.windows.net";
 			var blobContainerName = "screenshot";
 			var containerClient = new BlobContainerClient(connectionString, blobContainerName);
-			UploadStreamAsync(containerClient, localFilePath);
+			UploadStreamAsync(containerClient, localFilePath).ConfigureAwait(false);
 		}
 
 		public static async Task UploadFile(BlobContainerClient containerClient, string localFilePath)

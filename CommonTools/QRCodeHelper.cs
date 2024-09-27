@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace CommonTools
 {
 	public static class QRCodeHelper
 	{
+		[SupportedOSPlatform("windows")]//to fix the CA1416 violations
 		public static Bitmap GenerateQRCode(string payload,int size)
 		{
 			var qrCoder = new QRCodeGenerator();

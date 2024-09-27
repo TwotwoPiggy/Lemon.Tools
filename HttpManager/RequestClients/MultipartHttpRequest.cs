@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HttpManager
 {
-	public class MultipartHttpRequest:HttpRequest
+	public class MultipartHttpRequest : HttpRequest
 	{
 		//MultipartContent
 		public MultipartHttpRequest(HttpClient client) : base(client) { }

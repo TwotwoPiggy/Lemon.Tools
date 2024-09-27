@@ -21,7 +21,6 @@ namespace HttpManager
 
 		public void AddAuthorization(string scheme, string token)
 		{
-			//_client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
 		}
 
@@ -37,7 +36,10 @@ namespace HttpManager
 		{
 			throw new NotImplementedException();
 		}
-
+		public void AddParameters(IEnumerable<KeyValuePair<string, string>> parameters)
+		{
+			throw new NotImplementedException();
+		}
 		public void RemoveParameter(string key)
 		{
 			throw new NotImplementedException();
@@ -48,10 +50,7 @@ namespace HttpManager
 			throw new NotImplementedException();
 		}
 
-		public void AddParameters(IEnumerable<KeyValuePair<string, string>> parameters)
-		{
-			throw new NotImplementedException();
-		}
+
 		#endregion
 
 
