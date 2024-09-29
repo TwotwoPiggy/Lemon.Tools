@@ -12,9 +12,9 @@ namespace GptApi
 	{
 		private string _endPoint;
 		private string _apiKey;
-		private readonly HttpRequest _httpRequest;
+		private readonly HttpClientHelper _httpRequest;
 		public Gpt3Api() { }
-		public Gpt3Api(HttpRequest httpRequest, string apiKey)
+		public Gpt3Api(HttpClientHelper httpRequest, string apiKey)
 		{
 			_httpRequest = httpRequest;
 			_apiKey = apiKey;

@@ -32,7 +32,7 @@ namespace CommonTools
 			_dbAsyncLazy = new (new SQLiteAsyncConnection(_connectStr));
 		}
 
-		#region DDL
+		#region ConnecionString
 		public void SetConnectionString(string connectionString)
 		{
 			if (string.IsNullOrWhiteSpace(connectionString))

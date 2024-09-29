@@ -81,9 +81,9 @@ namespace FormTest
 		{
 			//using (var client = new HttpClient())
 			//{
-			//	var httpRequest = new HttpRequest(client);
+			//	var httpRequest = new HttpClientHelper(client);
 			//	var apiKey = "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";
-			//	httpRequest.AddAuthorization("Bearer",apiKey);
+			//	httpRequest.SetAuthorization("Bearer",apiKey);
 			//	var gpt = new Gpt3Api(httpRequest, apiKey);
 			//	var endpoint = @"https://api.openai.com/v1/chat/completions";
 			//	var message = new GptApi.Models.Message

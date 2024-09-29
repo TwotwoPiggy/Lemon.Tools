@@ -5,18 +5,39 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Test
 {
-    class Program
+	class Program
 	{
 		public static void Main(string[] args)
 		{
-			TestDb();
+			IDictionary<string, string> list = new Dictionary<string, string>
+			{
+				{ "key2", "new value2" },
+				{ "key4", "value4" }
+				//new KeyValuePair<string, string>(null, "value2"),
+				//new KeyValuePair<string, string>("", "value3"),
+				//new KeyValuePair<string, string>(string.Empty, "value4")
+			};
+
+			var parameters = new Dictionary<string, string>
+			{
+				{ "key1", "value1" },
+				{ "key2", "value2" },
+				{ "key3", "value3" }
+			};
+			//parameters = parameters.Concat(list).ToDictionary(kv => kv.Key, kv => kv.Value);
+			//parameters = LinqExtensions.MergeDictionaries(parameters, list);
+			parameters.ConcatDictionary(list);
+			foreach (var parameter in parameters)
+			{
+                Console.WriteLine($"key:{parameter.Key}, value:{parameter.Value}");
+			}
+			//TestDb();
 		}
 
 
@@ -45,7 +66,7 @@ namespace Test
 		}
 		public static async void GetPictures(IEnumerable<string> urls)
 		{
-			var httpClient = new HttpClient();
+			var httpClientFactory = ServiceHelper.GetHttpClientFactory();
 			var results = new List<string>();
 			foreach (var url in urls)
 			{
@@ -53,10 +74,10 @@ namespace Test
 				try
 				{
 
-					var response = await httpClient.GetAsync(urlToGet);
-					var request = new FormHttpRequest(httpClient);
+					//var response = await httpClientFactory.GetAsync(urlToGet);
+					var request = new FormHttpRequest(httpClientFactory);
 					//request.PostAsync();
-					Console.WriteLine($"{url} result is {response.StatusCode}");
+					//Console.WriteLine($"{url} result is {response.StatusCode}");
 				}
 				catch (Exception)
 				{
