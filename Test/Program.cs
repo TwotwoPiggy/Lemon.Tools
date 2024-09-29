@@ -3,6 +3,7 @@ using HttpManager;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,28 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			IDictionary<string, string> list = new Dictionary<string, string>
+			TestHttpClientHelper();
+		}
+
+		public static void TestHttpClientHelper()
+		{
+			//GET https://jsonplaceholder.typicode.com/todos?userId=1&completed=false
+			var httpClientFactory = ServiceHelper.GetHttpClientFactory();
+			var httpHelper = new HttpClientHelper(httpClientFactory);
+			httpHelper.SetBaseAddress("https://jsonplaceholder.typicode.com/todos");
+			var @params = new Dictionary<string, object> 
+			{
+				{ "userId" , 1 },
+				{ "completed" , false},
+			};
+			httpHelper.AddParameters(@params);
+			var response = httpHelper.GetAsync(string.Empty).Result;
+			Console.WriteLine(response);
+		}
+
+		public static void GetDictionary()
+		{
+			IDictionary<string, object> list = new Dictionary<string, object>
 			{
 				{ "key2", "new value2" },
 				{ "key4", "value4" }
@@ -35,11 +57,9 @@ namespace Test
 			parameters.ConcatDictionary(list);
 			foreach (var parameter in parameters)
 			{
-                Console.WriteLine($"key:{parameter.Key}, value:{parameter.Value}");
+				Console.WriteLine($"key:{parameter.Key}, value:{parameter.Value}");
 			}
-			//TestDb();
 		}
-
 
 		public static void TestDb()
 		{
@@ -75,7 +95,7 @@ namespace Test
 				{
 
 					//var response = await httpClientFactory.GetAsync(urlToGet);
-					var request = new FormHttpRequest(httpClientFactory);
+					//var request = new FormHttpRequest(httpClientFactory);
 					//request.PostAsync();
 					//Console.WriteLine($"{url} result is {response.StatusCode}");
 				}

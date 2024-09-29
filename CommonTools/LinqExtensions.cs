@@ -22,13 +22,18 @@ namespace CommonTools
 			return mergedDictionary;
 		}
 
-		public static void ConcatDictionary<TKey, TValue>(this IDictionary<TKey, TValue> originalDic, params IDictionary<TKey, TValue>[] dictionaries)
+		public static void ConcatDictionary<TKey, TValue>(this IDictionary<TKey, TValue> originalDic, params IDictionary<TKey, object>[] dictionaries)
 		{
+			var needToLower = false;
 			foreach (var dictionary in dictionaries)
 			{
 				foreach (var kv in dictionary)
 				{
-					originalDic[kv.Key] = kv.Value;
+					//when an object with Boolean converted to a string type, the value true/false will be capitalized => True/False
+					needToLower = typeof(TValue) == typeof(string) && kv.Value.GetType() == typeof(bool);
+					originalDic[kv.Key] = needToLower 
+										? (TValue)Convert.ChangeType(kv.Value.ToString().ToLower(), typeof(TValue)) 
+										: (TValue)Convert.ChangeType(kv.Value, typeof(TValue));
 				}
 			}
 		}

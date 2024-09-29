@@ -10,6 +10,21 @@ using System.Web;
 
 namespace HttpManager
 {
+	/*
+		https://jsonplaceholder.typicode.com：用于测试和原型设计的免费虚设 API。
+		https://www.example.com：此域用于文档中的说明性示例。
+
+		GET https://jsonplaceholder.typicode.com/todos/3 HTTP/1.1
+		{
+			"userId": 1,
+			"id": 3,
+			"title": "fugiat veniam minus",
+			"completed": false
+		}
+
+		GET https://jsonplaceholder.typicode.com/todos?userId=1&completed=false HTTP/1.1
+
+	 */
 	public class HttpClientHelper : IHttpManager
 	{
 		private readonly IHttpClientFactory _clientFactory;
@@ -90,7 +105,7 @@ namespace HttpManager
 			_parameters[key] = value;
 		}
 
-		public void AddParameters(IDictionary<string, string> parameters)
+		public void AddParameters(IDictionary<string, object> parameters)
 		{
 			if (parameters.Any(kv => string.IsNullOrWhiteSpace(kv.Key)))
 			{
@@ -109,7 +124,6 @@ namespace HttpManager
 		}
 
 		#endregion
-
 
 		#region public requests
 
