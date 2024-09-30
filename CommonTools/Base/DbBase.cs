@@ -16,6 +16,6 @@ namespace CommonTools.Base
 		protected static readonly string OracleProvider = "System.Data.OracleClient";
 		#endregion
 
-		protected abstract void Disconnect();
+		public abstract void Disconnect();
 	}
 }

@@ -5,13 +5,9 @@ using OcrApi.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace Test
 {
@@ -19,8 +15,8 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			
-			TestOCRHelper();
+			TestDb();
+			//TestOCRHelper();
 		}
 
 		public static void TestOCRHelper()
@@ -163,7 +159,17 @@ namespace Test
         public long Id { get; set; }
 		[Column("name")]
         public string Name { get; set; }
+        public int Test { get; set; }
+        public int SchoolId { get; set; }
     }
+
+	public class School
+	{
+		[PrimaryKey, Column("id")]
+		public long Id { get; set; }
+		public string Name { get; set; }
+
+	}
 
 	public class Test
 	{

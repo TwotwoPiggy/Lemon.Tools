@@ -35,10 +35,7 @@ namespace CommonTools
 		#region ConnecionString
 		public void SetConnectionString(string connectionString)
 		{
-			if (string.IsNullOrWhiteSpace(connectionString))
-			{
-				throw new ArgumentNullException(nameof(connectionString));
-			}
+			ArgumentNullException.ThrowIfNullOrWhiteSpace(nameof(connectionString));
 			var currentConnStr = ConfigManager.GetConnectionString("SQLite");
 			if (connectionString.Equals(currentConnStr))
 			{
@@ -52,7 +49,7 @@ namespace CommonTools
 		}
 		#endregion
 
-		protected override void Disconnect()
+		public override void Disconnect()
 		{
 			try
 			{
