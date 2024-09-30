@@ -21,6 +21,11 @@ namespace CommonTools
 		{
 			return Path.GetExtension(fileName);
 		}
+
+		public static string GetPathWithOutExtension(this string fileName)
+		{
+			return Path.GetFileNameWithoutExtension(fileName);
+		}
 		#endregion
 
 		public static IEnumerable<string> GetFiles(string directoryPath)

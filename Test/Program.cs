@@ -1,8 +1,11 @@
 ﻿using CommonTools;
 using HttpManager;
+using OcrApi;
+using OcrApi.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
@@ -16,7 +19,17 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			TestHttpClientHelper();
+			
+			TestOCRHelper();
+		}
+
+		public static void TestOCRHelper()
+		{
+			var picPath = @"D:\Computer\Projects\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\IMG_5783.PNG";
+			var tessdata = @"D:\Computer\Projects\Lemon.Tools\OcrApi\tessdata";
+			var ocrHelper = new OCRHelper(tessdata);
+			picPath = ocrHelper.ReduceImageNoise(picPath);
+            Console.WriteLine(ocrHelper.GetTextFromPicture(picPath, Languages.Chinese_Simplified, Tesseract.EngineMode.TesseractAndLstm));
 		}
 
 		public static void TestHttpClientHelper()
@@ -84,29 +97,29 @@ namespace Test
 			var t = Test.Instance;
 			t.Action();
 		}
-		public static async void GetPictures(IEnumerable<string> urls)
-		{
-			var httpClientFactory = ServiceHelper.GetHttpClientFactory();
-			var results = new List<string>();
-			foreach (var url in urls)
-			{
-				var urlToGet = HttpUtility.HtmlEncode($"http://zlzf.fgj.shmh.gov.cn/MhgzfWeb/File/{url}宝铭苑{url}.jpg");
-				try
-				{
+		//public static async void GetPictures(IEnumerable<string> urls)
+		//{
+		//	var httpClientFactory = ServiceHelper.GetHttpClientFactory();
+		//	var results = new List<string>();
+		//	foreach (var url in urls)
+		//	{
+		//		var urlToGet = HttpUtility.HtmlEncode($"http://zlzf.fgj.shmh.gov.cn/MhgzfWeb/File/{url}宝铭苑{url}.jpg");
+		//		try
+		//		{
 
-					//var response = await httpClientFactory.GetAsync(urlToGet);
-					//var request = new FormHttpRequest(httpClientFactory);
-					//request.PostAsync();
-					//Console.WriteLine($"{url} result is {response.StatusCode}");
-				}
-				catch (Exception)
-				{
+		//			//var response = await httpClientFactory.GetAsync(urlToGet);
+		//			//var request = new FormHttpRequest(httpClientFactory);
+		//			//request.PostAsync();
+		//			//Console.WriteLine($"{url} result is {response.StatusCode}");
+		//		}
+		//		catch (Exception)
+		//		{
 
-					throw;
-				}
+		//			throw;
+		//		}
 
-			}
-		}
+		//	}
+		//}
 
 		public static void Move()
 		{

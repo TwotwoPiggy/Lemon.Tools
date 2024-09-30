@@ -31,6 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GptApi", "GptApi\GptApi.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lemon.UI.Controls", "Lemon.UI.Controls\Lemon.UI.Controls.csproj", "{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrApi", "OcrApi\OcrApi.csproj", "{D7FF5FCE-E58B-4611-A2EC-D1F3FB6CE77C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{7545A39A-4505-4622-9CF8-2228BF98E8BC}"
+	ProjectSection(SolutionItems) = preProject
+		..\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\test.png = ..\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\test.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +96,10 @@ Global
 		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{646741BB-2BBA-4C1E-A2E4-F3D0470C44C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7FF5FCE-E58B-4611-A2EC-D1F3FB6CE77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7FF5FCE-E58B-4611-A2EC-D1F3FB6CE77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7FF5FCE-E58B-4611-A2EC-D1F3FB6CE77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7FF5FCE-E58B-4611-A2EC-D1F3FB6CE77C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +108,7 @@ Global
 		{372491A7-7DEF-4EC0-96C4-5B071811E4E5} = {CD63772F-D4AD-4598-81D1-96BF00E54347}
 		{22BB37F6-DB60-45C2-B07B-8A1577C74787} = {CD63772F-D4AD-4598-81D1-96BF00E54347}
 		{9D239CDF-3F7C-4AE0-A9E5-848FD0244F4D} = {CD63772F-D4AD-4598-81D1-96BF00E54347}
+		{7545A39A-4505-4622-9CF8-2228BF98E8BC} = {CD63772F-D4AD-4598-81D1-96BF00E54347}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A19839F5-B28C-420D-8F74-F7B0BC9D80D7}
