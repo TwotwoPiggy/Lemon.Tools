@@ -15,13 +15,25 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			TestDb();
+			var test = "\"15:50 目 “ 孕 G\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n乡\\n〈 〈菱 完′…】z b 尿 一\\n鲜 朗 旗 舰 店\\n鲜 朗 低 温 烘 焙 猫 粮 冻 干 生 骨 … 到 手 #8.63\\n才 | 数 量 x1, 烘 焙 猎 粑 禽 内 试 吃 装 50g* #14.8\\n3 袋\\n\\n \\n\\n \\n\\n「 退 敦 / 售 后 ) ( 加 购 物 车\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n实 付 款 合 计 #8.63 〉\\n订 单 编 号 2970539989751 复 制\\n支 付 方 式 银 行 卡 支 付\\n发 祥 类 型 不 开 发 票\\n支 付 时 间 2024-09-23 00:04:12\\n下 单 时 间 2024-09-23 00:04:02\\n陆 送 方 式 邹 政 电 商 标 快\\n收 货 信 息 陈 二 二 150****2462\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n收 货 地 址 “ 上 海 宝 山 区 罗 泾 镇 上 海 市 上 海 市 宝 山 区 罗\\n泾 镇 潘 新 路 255 弄 204 号 1202 室 200949\\n\\n收 起 ~\\n\\n快 速 解 决 问 题\\n\\n商 品 降 价 怎 么 办 怎 么 申 请 售 后 更 多\\n\\n \\n\\n更 多 , 查 看 物 流 ., 退 款 / 售 后 ,\\n\\n \\n\\n \\n\"";
+			test = test.Replace(" ", string.Empty);
+            Console.WriteLine(PlatformType.JD.ToString());
+			//TestDb();
 			//TestOCRHelper();
 		}
 
+
+		public enum PlatformType
+		{
+			JD = 0,
+			Taobao = 1,
+			PDD = 2,
+			Douyin = 3
+		}
 		public static void TestOCRHelper()
 		{
-			var picPath = @"D:\Computer\Projects\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\IMG_5783.PNG";
+			var picPath = @"V:\Screenshots\IMG_5816.PNG";
+			//var picPath = @"D:\Computer\Projects\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\IMG_5783.PNG";
 			var tessdata = @"D:\Computer\Projects\Lemon.Tools\OcrApi\tessdata";
 			var ocrHelper = new OCRHelper(tessdata);
 			picPath = ocrHelper.ReduceImageNoise(picPath);

@@ -17,7 +17,11 @@ namespace OcrApi
 
 		public void SetTessdataPath(string tessdataPath)
 		{
-			ArgumentNullException.ThrowIfNullOrWhiteSpace(tessdataPath, "Please provide a valid tessdataPath");
+			if (string.IsNullOrWhiteSpace(tessdataPath) || !FileManager.IsOrExistDirectory(tessdataPath))
+			{
+				new ArgumentException("Please set a valid tessdataPath", tessdataPath);
+			}
+
 			_tessdataPath = tessdataPath;
 		}
 
