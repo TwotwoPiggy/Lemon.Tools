@@ -4,13 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <BaseOutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls</BaseOutputPath>
     <PackageId>Twotwo.CommonTools</PackageId>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>twotwo</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls\Custom Nuget Packages\</OutputPath>
+    <OutputPath>D:\Computer\Projects\Lemon.Tools\Custom Nuget Packages\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
