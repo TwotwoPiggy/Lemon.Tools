@@ -15,10 +15,23 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			var urls = new List<string> { "7" };
-			GetPictures(urls);
-
+			ConnectWifi();
 		}
+
+		public static void ConnectWifi()
+		{
+			var result = WifiManager.IsConnectingAsync("Lemony_5G").ConfigureAwait(false).GetAwaiter().GetResult();
+			Console.WriteLine(result);
+			//WifiManager.ConnectWifiAsync("Lemon").ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public static void GetWifi()
+		{
+			//foreach (var item in WifiManager.GetWifiListAsync().ConfigureAwait(false).GetAwaiter().GetResult())
+            Console.WriteLine(WifiManager.GetConnectedWifiAysnc().ConfigureAwait(false).GetAwaiter().GetResult());
+            
+		}
+
 
 		public static async void GetPictures(IEnumerable<string> urls)
 		{
@@ -31,7 +44,7 @@ namespace Test
 				{
 
 					var response = await httpClient.GetAsync(urlToGet);
-					var request = new FormHttpRequest(httpClient);
+					//var request = new FormHttpRequest(httpClient);
 					//request.PostAsync();
 					Console.WriteLine($"{url} result is {response.StatusCode}");
 				}
