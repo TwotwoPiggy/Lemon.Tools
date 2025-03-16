@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "CommonTools/1.0.5": {
+      "CommonTools/1.0.10": {
         "dependencies": {
           "Microsoft.Extensions.Http": "8.0.0",
           "QRCoder": "1.6.0",
@@ -784,7 +784,7 @@
     }
   },
   "libraries": {
-    "CommonTools/1.0.5": {
+    "CommonTools/1.0.10": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

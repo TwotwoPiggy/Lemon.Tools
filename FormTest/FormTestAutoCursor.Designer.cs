@@ -41,6 +41,8 @@ namespace FormTest
 			timer1 = new System.Windows.Forms.Timer(components);
 			button7 = new System.Windows.Forms.Button();
 			pictureBox1 = new System.Windows.Forms.PictureBox();
+			listBox1 = new System.Windows.Forms.ListBox();
+			switchButton1 = new Lemon.UI.Controls.SwitchButton();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			SuspendLayout();
 			// 
@@ -155,12 +157,36 @@ namespace FormTest
 			pictureBox1.TabIndex = 9;
 			pictureBox1.TabStop = false;
 			// 
+			// listBox1
+			// 
+			listBox1.FormattingEnabled = true;
+			listBox1.Items.AddRange(new object[] { "1", "2", "2", "3" });
+			listBox1.Location = new System.Drawing.Point(308, 381);
+			listBox1.Name = "listBox1";
+			listBox1.Size = new System.Drawing.Size(150, 104);
+			listBox1.TabIndex = 10;
+			// 
+			// switchButton1
+			// 
+			switchButton1.BorderWidth = 2;
+			switchButton1.CloseColor = System.Drawing.Color.Gray;
+			switchButton1.CornerRadius = 5;
+			switchButton1.IsChecked = false;
+			switchButton1.Location = new System.Drawing.Point(321, 186);
+			switchButton1.Name = "switchButton1";
+			switchButton1.OpenColor = System.Drawing.Color.Green;
+			switchButton1.Size = new System.Drawing.Size(85, 32);
+			switchButton1.TabIndex = 11;
+			switchButton1.Click += switchButton1_Click;
+			// 
 			// FormTestAutoCursor
 			// 
 			AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			CancelButton = btnMoveCursor;
 			ClientSize = new System.Drawing.Size(598, 634);
+			Controls.Add(switchButton1);
+			Controls.Add(listBox1);
 			Controls.Add(pictureBox1);
 			Controls.Add(button7);
 			Controls.Add(smoothProgressBar1);
@@ -191,6 +217,8 @@ namespace FormTest
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.Button button7;
 		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.ListBox listBox1;
+		private Lemon.UI.Controls.SwitchButton switchButton1;
 	}
 }
 

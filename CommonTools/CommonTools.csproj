@@ -1,15 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <!--<TargetFramework>net8.0</TargetFramework>-->
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <BaseOutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls</BaseOutputPath>
     <PackageId>Twotwo.CommonTools</PackageId>
-    <Version>1.0.5</Version>
+    <Version>1.0.10</Version>
     <Authors>twotwo</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\Computer\Projects\Lemon.Tools\Custom Nuget Packages\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>D:\Computer\Projects\Lemon.Tools\Custom Nuget Packages\</OutputPath>
   </PropertyGroup>
 

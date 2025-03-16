@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.IO;
+using System.Threading;
 using EnvMananger = CommonTools.EnvironmentManager;
 
 namespace CommonTools
@@ -35,7 +36,10 @@ namespace CommonTools
 		#region ConnecionString
 		public void SetConnectionString(string connectionString)
 		{
-			ArgumentNullException.ThrowIfNullOrWhiteSpace(nameof(connectionString));
+			if (string.IsNullOrWhiteSpace(connectionString))
+			{
+				throw new ArgumentNullException(nameof(connectionString));
+			}
 			var currentConnStr = ConfigManager.GetConnectionString("SQLite");
 			if (connectionString.Equals(currentConnStr))
 			{

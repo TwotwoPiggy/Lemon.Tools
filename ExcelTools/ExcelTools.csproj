@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls\</OutputPath>
   </PropertyGroup>
 

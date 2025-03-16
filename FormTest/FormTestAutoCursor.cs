@@ -105,7 +105,9 @@ namespace FormTest
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine(minutes: 10);
+			//SystemManager.ShutDownMachine(minutes: 10);
+			//SystemManager.RestartMachine(minutes: 10);
+			SystemManager.RestartMachine(forceActionWithoutWarning:true);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
@@ -148,6 +150,19 @@ namespace FormTest
 			pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 			var qrCode = QRCodeHelper.GenerateQRCode("Test", this.pictureBox1.Size.Height);
 			this.pictureBox1.Image = qrCode;
+		}
+
+		private void switchButton1_Click(object sender, EventArgs e)
+		{
+			if (switchButton1.IsChecked)
+			{
+				MessageBox.Show("已开启");
+			}
+			else
+			{
+				MessageBox.Show("已关闭");
+			}
+			
 		}
 	}
 }

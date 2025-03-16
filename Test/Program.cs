@@ -1,5 +1,6 @@
 ﻿using CommonTools;
 using HttpManager;
+using Newtonsoft.Json;
 using OcrApi;
 using OcrApi.Models;
 using SQLite;
@@ -15,20 +16,70 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			var test = "\"15:50 目 “ 孕 G\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n乡\\n〈 〈菱 完′…】z b 尿 一\\n鲜 朗 旗 舰 店\\n鲜 朗 低 温 烘 焙 猫 粮 冻 干 生 骨 … 到 手 #8.63\\n才 | 数 量 x1, 烘 焙 猎 粑 禽 内 试 吃 装 50g* #14.8\\n3 袋\\n\\n \\n\\n \\n\\n「 退 敦 / 售 后 ) ( 加 购 物 车\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n实 付 款 合 计 #8.63 〉\\n订 单 编 号 2970539989751 复 制\\n支 付 方 式 银 行 卡 支 付\\n发 祥 类 型 不 开 发 票\\n支 付 时 间 2024-09-23 00:04:12\\n下 单 时 间 2024-09-23 00:04:02\\n陆 送 方 式 邹 政 电 商 标 快\\n收 货 信 息 陈 二 二 150****2462\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n收 货 地 址 “ 上 海 宝 山 区 罗 泾 镇 上 海 市 上 海 市 宝 山 区 罗\\n泾 镇 潘 新 路 255 弄 204 号 1202 室 200949\\n\\n收 起 ~\\n\\n快 速 解 决 问 题\\n\\n商 品 降 价 怎 么 办 怎 么 申 请 售 后 更 多\\n\\n \\n\\n更 多 , 查 看 物 流 ., 退 款 / 售 后 ,\\n\\n \\n\\n \\n\"";
-			test = test.Replace(" ", string.Empty);
-            Console.WriteLine(PlatformType.JD.ToString());
+			var result = SystemManager.GetServiceValue("i8042prt");
+			if (result.Contains("4  RUNNING"))
+			{
+                Console.WriteLine("Running");
+			}
+            else
+            {
+				Console.WriteLine("STOPPED");
+			}
+            Console.WriteLine(result);
+            //Console.WriteLine(2<<1);
+            //Console.WriteLine(2>>1);
+			//var result = Math.Ceiling((double)1 / 3);
+			//Console.WriteLine($"{result}");
+			//TestSystemManager();
+			//var test = "\"15:50 目 “ 孕 G\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n乡\\n〈 〈菱 完′…】z b 尿 一\\n鲜 朗 旗 舰 店\\n鲜 朗 低 温 烘 焙 猫 粮 冻 干 生 骨 … 到 手 #8.63\\n才 | 数 量 x1, 烘 焙 猎 粑 禽 内 试 吃 装 50g* #14.8\\n3 袋\\n\\n \\n\\n \\n\\n「 退 敦 / 售 后 ) ( 加 购 物 车\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n实 付 款 合 计 #8.63 〉\\n订 单 编 号 2970539989751 复 制\\n支 付 方 式 银 行 卡 支 付\\n发 祥 类 型 不 开 发 票\\n支 付 时 间 2024-09-23 00:04:12\\n下 单 时 间 2024-09-23 00:04:02\\n陆 送 方 式 邹 政 电 商 标 快\\n收 货 信 息 陈 二 二 150****2462\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n收 货 地 址 “ 上 海 宝 山 区 罗 泾 镇 上 海 市 上 海 市 宝 山 区 罗\\n泾 镇 潘 新 路 255 弄 204 号 1202 室 200949\\n\\n收 起 ~\\n\\n快 速 解 决 问 题\\n\\n商 品 降 价 怎 么 办 怎 么 申 请 售 后 更 多\\n\\n \\n\\n更 多 , 查 看 物 流 ., 退 款 / 售 后 ,\\n\\n \\n\\n \\n\"";
+			//test = test.Replace(" ", string.Empty);
+			//Console.WriteLine(PlatformType.JD.ToString());
 			//TestDb();
 			//TestOCRHelper();
+			//TestReg();
+			//var test = new Dictionary<string, int>
+			//{
+			//	{"shopName", 1 },
+			//	{"count", 2 },
+			//	{"name", 3 },
+			//	{"price", 4 },
+			//	{"orderId", 5 },
+			//	{"purchasedAt", 6 }
+			//};
+			//var str = JsonConvert.SerializeObject(test);
+
+			//Console.WriteLine(JsonConvert.SerializeObject(test));
 		}
 
+		public static void TestReg()
+		{
+			var content = "15:50目“孕G\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n乡\n〈〈菱完′…】zb尿一\n鲜朗旗舰店\n鲜朗低温烘焙猫粮冻干生骨…到手#8.63\n才|数量x1,烘焙猎粑禽内试吃装50g*#14.8\n3袋\n\n\n\n\n\n「退敦/售后)(加购物车\n\n\n\n\n\n\n\n\n\n\n\n\n\n实付款合计#8.63〉\n订单编号2970539989751复制\n支付方式银行卡支付\n发祥类型不开发票\n支付时间2024-09-2300:04:12\n下单时间2024-09-2300:04:02\n陆送方式邹政电商标快\n收货信息陈二二150****2462\n\n\n\n\n\n\n\n\n\n\n\n\n\n收货地址“上海宝山区罗泾镇上海市上海市宝山区罗\n泾镇潘新路255弄204号1202室200949\n\n收起~\n\n快速解决问题\n\n商品降价怎么办怎么申请售后更多\n\n\n\n更多,查看物流.,退款/售后,\n\n\n\n\n";
+			var pattern = @"\n(.*店)\n[\s\S]*数量x([0-9]{1,3}).*,(.*g)[\s\S]*实付款合计#([0-9]+\.[0-9]+)[\s\S]*订单编号([0-9]{12})[\s\S]*下单时间([0-9]{4}-[0-9]{2}-[0-9]{2})";
+			var reg = new Regex(pattern, RegexOptions.IgnoreCase);
+			var groups = reg.Match(content).Groups;
+			var id = groups[5].Value;
+			var name = groups[3].Value.Replace("猎粑","猫粮").Replace("内","肉");
+			var shopName = groups[1].Value;
+			var count = groups[2].Value;
+			var price2 = groups[4].Value;
+			var date = groups[6].Value;
 
+			Console.WriteLine($"{shopName}的{name} {count}个,{price2}元 订单编号{id} 日期{date}");
+
+		}
 		public enum PlatformType
 		{
 			JD = 0,
 			Taobao = 1,
 			PDD = 2,
 			Douyin = 3
+		}
+
+		public static void TestSystemManager()
+		{
+			
+			//SystemManager.SetServiceValue("i8042prt", "start=disabled");
+			//SystemManager.SetServiceValue("i8042prt", "start=auto");
 		}
 		public static void TestOCRHelper()
 		{
@@ -37,7 +88,9 @@ namespace Test
 			var tessdata = @"D:\Computer\Projects\Lemon.Tools\OcrApi\tessdata";
 			var ocrHelper = new OCRHelper(tessdata);
 			picPath = ocrHelper.ReduceImageNoise(picPath);
-            Console.WriteLine(ocrHelper.GetTextFromPicture(picPath, Languages.Chinese_Simplified, Tesseract.EngineMode.TesseractAndLstm));
+			var content = ocrHelper.GetTextFromPicture(picPath, Languages.Chinese_Simplified, Tesseract.EngineMode.TesseractAndLstm).Replace(" ", string.Empty);
+
+			Console.WriteLine(content);
 		}
 
 		public static void TestHttpClientHelper()
