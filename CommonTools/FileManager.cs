@@ -56,7 +56,24 @@ namespace CommonTools
 			{
 				throw;
 			}
+		}
 
+		public static void MoveFile(string sourceFilePath, string destinationFilePath)
+		{
+			try
+			{
+				if (!File.Exists(sourceFilePath))
+				{
+					throw new FileNotFoundException($"{sourceFilePath} is not found, Please check if it exists");
+				}
+				// 移动文件
+				File.Move(sourceFilePath, destinationFilePath);
+
+			}
+			catch (Exception)
+			{
+				throw;
+			}
 		}
 
 		//public static string GetPath(string path, string fileName, string type)

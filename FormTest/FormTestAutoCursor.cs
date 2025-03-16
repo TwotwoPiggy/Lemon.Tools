@@ -1,9 +1,15 @@
 ﻿using AutoCursorTool;
 using Azure.Storage.Blobs;
 using CommonTools;
+using GptApi;
+using GptApi.Models;
+using HttpManager;
+using Microsoft.Extensions.DependencyInjection;
 using ScreenshotTools;
 using System;
 using System.IO;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;

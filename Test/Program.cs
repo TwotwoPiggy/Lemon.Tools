@@ -8,7 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace Test
 {
@@ -49,10 +51,43 @@ namespace Test
 			//var str = JsonConvert.SerializeObject(test);
 
 			//Console.WriteLine(JsonConvert.SerializeObject(test));
+			ConnectWifi();
 		}
 
-		public static void TestReg()
+		public static void ConnectWifi()
 		{
+			var result = WifiManager.IsConnectingAsync("Lemony_5G").ConfigureAwait(false).GetAwaiter().GetResult();
+			Console.WriteLine(result);
+			//WifiManager.ConnectWifiAsync("Lemon").ConfigureAwait(false).GetAwaiter().GetResult();
+		}
+
+		public static void GetWifi()
+		{
+			//foreach (var item in WifiManager.GetWifiListAsync().ConfigureAwait(false).GetAwaiter().GetResult())
+            Console.WriteLine(WifiManager.GetConnectedWifiAysnc().ConfigureAwait(false).GetAwaiter().GetResult());
+            
+		}
+
+
+		public static async void GetPictures(IEnumerable<string> urls)
+		{
+			var httpClient = new HttpClient();
+			var results = new List<string>();
+			foreach (var url in urls)
+			{
+				var urlToGet = HttpUtility.HtmlEncode($"http://zlzf.fgj.shmh.gov.cn/MhgzfWeb/File/{url}宝铭苑{url}.jpg");
+				try
+				{
+
+					var response = await httpClient.GetAsync(urlToGet);
+					//var request = new FormHttpRequest(httpClient);
+					//request.PostAsync();
+					Console.WriteLine($"{url} result is {response.StatusCode}");
+				}
+				catch (Exception)
+				{
+				}
+			}
 			var content = "15:50目“孕G\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n乡\n〈〈菱完′…】zb尿一\n鲜朗旗舰店\n鲜朗低温烘焙猫粮冻干生骨…到手#8.63\n才|数量x1,烘焙猎粑禽内试吃装50g*#14.8\n3袋\n\n\n\n\n\n「退敦/售后)(加购物车\n\n\n\n\n\n\n\n\n\n\n\n\n\n实付款合计#8.63〉\n订单编号2970539989751复制\n支付方式银行卡支付\n发祥类型不开发票\n支付时间2024-09-2300:04:12\n下单时间2024-09-2300:04:02\n陆送方式邹政电商标快\n收货信息陈二二150****2462\n\n\n\n\n\n\n\n\n\n\n\n\n\n收货地址“上海宝山区罗泾镇上海市上海市宝山区罗\n泾镇潘新路255弄204号1202室200949\n\n收起~\n\n快速解决问题\n\n商品降价怎么办怎么申请售后更多\n\n\n\n更多,查看物流.,退款/售后,\n\n\n\n\n";
 			var pattern = @"\n(.*店)\n[\s\S]*数量x([0-9]{1,3}).*,(.*g)[\s\S]*实付款合计#([0-9]+\.[0-9]+)[\s\S]*订单编号([0-9]{12})[\s\S]*下单时间([0-9]{4}-[0-9]{2}-[0-9]{2})";
 			var reg = new Regex(pattern, RegexOptions.IgnoreCase);

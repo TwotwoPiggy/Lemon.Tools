@@ -19,6 +19,14 @@
           "OcrApi.dll": {}
         }
       },
+      "ManagedNativeWifi/2.7.0": {
+        "runtime": {
+          "lib/net8.0/ManagedNativeWifi.dll": {
+            "assemblyVersion": "2.7.0.0",
+            "fileVersion": "2.7.0.0"
+          }
+        }
+      },
       "Microsoft.CSharp/4.0.1": {
         "dependencies": {
           "System.Collections": "4.0.11",
@@ -276,6 +284,25 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "2024.5.0.0"
+          }
+        }
+      },
+      "Polly/8.4.1": {
+        "dependencies": {
+          "Polly.Core": "8.4.1"
+        },
+        "runtime": {
+          "lib/net6.0/Polly.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.4.1.3582"
+          }
+        }
+      },
+      "Polly.Core/8.4.1": {
+        "runtime": {
+          "lib/net8.0/Polly.Core.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.4.1.3582"
           }
         }
       },
@@ -834,7 +861,9 @@
       },
       "Twotwo.CommonTools/1.0.10": {
         "dependencies": {
+          "ManagedNativeWifi": "2.7.0",
           "Microsoft.Extensions.Http": "8.0.0",
+          "Polly": "8.4.1",
           "QRCoder": "1.6.0",
           "SQLiteNetExtensions": "2.1.0",
           "SQLiteNetExtensions.Async": "2.1.0",
@@ -864,6 +893,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "ManagedNativeWifi/2.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qPi4pQdSfeyfuXmBYtvJpl3gExHMYhCKXFFDvng0J/vCwbFCsDnUSHllpC3e1levEhlv/SyPqijMvqx9PhQeaQ==",
+      "path": "managednativewifi/2.7.0",
+      "hashPath": "managednativewifi.2.7.0.nupkg.sha512"
     },
     "Microsoft.CSharp/4.0.1": {
       "type": "package",
@@ -1004,6 +1040,20 @@
       "sha512": "sha512-dpQNIR6PpeB/oZM0e0fZpt9lOS3Htjm6ZjtOgLyxN7QwjRekbNevrmO8VbgezUoetk68CRwxYZGaymCm2vt8Sg==",
       "path": "opencvsharp4.runtime.win/4.10.0.20240616",
       "hashPath": "opencvsharp4.runtime.win.4.10.0.20240616.nupkg.sha512"
+    },
+    "Polly/8.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kBxql53peR0bjxeEuuY114GD2rmC0tkUwE1xuKUlnd74ULEsGu3OwcLH56KkwxBPUbOysPa7stT9SJ6pKGTzlg==",
+      "path": "polly/8.4.1",
+      "hashPath": "polly.8.4.1.nupkg.sha512"
+    },
+    "Polly.Core/8.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bg4kE7mFwXc6FJ8NLknTgVgLAMlbToWC7vpdqAITv8lPzKpp9v7aWJPc04GRoZQaJhVY/tdr8K2/VW2aTmaA1Q==",
+      "path": "polly.core/8.4.1",
+      "hashPath": "polly.core.8.4.1.nupkg.sha512"
     },
     "QRCoder/1.6.0": {
       "type": "package",
