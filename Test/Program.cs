@@ -1,15 +1,21 @@
 ﻿using CommonTools;
+using HtmlAgilityPack;
 using HttpManager;
 using Newtonsoft.Json;
 using OcrApi;
 using OcrApi.Models;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using SQLite;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Test
@@ -18,40 +24,59 @@ namespace Test
 	{
 		public static void Main(string[] args)
 		{
-			var result = SystemManager.GetServiceValue("i8042prt");
-			if (result.Contains("4  RUNNING"))
-			{
-                Console.WriteLine("Running");
-			}
-            else
-            {
-				Console.WriteLine("STOPPED");
-			}
+			var result = GetCmbcAccumulatedGoldPrice().ConfigureAwait(false).GetAwaiter().GetResult();
             Console.WriteLine(result);
-            //Console.WriteLine(2<<1);
-            //Console.WriteLine(2>>1);
-			//var result = Math.Ceiling((double)1 / 3);
-			//Console.WriteLine($"{result}");
-			//TestSystemManager();
-			//var test = "\"15:50 目 “ 孕 G\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n乡\\n〈 〈菱 完′…】z b 尿 一\\n鲜 朗 旗 舰 店\\n鲜 朗 低 温 烘 焙 猫 粮 冻 干 生 骨 … 到 手 #8.63\\n才 | 数 量 x1, 烘 焙 猎 粑 禽 内 试 吃 装 50g* #14.8\\n3 袋\\n\\n \\n\\n \\n\\n「 退 敦 / 售 后 ) ( 加 购 物 车\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n实 付 款 合 计 #8.63 〉\\n订 单 编 号 2970539989751 复 制\\n支 付 方 式 银 行 卡 支 付\\n发 祥 类 型 不 开 发 票\\n支 付 时 间 2024-09-23 00:04:12\\n下 单 时 间 2024-09-23 00:04:02\\n陆 送 方 式 邹 政 电 商 标 快\\n收 货 信 息 陈 二 二 150****2462\\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n \\n\\n收 货 地 址 “ 上 海 宝 山 区 罗 泾 镇 上 海 市 上 海 市 宝 山 区 罗\\n泾 镇 潘 新 路 255 弄 204 号 1202 室 200949\\n\\n收 起 ~\\n\\n快 速 解 决 问 题\\n\\n商 品 降 价 怎 么 办 怎 么 申 请 售 后 更 多\\n\\n \\n\\n更 多 , 查 看 物 流 ., 退 款 / 售 后 ,\\n\\n \\n\\n \\n\"";
-			//test = test.Replace(" ", string.Empty);
-			//Console.WriteLine(PlatformType.JD.ToString());
-			//TestDb();
-			//TestOCRHelper();
-			//TestReg();
-			//var test = new Dictionary<string, int>
+			//var result = SystemManager.GetServiceValue("i8042prt");
+			//if (result.Contains("4  RUNNING"))
 			//{
-			//	{"shopName", 1 },
-			//	{"count", 2 },
-			//	{"name", 3 },
-			//	{"price", 4 },
-			//	{"orderId", 5 },
-			//	{"purchasedAt", 6 }
-			//};
-			//var str = JsonConvert.SerializeObject(test);
+			//             Console.WriteLine("Running");
+			//}
+			//         else
+			//         {
+			//	Console.WriteLine("STOPPED");
+			//}
+			//         Console.WriteLine(result);
 
-			//Console.WriteLine(JsonConvert.SerializeObject(test));
-			ConnectWifi();
+			//ConnectWifi();
+		}
+
+		public static async Task<decimal> GetCmbcAccumulatedGoldPrice()
+		{
+			using (var client = new HttpClient())
+			{
+				// 民生银行积存金页面（示例URL，需确认实际地址）
+				//var html = await client.GetAsync("https://www.cngold.org/img_date/bank_gold.html");
+				var page = ScrapeLazyLoadedData();//await html.Content.ReadAsStringAsync();
+				// 使用HtmlAgilityPack解析
+				var doc = new HtmlDocument();
+				doc.LoadHtml(page);
+
+				// 通过XPath定位价格（需根据实际网页结构调整）
+				var node = doc.DocumentNode.SelectSingleNode("//td[@class='JO_283982q63']");
+				return decimal.Parse(node.ChildNodes.First().InnerText.Trim());
+			}
+		}
+
+		public static string ScrapeLazyLoadedData()
+		{
+			var options = new ChromeOptions();
+			options.AddArgument("--headless"); // 无头模式
+			using (var driver = new ChromeDriver(options))
+			{
+				driver.Navigate().GoToUrl("https://www.cngold.org/img_date/bank_gold.html");
+
+				// 模拟滚动到底部 5 次
+				for (int i = 0; i < 5; i++)
+				{
+					((IJavaScriptExecutor)driver).ExecuteScript(
+						"window.scrollTo(0, document.body.scrollHeight);");
+					Thread.Sleep(2000); // 等待数据加载
+				}
+
+				// 获取完整页面源码
+				return driver.PageSource;
+				// 使用 HtmlAgilityPack 解析数据...
+			}
 		}
 
 		public static void ConnectWifi()
@@ -253,7 +278,7 @@ namespace Test
 
 	}
 
-	public class Student
+	public class Student : IEnumerable
 	{
 		[PrimaryKey,Column("id")]
         public long Id { get; set; }
@@ -261,7 +286,12 @@ namespace Test
         public string Name { get; set; }
         public int Test { get; set; }
         public int SchoolId { get; set; }
-    }
+
+		public IEnumerator GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+	}
 
 	public class School
 	{

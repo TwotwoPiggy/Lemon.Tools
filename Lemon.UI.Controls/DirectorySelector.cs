@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Lemon.UI.Controls
@@ -28,7 +29,20 @@ namespace Lemon.UI.Controls
 				this.btn_SelectDir.Text = value;
 			}
 		}
-		public DirectorySelector()
+
+        public Size ButtonSize 
+		{
+			get
+			{
+				return this.btn_SelectDir.Size;
+			}
+			set
+			{
+				this.btn_SelectDir.Size = value;
+			}
+		}
+
+        public DirectorySelector()
 		{
 			InitializeComponent();
 		}

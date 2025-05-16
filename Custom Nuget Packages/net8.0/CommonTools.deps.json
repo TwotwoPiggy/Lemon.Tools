@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "CommonTools/1.0.10": {
+      "CommonTools/1.0.13": {
         "dependencies": {
           "ManagedNativeWifi": "2.7.0",
           "Microsoft.Extensions.Http": "8.0.0",
@@ -813,7 +813,7 @@
     }
   },
   "libraries": {
-    "CommonTools/1.0.10": {
+    "CommonTools/1.0.13": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

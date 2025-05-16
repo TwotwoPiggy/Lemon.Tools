@@ -5,7 +5,7 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <BaseOutputPath>D:\Computer\Projects\Lemon.Tools\CommonDlls</BaseOutputPath>
     <PackageId>Twotwo.CommonTools</PackageId>
-    <Version>1.0.10</Version>
+    <Version>1.0.13</Version>
     <Authors>twotwo</Authors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Platforms>AnyCPU;x64</Platforms>

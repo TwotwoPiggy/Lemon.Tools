@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 namespace CommonTools
 {
 	public static class FileManager
@@ -76,9 +77,38 @@ namespace CommonTools
 			}
 		}
 
-		//public static string GetPath(string path, string fileName, string type)
-		//{
-		//	path = string.IsNullOrWhiteSpace(path) ? EnvironmentManager
-		//}
+		public static void AddAttribute(string path, FileAttributes attribute)
+		{
+			//// 修改重要文件前检查
+			//if (HasAttribute("system.dll", FileAttributes.System))
+			//{
+			//	Console.WriteLine("警告：正在修改系统文件！");
+			//}
+			var current = File.GetAttributes(path);
+			File.SetAttributes(path, current | attribute);
+		}
+
+		public static void RemoveAttribute(string path, FileAttributes attribute)
+		{
+			//// 修改重要文件前检查
+			//if (HasAttribute("system.dll", FileAttributes.System))
+			//{
+			//	Console.WriteLine("警告：正在修改系统文件！");
+			//}
+			var current = File.GetAttributes(path);
+			File.SetAttributes(path, current & ~attribute);
+		}
+
+		public static bool HasAttribute(string path, FileAttributes attribute)
+		{
+			var current = File.GetAttributes(path);
+			return (current & attribute) == attribute;
+		}
+
+		public static string GetAttributesString(string path)
+		{
+			var attrs = File.GetAttributes(path);
+			return attrs.ToString().Replace(", ", "|");
+		}
 	}
 }

@@ -29,45 +29,41 @@ namespace Lemon.UI.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.tb_Directory = new System.Windows.Forms.TextBox();
-			this.btn_SelectDir = new System.Windows.Forms.Button();
-			this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.SuspendLayout();
+			tb_Directory = new System.Windows.Forms.TextBox();
+			btn_SelectDir = new System.Windows.Forms.Button();
+			folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+			SuspendLayout();
 			// 
 			// tb_Directory
 			// 
-			this.tb_Directory.Location = new System.Drawing.Point(0, 3);
-			this.tb_Directory.Margin = new System.Windows.Forms.Padding(0);
-			this.tb_Directory.Name = "tb_Directory";
-			//this.tb_Directory.AutoSize = false;
-			this.tb_Directory.Size = new System.Drawing.Size(170, 30);
-			this.tb_Directory.TabIndex = 0;
+			tb_Directory.Location = new System.Drawing.Point(0, 4);
+			tb_Directory.Margin = new System.Windows.Forms.Padding(0);
+			tb_Directory.Name = "tb_Directory";
+			tb_Directory.Size = new System.Drawing.Size(217, 27);
+			tb_Directory.TabIndex = 0;
 			// 
 			// btn_SelectDir
 			// 
-			this.btn_SelectDir.Location = new System.Drawing.Point(172, 0);
-			this.btn_SelectDir.Margin = new System.Windows.Forms.Padding(0);
-			this.btn_SelectDir.Name = "btn_SelectDir";
-			//this.btn_SelectDir.AutoSize = false;
-			this.btn_SelectDir.Size = new System.Drawing.Size(78, 30);
-			this.btn_SelectDir.TabIndex = 1;
-			this.btn_SelectDir.Text = "选择路径";
-			this.btn_SelectDir.UseVisualStyleBackColor = true;
-			this.btn_SelectDir.Click += new System.EventHandler(this.btn_SelectDir_Click);
+			btn_SelectDir.Location = new System.Drawing.Point(221, 0);
+			btn_SelectDir.Margin = new System.Windows.Forms.Padding(0);
+			btn_SelectDir.Name = "btn_SelectDir";
+			btn_SelectDir.Size = new System.Drawing.Size(100, 35);
+			btn_SelectDir.TabIndex = 1;
+			btn_SelectDir.Text = "选择路径";
+			btn_SelectDir.UseVisualStyleBackColor = true;
+			btn_SelectDir.Click += btn_SelectDir_Click;
 			// 
 			// DirectorySelector
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.btn_SelectDir);
-			this.Controls.Add(this.tb_Directory);
-			this.Margin = new System.Windows.Forms.Padding(0);
-			this.Name = "DirectorySelector";
-			this.Size = new System.Drawing.Size(250, 30);
-			this.ResumeLayout(false);
-			this.PerformLayout();
-
+			AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+			AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			Controls.Add(btn_SelectDir);
+			Controls.Add(tb_Directory);
+			Margin = new System.Windows.Forms.Padding(0);
+			Name = "DirectorySelector";
+			Size = new System.Drawing.Size(321, 35);
+			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -75,6 +71,5 @@ namespace Lemon.UI.Controls
 		private System.Windows.Forms.TextBox tb_Directory;
 		private System.Windows.Forms.Button btn_SelectDir;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
-		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 	}
 }

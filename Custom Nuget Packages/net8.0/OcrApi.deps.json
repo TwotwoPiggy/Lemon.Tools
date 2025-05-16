@@ -12,8 +12,8 @@
           "OpenCvSharp4.runtime.win": "4.10.0.20240616",
           "Tesseract": "5.2.0",
           "Tesseract.Drawing": "5.2.0",
-          "Twotwo.CommonTools": "1.0.10",
-          "CommonTools": "1.0.10.0"
+          "Twotwo.CommonTools": "1.0.11",
+          "CommonTools": "1.0.11.0"
         },
         "runtime": {
           "OcrApi.dll": {}
@@ -859,7 +859,7 @@
           }
         }
       },
-      "Twotwo.CommonTools/1.0.10": {
+      "Twotwo.CommonTools/1.0.11": {
         "dependencies": {
           "ManagedNativeWifi": "2.7.0",
           "Microsoft.Extensions.Http": "8.0.0",
@@ -873,16 +873,16 @@
         },
         "runtime": {
           "CommonTools.dll": {
-            "assemblyVersion": "1.0.10",
-            "fileVersion": "1.0.10.0"
+            "assemblyVersion": "1.0.11",
+            "fileVersion": "1.0.11.0"
           }
         }
       },
-      "CommonTools/1.0.10.0": {
+      "CommonTools/1.0.11.0": {
         "runtime": {
           "CommonTools.dll": {
-            "assemblyVersion": "1.0.10.0",
-            "fileVersion": "1.0.10.0"
+            "assemblyVersion": "1.0.11.0",
+            "fileVersion": "1.0.11.0"
           }
         }
       }
@@ -1398,12 +1398,12 @@
       "path": "tesseract.drawing/5.2.0",
       "hashPath": "tesseract.drawing.5.2.0.nupkg.sha512"
     },
-    "Twotwo.CommonTools/1.0.10": {
+    "Twotwo.CommonTools/1.0.11": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "CommonTools/1.0.10.0": {
+    "CommonTools/1.0.11.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
