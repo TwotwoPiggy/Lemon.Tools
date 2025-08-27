@@ -9,6 +9,7 @@ namespace CommonTools
 {
 	public static class ConfigManager
 	{
+		#region public methods
 		public static bool ConfigExists(string configName, ConfigTypes configType)
 		{
 			if (string.IsNullOrWhiteSpace(configName))
@@ -19,11 +20,19 @@ namespace CommonTools
 			switch (configType)
 			{
 				case ConfigTypes.ConnectionString:
-					var config = ConfigurationManager.ConnectionStrings[configName];
-					configExists = config != null;
+					try
+					{
+						var config = ConfigurationManager.ConnectionStrings[configName];
+						configExists = config != null;
+					}
+					catch (ConfigurationErrorsException)
+					{
+						configExists = false;
+					}
+
 					break;
 				case ConfigTypes.AppSettings:
-					configExists = ConfigurationManager.AppSettings.AllKeys.Contains(configName);
+					configExists = ConfigurationManager.AppSettings.AllKeys!.Contains(configName);
 					break;
 				default:
 					break;
@@ -75,7 +84,7 @@ namespace CommonTools
 			return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
 		}
 
-		public static void SetConnectionString(string connectionName, string connectionString, string provideName)
+		public static void SetConnectionString(string connectionName, string connectionString, string providerName = null)
 		{
 			if (string.IsNullOrWhiteSpace(connectionName))
 			{
@@ -87,21 +96,34 @@ namespace CommonTools
 				if (ConfigExists(connectionName, ConfigTypes.ConnectionString))
 				{
 					config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString = connectionString;
-					config.ConnectionStrings.ConnectionStrings[connectionName].ProviderName = provideName;
+					if (!string.IsNullOrWhiteSpace(providerName))
+					{
+						config.ConnectionStrings.ConnectionStrings[connectionName].ProviderName = providerName;
+					}
+
 				}
 				else
 				{
-					var newConfig = new ConnectionStringSettings(connectionName, connectionString, provideName);
+					ConnectionStringSettings newConfig;
+					if (string.IsNullOrWhiteSpace(providerName))
+					{
+						newConfig = new ConnectionStringSettings(connectionName, connectionString);
+					}
+					else
+					{
+						newConfig = new ConnectionStringSettings(connectionName, connectionString, providerName);
+					}
 					config.ConnectionStrings.ConnectionStrings.Add(newConfig);
 				}
 				config.Save(ConfigurationSaveMode.Modified);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				throw;
 			}
 
 		}
 
+		#endregion
 	}
 }

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "CommonTools/1.0.0": {
+      "CommonTools/1.0.4": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.7.0"
         },
@@ -129,7 +129,7 @@
     }
   },
   "libraries": {
-    "CommonTools/1.0.0": {
+    "CommonTools/1.0.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

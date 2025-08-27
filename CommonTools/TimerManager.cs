@@ -23,10 +23,10 @@ namespace CommonTools
 			}
 		}
 
-		public void SetTimer(ElapsedEventHandler elapsedEvent, int? intervalSeconds, bool IsAutoReset = true)
+		public void SetTimer(ElapsedEventHandler elapsedEvent, int? intervalSeconds, bool IsEventRepeated = true)
 		{
 			Timer.Elapsed += elapsedEvent;
-			Timer.AutoReset = IsAutoReset;
+			Timer.AutoReset = IsEventRepeated;
 			if (intervalSeconds.HasValue)
 			{
 				Timer.Interval = intervalSeconds.Value * 1000;
@@ -42,5 +42,8 @@ namespace CommonTools
 		{
 			Timer.Enabled = false;
 		}
+
+		public bool IsTimerStop => !Timer.Enabled;
+
 	}
 }

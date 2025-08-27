@@ -10,8 +10,8 @@ namespace TestExcelTool
     public class UnitTestConvertToCollection
     {
         private int data = 10;
-        private string filePath = @"D:\Computers\develop\.NetCore\0.Lemon\ToolsTestFiles\alphabet.xlsx";
-        private string fileExportPath = @"D:\Computers\develop\.NetCore\0.Lemon\ToolsTestFiles\export.xlsx";
+        private string filePath = @"D:\Computer\Projects\Lemon.Tools\ToolsTestFiles\alphabet.xlsx";
+        private string fileExportPath = @"D:\Computer\Projects\Lemon.Tools\ToolsTestFiles\export.xlsx";
         string sheet = "sheet1";
         [TestMethod]
         public void TestImportPartSAX()

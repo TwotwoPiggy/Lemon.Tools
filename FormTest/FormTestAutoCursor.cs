@@ -4,15 +4,15 @@ using CommonTools;
 using GptApi;
 using GptApi.Models;
 using HttpManager;
+using Microsoft.Extensions.DependencyInjection;
 using ScreenshotTools;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
-using static AutoCursorTool.User32Input;
 
 namespace FormTest
 {
@@ -51,11 +51,11 @@ namespace FormTest
 		{
 			var screenshotHelper = new ScreenshotHelper();
 			var localFilePath = string.Empty;
-			screenshotHelper.TakeScreenshot(@"D:\Computers\develop\.NetCore\0.Lemon\FormTest\Photos", out localFilePath);
+			screenshotHelper.TakeScreenshot(@"D:\Computer\Projects\Lemon.Tools\FormTest\Photos", out localFilePath);
 			var connectionString = "DefaultEndpointsProtocol=https;AccountName=screenshot12;AccountKey=oPpVrxNJLytxUNikr8+eD3syd4LL4KAs4wCTu+pT0B0/tnZZO9eVTEr8rl/lOvTdU1lsZTjopMVD+ASts3N0Jw==;EndpointSuffix=core.windows.net";
 			var blobContainerName = "screenshot";
 			var containerClient = new BlobContainerClient(connectionString, blobContainerName);
-			UploadStreamAsync(containerClient, localFilePath);
+			UploadStreamAsync(containerClient, localFilePath).ConfigureAwait(false);
 		}
 
 		public static async Task UploadFile(BlobContainerClient containerClient, string localFilePath)
@@ -85,38 +85,90 @@ namespace FormTest
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			using (var client = new HttpClient())
-			{
-				var httpRequest = new HttpRequest(client);
-				var apiKey = "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";
-				httpRequest.AddAuthorization(apiKey);
-				var gpt = new Gpt3Api(httpRequest, apiKey);
-				var endpoint = @"https://api.openai.com/v1/chat/completions";
-				var message = new GptApi.Models.Message
-				{
-					Role = Role.User,
-					Content = "Hello"
-				};
+			//using (var client = new HttpClient())
+			//{
+			//	var httpRequest = new HttpClientHelper(client);
+			//	var apiKey = "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";
+			//	httpRequest.SetAuthorization("Bearer",apiKey);
+			//	var gpt = new Gpt3Api(httpRequest, apiKey);
+			//	var endpoint = @"https://api.openai.com/v1/chat/completions";
+			//	var message = new GptApi.Models.Message
+			//	{
+			//		Role = Role.User,
+			//		Content = "Hello"
+			//	};
 
-				var request = new Request()
-				{
-					Model = GptModel.GPT3_5_turbo,
-					Messages = new List<GptApi.Models.Message> { message }
-				};
-				var result = gpt.GenerateResponseAsync(endpoint, request);
-			}
+			//	var request = new Request()
+			//	{
+			//		Model = GptModel.GPT3_5_turbo,
+			//		Messages = new List<GptApi.Models.Message> { message }
+			//	};
+			//	var result = gpt.GenerateResponseAsync(endpoint, request);
+			//}
 
 		}
 
-		
+
 		private void button3_Click(object sender, EventArgs e)
 		{
-			SystemManager.ShutDownMachine(30 * 60);
+			//SystemManager.ShutDownMachine(minutes: 10);
+			//SystemManager.RestartMachine(minutes: 10);
+			SystemManager.RestartMachine(forceActionWithoutWarning:true);
 		}
 
 		private void button4_Click(object sender, EventArgs e)
 		{
 			SystemManager.Cancel();
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+		{
+			var dir = @"\\SEAGATE-D2\OneTwoNas\Films";
+			var result = FileManager.IsOrExistDirectory(dir);
+			var sourcePath = @"\\SEAGATE-D2\OneTwoNas\Films\test2.txt";
+			var targetPath = @"\\SEAGATE-D2\OneTwoNas\Films\test3.txt";
+			result = FileManager.IsOrExistFile(sourcePath);
+			FileManager.RenameFile(sourcePath, targetPath);
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			this.smoothProgressBar1.Value = 0;
+
+			this.timer1.Interval = 1;
+			this.timer1.Enabled = true;
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			if (this.smoothProgressBar1.Value < 100)
+			{
+				this.smoothProgressBar1.Value++;
+			}
+			else
+			{
+				this.timer1.Enabled = false;
+			}
+		}
+
+		private void button7_Click(object sender, EventArgs e)
+		{
+			pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+			var qrCode = QRCodeHelper.GenerateQRCode("Test", this.pictureBox1.Size.Height);
+			this.pictureBox1.Image = qrCode;
+		}
+
+		private void switchButton1_Click(object sender, EventArgs e)
+		{
+			if (switchButton1.IsChecked)
+			{
+				MessageBox.Show("已开启");
+			}
+			else
+			{
+				MessageBox.Show("已关闭");
+			}
+			
 		}
 	}
 }

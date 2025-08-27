@@ -1,9 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,10 @@
     <ProjectReference Include="..\AutoCursorTool\AutoCursorTool.csproj" />
     <ProjectReference Include="..\CommonTools\CommonTools.csproj" />
     <ProjectReference Include="..\GptApi\GptApi.csproj" />
+    <ProjectReference Include="..\Lemon.UI.Controls\Lemon.UI.Controls.csproj" />
     <ProjectReference Include="..\ScreenshotTools\ScreenshotTools.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
+  </ItemGroup>
 </Project>

@@ -12,9 +12,9 @@ namespace GptApi
 	{
 		private string _endPoint;
 		private string _apiKey;
-		private readonly HttpRequest _httpRequest;
+		private readonly HttpClientHelper _httpRequest;
 		public Gpt3Api() { }
-		public Gpt3Api(HttpRequest httpRequest, string apiKey)
+		public Gpt3Api(HttpClientHelper httpRequest, string apiKey)
 		{
 			_httpRequest = httpRequest;
 			_apiKey = apiKey;
@@ -37,8 +37,8 @@ namespace GptApi
 				ContractResolver = new DefaultContractResolver()
 			};
 			var content = JsonConvert.SerializeObject(request, settings);
-			var result = await _httpRequest.PostAsync(endPoint, content);
-			var response = JsonConvert.DeserializeObject<Response>(result);
+			var result = await _httpRequest.PostAsync(endPoint, new StringContent(content));
+			var response = JsonConvert.DeserializeObject<Response>(content);
 			return response;
 		}
 

@@ -13,6 +13,7 @@ namespace ScreenshotTools
 			// Get the size of the screen
 			Rectangle bounds = Screen.PrimaryScreen.Bounds;
 
+
 			// Create a Bitmap object to capture the screenshot
 			using Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height);
 			using Graphics g = Graphics.FromImage(bitmap);
