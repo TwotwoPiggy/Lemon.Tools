@@ -43,7 +43,8 @@ namespace OcrApi
 				using var engine = new TesseractEngine(_tessdataPath, language, engineMode);
 				using var pixImg = Pix.LoadFromFile(picturePath);
 				using var page = engine.Process(pixImg);
-				resultContent = page.GetText();
+				resultContent = page.GetAltoText(0);
+				resultContent = page.GetHOCRText(0);
 				return resultContent;
 			}
 			catch (Exception)

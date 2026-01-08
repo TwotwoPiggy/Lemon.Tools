@@ -339,3 +339,6 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Test/Program.cs
+/FormTest/Photos/2023-02-11.png
+/FormTest/Photos/2023-02-12.png
+/FormTest/Photos/screenshot.png

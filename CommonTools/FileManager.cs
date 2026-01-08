@@ -79,22 +79,14 @@ namespace CommonTools
 
 		public static void AddAttribute(string path, FileAttributes attribute)
 		{
-			//// 修改重要文件前检查
-			//if (HasAttribute("system.dll", FileAttributes.System))
-			//{
-			//	Console.WriteLine("警告：正在修改系统文件！");
-			//}
+			// 修改重要文件前检查
 			var current = File.GetAttributes(path);
 			File.SetAttributes(path, current | attribute);
 		}
 
 		public static void RemoveAttribute(string path, FileAttributes attribute)
 		{
-			//// 修改重要文件前检查
-			//if (HasAttribute("system.dll", FileAttributes.System))
-			//{
-			//	Console.WriteLine("警告：正在修改系统文件！");
-			//}
+			// 修改重要文件前检查
 			var current = File.GetAttributes(path);
 			File.SetAttributes(path, current & ~attribute);
 		}
