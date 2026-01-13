@@ -12,8 +12,9 @@ namespace Lemon.UI.Controls
 {
 	public partial class LabelTextbox : UserControl
 	{
-		#region labels controller
-		public bool EnableLeftLabel
+        #region labels controller
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public bool EnableLeftLabel
 		{
 			get
 			{
@@ -25,7 +26,8 @@ namespace Lemon.UI.Controls
 				ControlLayout();
 			}
 		}
-		public bool EnableRightLabel
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public bool EnableRightLabel
 		{
 			get
 			{
@@ -37,7 +39,8 @@ namespace Lemon.UI.Controls
 				ControlLayout();
 			}
 		}
-		public bool EnableBothLabels
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public bool EnableBothLabels
 		{
 			get
 			{
@@ -49,8 +52,8 @@ namespace Lemon.UI.Controls
 				ControlLayout();
 			}
 		}
-
-		public string LeftLabelText
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public string LeftLabelText
 		{
 			get
 			{
@@ -61,8 +64,8 @@ namespace Lemon.UI.Controls
 				leftLabel.Text = value;
 			}
 		}
-
-		public string RightLabelText
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public string RightLabelText
 		{
 			get
 			{
@@ -73,8 +76,8 @@ namespace Lemon.UI.Controls
 				rightLabel.Text = value;
 			}
 		}
-
-		public Size TextBoxSize
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Size TextBoxSize
 		{
 			get
 			{
@@ -85,8 +88,8 @@ namespace Lemon.UI.Controls
 				textBox.Size = value;
 			}
 		}
-
-		public string Content
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public string Content
 		{
 			get
 			{
@@ -97,8 +100,8 @@ namespace Lemon.UI.Controls
 				textBox.Text = value;
 			}
 		}
-
-		public TextBox TextBox
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public TextBox TextBox
 		{
 			get
 			{
@@ -109,8 +112,8 @@ namespace Lemon.UI.Controls
 				textBox = value;
 			}
 		}
-
-		public Label LeftLabel
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Label LeftLabel
 		{
 			get
 			{
@@ -121,8 +124,8 @@ namespace Lemon.UI.Controls
 				leftLabel = value;
 			}
 		}
-
-		public Label RightLabel
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Label RightLabel
 		{
 			get
 			{

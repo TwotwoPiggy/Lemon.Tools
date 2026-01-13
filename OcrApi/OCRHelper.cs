@@ -19,7 +19,7 @@ namespace OcrApi
 		{
 			if (string.IsNullOrWhiteSpace(tessdataPath) || !FileManager.IsOrExistDirectory(tessdataPath))
 			{
-				new ArgumentException("Please set a valid tessdataPath", tessdataPath);
+				throw new ArgumentException("Please set a valid tessdataPath", tessdataPath);
 			}
 
 			_tessdataPath = tessdataPath;
@@ -32,18 +32,19 @@ namespace OcrApi
 
 			if (string.IsNullOrWhiteSpace(_tessdataPath) || !FileManager.IsOrExistDirectory(_tessdataPath))
 			{
-				new ArgumentException("Please set a valid tessdataPath by using method SetTessdataPath(string tessdataPath)", _tessdataPath);
+                throw new ArgumentException("Please set a valid tessdataPath by using method SetTessdataPath(string tessdataPath)", _tessdataPath);
 			}
 			if (string.IsNullOrWhiteSpace(picturePath) || !FileManager.IsOrExistFile(picturePath))
 			{
-				new ArgumentException("Please provide a valid picturePath", picturePath);
+                throw new ArgumentException("Please provide a valid picturePath", picturePath);
 			}
 			try
 			{
 				using var engine = new TesseractEngine(_tessdataPath, language, engineMode);
 				using var pixImg = Pix.LoadFromFile(picturePath);
 				using var page = engine.Process(pixImg);
-				resultContent = page.GetText();
+				resultContent = page.GetAltoText(0);
+				resultContent = page.GetHOCRText(0);
 				return resultContent;
 			}
 			catch (Exception)
@@ -63,7 +64,7 @@ namespace OcrApi
 		{
 			using var pictureMs = new FileStream(picturePath, FileMode.Open);
 			var byteData = new byte[pictureMs.Length];
-			pictureMs.Read(byteData, 0, byteData.Length);
+			pictureMs.ReadExactly(byteData);
 			using var ms = new MemoryStream(byteData);
 			var imgStream = Mat.FromStream(ms, imreadModes);
 			//Cv2.ImShow("Input Image", simg);

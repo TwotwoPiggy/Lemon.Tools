@@ -40,7 +40,6 @@ namespace ExcelTools.Excel
                     };
                     sheets.Append(sheet);
                     bookPart.Workbook.Save();
-                    excel.Close();
                     return true;
                 });
             }
@@ -80,7 +79,6 @@ namespace ExcelTools.Excel
                     }
                     sheets.Append(newSheets);
                     bookPart.Workbook.Save();
-                    excel.Close();
                     return true;
                 });
             }
@@ -116,7 +114,6 @@ namespace ExcelTools.Excel
                     };
                     sheets.Append(sheet);
                     excel.WorkbookPart.Workbook.Save();
-                    excel.Close();
                     return sheetId;
                 });
             }
@@ -156,7 +153,6 @@ namespace ExcelTools.Excel
                     }
                     sheets.Append(newSheets);
                     excel.WorkbookPart.Workbook.Save();
-                    excel.Close();
                     return sheetIds;
                 });
             }

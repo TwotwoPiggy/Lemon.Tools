@@ -1,52 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using static CommonTools.Enums.CommonEnums;
+using CommonTools.Enums;
 
 namespace CommonTools
 {
 	public static class ConfigManager
 	{
+		private static readonly Dictionary<ConfigType, ConfigStrategy> _strategies = new Dictionary<ConfigType, ConfigStrategy>
+		{
+			{ ConfigType.AppSettings, new AppSettingsStrategy() },
+			{ ConfigType.ConnectionString, new ConnectionStringStrategy() }
+		};
+
 		#region public methods
-		public static bool ConfigExists(string configName, ConfigTypes configType)
+		public static bool ConfigExists(string configName, ConfigType configType)
 		{
 			if (string.IsNullOrWhiteSpace(configName))
 			{
 				throw new ArgumentNullException(nameof(configName));
 			}
-			var configExists = false;
-			switch (configType)
-			{
-				case ConfigTypes.ConnectionString:
-					try
-					{
-						var config = ConfigurationManager.ConnectionStrings[configName];
-						configExists = config != null;
-					}
-					catch (ConfigurationErrorsException)
-					{
-						configExists = false;
-					}
-
-					break;
-				case ConfigTypes.AppSettings:
-					configExists = ConfigurationManager.AppSettings.AllKeys!.Contains(configName);
-					break;
-				default:
-					break;
-			}
-			return configExists;
+			return _strategies.TryGetValue(configType, out var strategy) && strategy.Exists(configName);
 		}
 
 		public static string GetAppConfig(string configName)
 		{
-			if (!ConfigExists(configName, ConfigTypes.AppSettings))
-			{
-				return default;
-			}
-			return ConfigurationManager.AppSettings[configName];
+			return _strategies[ConfigType.AppSettings].Get(configName);
 		}
 
 		public static void SetAppConfig(string configName, string configValue)
@@ -55,33 +34,12 @@ namespace CommonTools
 			{
 				throw new ArgumentNullException(nameof(configName));
 			}
-			try
-			{
-				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				if (ConfigExists(configName, ConfigTypes.AppSettings))
-				{
-					config.AppSettings.Settings[configName].Value = configValue;
-				}
-				else
-				{
-					var newConfig = new KeyValueConfigurationElement(configName, configValue);
-					config.AppSettings.Settings.Add(newConfig);
-				}
-				config.Save(ConfigurationSaveMode.Modified);
-			}
-			catch (Exception)
-			{
-				throw;
-			}
+			_strategies[ConfigType.AppSettings].Set(configName, configValue, null);
 		}
 
 		public static string GetConnectionString(string connectionName)
 		{
-			if (!ConfigExists(connectionName, ConfigTypes.ConnectionString))
-			{
-				return default;
-			}
-			return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
+			return _strategies[ConfigType.ConnectionString].Get(connectionName);
 		}
 
 		public static void SetConnectionString(string connectionName, string connectionString, string providerName = null)
@@ -90,40 +48,70 @@ namespace CommonTools
 			{
 				throw new ArgumentNullException(nameof(connectionName));
 			}
-			try
-			{
-				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				if (ConfigExists(connectionName, ConfigTypes.ConnectionString))
-				{
-					config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString = connectionString;
-					if (!string.IsNullOrWhiteSpace(providerName))
-					{
-						config.ConnectionStrings.ConnectionStrings[connectionName].ProviderName = providerName;
-					}
+			_strategies[ConfigType.ConnectionString].Set(connectionName, connectionString, providerName);
+		}
 
+		#endregion
+
+		#region Private Strategies
+
+		private abstract class ConfigStrategy
+		{
+			internal abstract bool Exists(string name);
+			internal abstract string Get(string name);
+			internal abstract void Set(string name, string value, string extra);
+
+			protected Configuration OpenConfig() =>
+				ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+		}
+
+		private class AppSettingsStrategy : ConfigStrategy
+		{
+			internal override bool Exists(string name) => ConfigurationManager.AppSettings[name] != null;
+
+			internal override string Get(string name) => ConfigurationManager.AppSettings[name];
+
+			internal override void Set(string name, string value, string extra)
+			{
+				var config = OpenConfig();
+				if (config.AppSettings.Settings[name] != null)
+				{
+					config.AppSettings.Settings[name].Value = value;
 				}
 				else
 				{
-					ConnectionStringSettings newConfig;
-					if (string.IsNullOrWhiteSpace(providerName))
-					{
-						newConfig = new ConnectionStringSettings(connectionName, connectionString);
-					}
-					else
-					{
-						newConfig = new ConnectionStringSettings(connectionName, connectionString, providerName);
-					}
+					config.AppSettings.Settings.Add(name, value);
+				}
+				config.Save(ConfigurationSaveMode.Modified);
+				ConfigurationManager.RefreshSection("appSettings");
+			}
+		}
+
+		private class ConnectionStringStrategy : ConfigStrategy
+		{
+			internal override bool Exists(string name) => ConfigurationManager.ConnectionStrings[name] != null;
+
+			internal override string Get(string name) => ConfigurationManager.ConnectionStrings[name]?.ConnectionString;
+
+			internal override void Set(string name, string value, string extra)
+			{
+				var config = OpenConfig();
+				var settings = config.ConnectionStrings.ConnectionStrings[name];
+				if (settings != null)
+				{
+					settings.ConnectionString = value;
+					if (!string.IsNullOrWhiteSpace(extra)) settings.ProviderName = extra;
+				}
+				else
+				{
+					var newConfig = new ConnectionStringSettings(name, value);
+					if (!string.IsNullOrWhiteSpace(extra)) newConfig.ProviderName = extra;
 					config.ConnectionStrings.ConnectionStrings.Add(newConfig);
 				}
 				config.Save(ConfigurationSaveMode.Modified);
+				ConfigurationManager.RefreshSection("connectionStrings");
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-
 		}
-
 		#endregion
 	}
 }

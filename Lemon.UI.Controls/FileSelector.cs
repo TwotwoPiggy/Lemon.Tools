@@ -24,7 +24,8 @@ namespace Lemon.UI.Controls
 			}
 		}
 
-		public string ButtonText
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public string ButtonText
 		{
 			get
 			{
@@ -36,7 +37,8 @@ namespace Lemon.UI.Controls
 			}
 		}
 
-		public Size ButtonSize
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Size ButtonSize
 		{
 			get
 			{
