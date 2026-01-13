@@ -10,7 +10,9 @@ namespace Lemon.UI.Controls
 {
 	public partial class ProgressBarWithPercent : ProgressBar
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Brush Brush { get; set; } = Brushes.WhiteSmoke;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Font PercentFont { get; set; }
 
 		public ProgressBarWithPercent()

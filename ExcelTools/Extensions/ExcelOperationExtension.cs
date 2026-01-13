@@ -35,25 +35,25 @@ namespace ExcelTools.Extensions
 
             if (cell.DataType != null)
             {
-                switch (cell.DataType.Value)
+                switch (cell.DataType.Value.ToString())
                 {
-                    case CellValues.Boolean:
+                    case "b": // Boolean
                         break;
-                    case CellValues.Number:
+                    case "n": // Number
                         break;
-                    case CellValues.Error:
+                    case "e": // Error
                         break;
-                    case CellValues.SharedString:
+                    case "s": // SharedString
                         if (stringTable != null)
                         {
                             cellValue = stringTable.SharedStringTable.ElementAt(int.Parse(cellValue)).InnerText.Trim();
                         }
                         break;
-                    case CellValues.String:
+                    case "str": // String
                         break;
-                    case CellValues.InlineString:
+                    case "inlineStr": // InlineString
                         break;
-                    case CellValues.Date:
+                    case "d": // Date
                         break;
                     default:
                         break;
@@ -139,24 +139,25 @@ namespace ExcelTools.Extensions
         /// <param name="sharedStringPart"></param>
         /// <param name="cellValues"></param>
         /// <returns></returns>
-        public static Cell SetValue(this Cell cell, object value, SharedStringTablePart sharedStringPart, CellValues cellValues = CellValues.SharedString)
+        public static Cell SetValue(this Cell cell, object value, SharedStringTablePart sharedStringPart, CellValues? cellValues = null)
         {
-            cell.DataType = new EnumValue<CellValues>(cellValues);
-            switch (cellValues)
+            var dataType = cellValues ?? CellValues.SharedString;
+            cell.DataType = new EnumValue<CellValues>(dataType);
+            switch (dataType.ToString())
             {
-                case CellValues.Boolean:
+                case "b": // Boolean
                     var boolResult = bool.TryParse(value.ToString(), out var boolean) && boolean;
                     cell.CellValue = new CellValue(boolResult);
                     break;
-                case CellValues.Number:
+                case "n": // Number
                     var numberResult = Double.TryParse(value.ToString(), out var number) ? number : 0D;
                     cell.CellValue = new CellValue(numberResult);
                     break;
-                case CellValues.Date:
+                case "d": // Date
                     var datetimeResult = DateTime.TryParse(value.ToString(), out var datetime) ? datetime : DateTime.Now;
                     cell.CellValue = new CellValue(datetimeResult);
                     break;
-                case CellValues.SharedString:
+                case "s": // SharedString
                     cell.CellValue = new CellValue(sharedStringPart.InsertSharedStringItem(value.ToString()));
                     break;
                 default:

@@ -4,12 +4,9 @@ using System.Text;
 
 namespace CommonTools.Enums
 {
-	public static class CommonEnums
-	{
-		public enum ConfigTypes
-		{
-			ConnectionString = 0,
-			AppSettings = 2
-		}
-	}
+    public enum ConfigType
+    {
+        ConnectionString = 0,
+        AppSettings = 2
+    }
 }

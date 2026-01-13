@@ -30,30 +30,55 @@ using Windows.Storage.Streams;
 
 namespace Test
 {
-	class Program
+	public class BaseClass
+	{
+		public virtual void Show()
+		{
+            Console.WriteLine("this is base class");
+		}
+
+    }
+
+    public class ExtendClass: BaseClass
+    {
+        public new void Show()
+        {
+            Console.WriteLine("this is extend class");
+        }
+    }
+
+    class Program
 	{
 		public static void Main(string[] args)
 		{
-			TestConnectionStr();
-			//var bitMap = OCRAsync().ConfigureAwait(false).GetAwaiter().GetResult();
-			//var result = RecognizeText().ConfigureAwait(false).GetAwaiter().GetResult();
-			//Console.WriteLine(result);
-			//string imgPath = @"D:\Computer\Projects\Lemon.Tools\FormTest\Photos\Screenshot2.jpg";
-			//RecognizeLongImage(imgPath);
-			//GetPicContent();
-			#region test history
-			//Console.WriteLine(SumFrom1toX(100));
-			//var result = GetCmbcAccumulatedGoldPrice().ConfigureAwait(false).GetAwaiter().GetResult();
-			//var result = SystemManager.GetServiceValue("i8042prt");
-			//if (result.Contains("4  RUNNING"))
-			//{
-			//             Console.WriteLine("Running");
-			//}
-			//         else
-			//         {
-			//	Console.WriteLine("STOPPED");
-			//}
-			//         Console.WriteLine(result);
+			var baseClass = new BaseClass();
+			baseClass.Show();
+			var extendClass = new ExtendClass();
+			extendClass.Show();
+            BaseClass mixedClass = new ExtendClass();
+			mixedClass.Show();
+
+
+            //string data = "2025C#高性能指南";
+            //var numberSpan = data.AsSpan(0,4);
+            //         //Console.WriteLine(typeof(numberSpan));
+            //Console.WriteLine(numberSpan);
+
+
+            //var result = GetCmbcAccumulatedGoldPrice().ConfigureAwait(false).GetAwaiter().GetResult();
+            //TestNCMConverter();
+
+            //Console.WriteLine(result);
+            //var result = SystemManager.GetServiceValue("i8042prt");
+            //if (result.Contains("4  RUNNING"))
+            //{
+            //             Console.WriteLine("Running");
+            //}
+            //         else
+            //         {
+            //	Console.WriteLine("STOPPED");
+            //}
+            //         Console.WriteLine(result);
 
 			//ConnectWifi();
 			#endregion

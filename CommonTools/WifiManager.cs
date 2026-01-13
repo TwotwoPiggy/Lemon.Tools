@@ -112,7 +112,11 @@ namespace CommonTools
 				{
 					throw new ArgumentException("Not found the wifi with specified ssid", nameof(ssid));
 				}
-				var result = await NativeWifi.ConnectNetworkAsync(wifiToConnect.Interface.Id, wifiToConnect.ProfileName, wifiToConnect.BssType, TimeSpan.FromSeconds(10));
+				var result = await NativeWifi.ConnectNetworkAsync(
+					wifiToConnect.InterfaceInfo.Id, // 使用 InterfaceInfo 替换已过时的 Interface
+					wifiToConnect.ProfileName,
+					wifiToConnect.BssType,
+					TimeSpan.FromSeconds(10));
 				return result;
 			}
 			catch (Exception)

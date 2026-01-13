@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace CommonTools
 {
-	public static class QRCodeHelper
+    [SupportedOSPlatform("windows")]
+    public static class QRCodeHelper
 	{
-		//[SupportedOSPlatform("windows")]//to fix the CA1416 violations
+		[SupportedOSPlatform("windows")]//to fix the CA1416 violations
 		public static Bitmap GenerateQRCode(string payload,int size)
 		{
 			var qrCoder = new QRCodeGenerator();

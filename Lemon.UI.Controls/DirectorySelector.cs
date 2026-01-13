@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,8 +18,8 @@ namespace Lemon.UI.Controls
 				this.tb_Directory.Text = value;
 			}
 		}
-
-		public string ButtonText
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public string ButtonText
 		{
 			get
 			{
@@ -29,7 +30,7 @@ namespace Lemon.UI.Controls
 				this.btn_SelectDir.Text = value;
 			}
 		}
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Size ButtonSize 
 		{
 			get

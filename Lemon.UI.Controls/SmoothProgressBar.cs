@@ -46,7 +46,7 @@ namespace Lemon.UI.Controls
             brush.Dispose();
             g.Dispose();
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public int Minimum
         {
             get
@@ -80,7 +80,7 @@ namespace Lemon.UI.Controls
                 this.Invalidate();
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public int Maximum
         {
             get
@@ -108,7 +108,7 @@ namespace Lemon.UI.Controls
                 this.Invalidate();
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public int Value
         {
             get
@@ -168,7 +168,7 @@ namespace Lemon.UI.Controls
                 this.Invalidate(updateRect);
             }
         }
-
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Color ProgressBarColor
         {
             get
