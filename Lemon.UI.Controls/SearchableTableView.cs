@@ -20,30 +20,34 @@ namespace Lemon.UI.Controls
 		private readonly string _recordCountFormat = "共 {0} 条记录";
 		private readonly string _currentPageFormat = "当前页 {0}/{1}";
 
-		#endregion
+        #endregion
 
-		#region Page break
-		
-		/// <summary>
-		/// 总记录数
-		/// </summary>
-		public int RecordCount { get; set; }
-		/// <summary>
-		/// 总页数
-		/// </summary>
-		public int PageCount { get; set; }
-		/// <summary>
-		/// 页数最大记录
-		/// </summary>
-		public int PageSize { get; set; }
-		/// <summary>
-		/// 当前页数
-		/// </summary>
-		public int CurrentPage { get; set; }
-		#endregion
+        #region Page break
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        /// <summary>
+        /// 总记录数
+        /// </summary>
+        public int RecordCount { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        /// <summary>
+        /// 总页数
+        /// </summary>
+        public int PageCount { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        /// <summary>
+        /// 页数最大记录
+        /// </summary>
+        public int PageSize { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        /// <summary>
+        /// 当前页数
+        /// </summary>
+        public int CurrentPage { get; set; }
+        #endregion
 
-		#region public controllers
-		public TextBox SearchBox 
+        #region public controllers
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public TextBox SearchBox 
 		{
 			get
 			{
@@ -55,8 +59,8 @@ namespace Lemon.UI.Controls
 			}
 		}
 
-
-		public Button SearchButton
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Button SearchButton
 		{
 			get
 			{
@@ -67,7 +71,8 @@ namespace Lemon.UI.Controls
 				searchButton = value;
 			}
 		}
-		public BindingSource BindingSource
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public BindingSource BindingSource
 		{
 			get
 			{
@@ -78,8 +83,8 @@ namespace Lemon.UI.Controls
 				bindingSource = value;
 			}
 		}
-
-		public DataGridView View
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public DataGridView View
 		{
 			get
 			{
@@ -90,8 +95,8 @@ namespace Lemon.UI.Controls
 				searchableTable = value;
 			}
 		}
-
-		public LabelTextbox PageSizeTextbox
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public LabelTextbox PageSizeTextbox
 		{
 			get
 			{
@@ -102,8 +107,8 @@ namespace Lemon.UI.Controls
 				pageSizeTextbox = value;
 			}
 		}
-
-		public Button HomeButton
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Button HomeButton
 		{
 			get
 			{
@@ -114,8 +119,8 @@ namespace Lemon.UI.Controls
 				homeBtn = value;
 			}
 		}
-
-		public Button PrePageButton
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Button PrePageButton
 		{
 			get
 			{
@@ -126,8 +131,8 @@ namespace Lemon.UI.Controls
 				prePageBtn = value;
 			}
 		}
-
-		public Button NextPageButton
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Button NextPageButton
 		{
 			get
 			{
@@ -138,8 +143,9 @@ namespace Lemon.UI.Controls
 				nextPageBtn = value;
 			}
 		}
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
 
-		public Button LastPageButton
+        public Button LastPageButton
 		{
 			get
 			{
@@ -150,8 +156,8 @@ namespace Lemon.UI.Controls
 				lastPageBtn = value;
 			}
 		}
-
-		public TextBox JumpTextbox
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public TextBox JumpTextbox
 		{
 			get
 			{
@@ -162,8 +168,8 @@ namespace Lemon.UI.Controls
 				jumpTextbox = value;
 			}
 		}
-
-		public Button JumpButton
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Button JumpButton
 		{
 			get
 			{

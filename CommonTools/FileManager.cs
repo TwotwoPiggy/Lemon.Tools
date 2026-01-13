@@ -77,6 +77,23 @@ namespace CommonTools
 			}
 		}
 
+		public static void DeleteFile(string targetFilePath)
+		{
+            try
+            {
+                if (!File.Exists(targetFilePath))
+                {
+                    throw new FileNotFoundException($"{targetFilePath} is not found, Please check if it exists");
+                }
+				// 移动文件
+				File.Delete(targetFilePath);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 		public static void AddAttribute(string path, FileAttributes attribute)
 		{
 			// 修改重要文件前检查

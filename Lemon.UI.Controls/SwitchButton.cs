@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace Lemon.UI.Controls
 	{
 		#region properties
 		private bool _isChecked;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public bool IsChecked 
 		{
 			get { return _isChecked; }
@@ -20,6 +22,7 @@ namespace Lemon.UI.Controls
 		}
 
 		private Color _openColor = Color.Green;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Color OpenColor 
 		{
 			get { return _openColor; }
@@ -31,7 +34,8 @@ namespace Lemon.UI.Controls
 		}
 
 		private Color _closeColor = Color.Gray;
-		public Color CloseColor
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public Color CloseColor
 		{
 			get { return _closeColor; }
 			set
@@ -42,6 +46,7 @@ namespace Lemon.UI.Controls
 		}
 
 		private int _cornerRadius = 5;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public int CornerRadius 
 		{
 			get { return _cornerRadius; }
@@ -53,6 +58,7 @@ namespace Lemon.UI.Controls
 		}
 
 		private int _borderWidth = 2;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public int BorderWidth 
 		{
 			get { return _borderWidth; }

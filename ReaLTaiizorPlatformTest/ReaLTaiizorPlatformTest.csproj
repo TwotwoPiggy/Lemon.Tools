@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net7.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows;net8.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="ReaLTaiizor" Version="3.8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.1" />
   </ItemGroup>
 
 </Project>
