@@ -35,7 +35,7 @@ namespace CommonTools
 			{
 				throw new DirectoryNotFoundException($"{directoryPath} is not found, Please check if it exists");
 			}
-			return Directory.GetFiles(directoryPath).AsEnumerable();
+			return Directory.EnumerateFiles(directoryPath);
 		}
 
 		public static IEnumerable<string> GetDirectories(string directoryPath)
@@ -44,7 +44,7 @@ namespace CommonTools
 			{
 				throw new DirectoryNotFoundException($"{directoryPath} is not found, Please check if it exists");
 			}
-			return Directory.GetDirectories(directoryPath).AsEnumerable();
+			return Directory.EnumerateDirectories(directoryPath);
 		}
 
 		public static void RenameFile(string oldFileName, string newFileName)

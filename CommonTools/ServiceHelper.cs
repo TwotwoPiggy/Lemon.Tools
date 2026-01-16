@@ -11,13 +11,15 @@ namespace CommonTools
 {
 	public class ServiceHelper
 	{
-		public static IHttpClientFactory GetHttpClientFactory()
+		private static readonly Lazy<IHttpClientFactory> _httpClientFactoryLazy = new Lazy<IHttpClientFactory>(() =>
 		{
 			var services = new ServiceCollection();
-			return services
-						.AddHttpClient()
-						.BuildServiceProvider()
-						.GetService<IHttpClientFactory>();
+			return services.AddHttpClient().BuildServiceProvider().GetRequiredService<IHttpClientFactory>();
+		});
+
+		public static IHttpClientFactory GetHttpClientFactory()
+		{
+			return _httpClientFactoryLazy.Value;
 		}
 	}
 }
