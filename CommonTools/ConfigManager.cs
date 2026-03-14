@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using CommonTools.Enums;
@@ -61,7 +61,7 @@ namespace CommonTools
 			internal abstract string Get(string name);
 			internal abstract void Set(string name, string value, string extra);
 
-			protected Configuration OpenConfig() =>
+			protected System.Configuration.Configuration OpenConfig() =>
 				ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 		}
 

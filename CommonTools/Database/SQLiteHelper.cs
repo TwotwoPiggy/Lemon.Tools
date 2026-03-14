@@ -1,4 +1,6 @@
 ﻿using CommonTools.Base;
+using CommonTools.Configuration;
+using Microsoft.Extensions.Configuration;
 using SQLite;
 using System;
 using System.Threading;
@@ -6,36 +8,56 @@ using System.Threading;
 namespace CommonTools.Database
 {
     public class SQLiteHelper : DbBase, IDisposable
-	{
-
-		#region fields and properties
+    {
+        #region fields and properties
         public SQLiteConnection Db => _dbLazy?.Value ?? throw new ObjectDisposedException(nameof(SQLiteHelper));
         public SQLiteAsyncConnection DbAsync => _dbAsyncLazy?.Value ?? throw new ObjectDisposedException(nameof(SQLiteHelper));
 
         private string _connectStr = string.Empty;
-        private readonly string _configName = string.Empty;
+        private readonly string _connectionName;
         private Lazy<SQLiteConnection> _dbLazy;
         private Lazy<SQLiteAsyncConnection> _dbAsyncLazy;
         private readonly Lock _sync = new();
         private bool _disposed;
-		#endregion
+        private readonly IConnectionConfigProvider _configProvider;
+        #endregion
 
-		public SQLiteHelper(string configName = "SQLite")
-		{
-            _configName = configName;
-            _connectStr = ConfigManager.GetConnectionString(_configName);
+        public SQLiteHelper(string connectionName = "Default", IConfiguration? configuration = null)
+        {
+            _connectionName = connectionName;
+            _configProvider = ConnectionConfigProviderFactory.Create(configuration);
+            
+            InitializeConnections();
+        }
+
+        public SQLiteHelper(IConnectionConfigProvider configProvider, string connectionName = "Default")
+        {
+            _connectionName = connectionName;
+            _configProvider = configProvider ?? throw new ArgumentNullException(nameof(configProvider));
+            
+            InitializeConnections();
+        }
+
+        private void InitializeConnections()
+        {
+            _connectStr = _configProvider.GetConnectionString(_connectionName);
+            
             if (string.IsNullOrWhiteSpace(_connectStr))
             {
                 _connectStr = @".\default.db";
-                ConfigManager.SetConnectionString(_configName, _connectStr, SqlLiteProvider);
+                _configProvider.SetConnectionString(_connectionName, _connectStr);
             }
 
-            // Initialize lazy connections with thread-safety
-            _dbLazy = new Lazy<SQLiteConnection>(() => new SQLiteConnection(_connectStr), LazyThreadSafetyMode.ExecutionAndPublication);
-            _dbAsyncLazy = new Lazy<SQLiteAsyncConnection>(() => new SQLiteAsyncConnection(_connectStr), LazyThreadSafetyMode.ExecutionAndPublication);
-		}
+            _dbLazy = new Lazy<SQLiteConnection>(
+                () => new SQLiteConnection(_connectStr), 
+                LazyThreadSafetyMode.ExecutionAndPublication);
+            
+            _dbAsyncLazy = new Lazy<SQLiteAsyncConnection>(
+                () => new SQLiteAsyncConnection(_connectStr), 
+                LazyThreadSafetyMode.ExecutionAndPublication);
+        }
 
-		#region ConnecionString
+        #region ConnectionString
         public void SetConnectionString(string connectionString)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -43,57 +65,63 @@ namespace CommonTools.Database
                 throw new ArgumentNullException(nameof(connectionString));
             }
 
-            var currentConnStr = ConfigManager.GetConnectionString(_configName);
+            var currentConnStr = _configProvider.GetConnectionString(_connectionName);
             if (connectionString.Equals(currentConnStr))
             {
                 return;
             }
 
-            ConfigManager.SetConnectionString(_configName, connectionString, SqlLiteProvider);
-
-            // Dispose existing connections and reinitialize lazies
+            _configProvider.SetConnectionString(_connectionName, connectionString);
             ReinitializeConnections(connectionString);
         }
-		#endregion
+        #endregion
 
         public override void Disconnect()
         {
             ReinitializeConnections(_connectStr);
         }
 
-        private void ReinitializeConnections(string newConnectionString)
+        private void ReinitializeConnections(string? newConnectionString)
         {
             lock (_sync)
             {
-                // Dispose existing created connections
-                try
-                {
-                    if (_dbLazy != null && _dbLazy.IsValueCreated)
-                    {
-                        try { _dbLazy.Value.Close(); } catch { }
-                        try { _dbLazy.Value.Dispose(); } catch { }
-                    }
-                }
-                finally { }
+                DisposeExistingConnections();
 
-                try
-                {
-                    if (_dbAsyncLazy != null && _dbAsyncLazy.IsValueCreated)
-                    {
-                        try { _dbAsyncLazy.Value.CloseAsync().GetAwaiter().GetResult(); } catch { }
-                    }
-                }
-                finally { }
-
-                // Replace with new Lazy instances (keep using current _connectStr if null passed)
                 if (!string.IsNullOrWhiteSpace(newConnectionString))
                 {
-                    _connectStr = newConnectionString!;
+                    _connectStr = newConnectionString;
                 }
 
-                _dbLazy = new Lazy<SQLiteConnection>(() => new SQLiteConnection(_connectStr), LazyThreadSafetyMode.ExecutionAndPublication);
-                _dbAsyncLazy = new Lazy<SQLiteAsyncConnection>(() => new SQLiteAsyncConnection(_connectStr), LazyThreadSafetyMode.ExecutionAndPublication);
+                _dbLazy = new Lazy<SQLiteConnection>(
+                    () => new SQLiteConnection(_connectStr), 
+                    LazyThreadSafetyMode.ExecutionAndPublication);
+                
+                _dbAsyncLazy = new Lazy<SQLiteAsyncConnection>(
+                    () => new SQLiteAsyncConnection(_connectStr), 
+                    LazyThreadSafetyMode.ExecutionAndPublication);
             }
+        }
+
+        private void DisposeExistingConnections()
+        {
+            try
+            {
+                if (_dbLazy != null && _dbLazy.IsValueCreated)
+                {
+                    try { _dbLazy.Value.Close(); } catch { }
+                    try { _dbLazy.Value.Dispose(); } catch { }
+                }
+            }
+            catch { }
+
+            try
+            {
+                if (_dbAsyncLazy != null && _dbAsyncLazy.IsValueCreated)
+                {
+                    try { _dbAsyncLazy.Value.CloseAsync().GetAwaiter().GetResult(); } catch { }
+                }
+            }
+            catch { }
         }
 
         public void Dispose()
@@ -107,10 +135,11 @@ namespace CommonTools.Database
             if (_disposed) return;
             if (disposing)
             {
-                // dispose managed
-                ReinitializeConnections(null);
+                DisposeExistingConnections();
+                _dbLazy = null!;
+                _dbAsyncLazy = null!;
             }
             _disposed = true;
         }
-	}
+    }
 }

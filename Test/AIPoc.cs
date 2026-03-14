@@ -17,7 +17,7 @@ namespace Test
         {
             var config = new AIConfig
             {
-                ApiKey = "",
+                ApiKey = "AIzaSyCIl58VJ6MO4V-KyMktBrRGOAAfAdIFHPY",
                 //ModelName = "gemini-3.1-flash-lite-preview",//model not found
                 ModelName = "gemini-2.5-flash",
                 Proxy = new ProxyConfig { Enabled = true, Address = "http://127.0.0.1:10808" }

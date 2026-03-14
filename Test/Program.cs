@@ -1,5 +1,4 @@
-﻿using CatFoodManager.Core.Models;
-using CommonTools;
+﻿using CommonTools;
 using Google.GenAI;
 using Google.GenAI.Types;
 using Microsoft.Data.SqlClient;
@@ -107,7 +106,7 @@ namespace Test
 
 
             // 4. 在初始化 GenAI Client 时指定 HttpClient
-            var client = new Client(apiKey: "");
+            var client = new Client(apiKey: "AIzaSyCIl58VJ6MO4V-KyMktBrRGOAAfAdIFHPY");
 
             byte[] imageBytes = System.IO.File.ReadAllBytes(@"C:\Users\Lemony\Desktop\testfood.jpg");
             var imagePart = Part.FromBytes(imageBytes, mimeType: "image/jpeg");
@@ -670,48 +669,48 @@ namespace Test
 			Console.WriteLine($"Student {result.Name}'s Id is {result.Id}.");
 		}
 
-		//public static async Task RunGeminiOcrServiceTest()
-		//{
-		//	try
-		//	{
-		//		var sqlHelper = new SQLiteHelper();
-		//		sqlHelper.SetConnectionString(@".\catfood_test.db");
-		//		var repo = new CatFoodManager.Core.Repositories.CommonRepository(sqlHelper);
+        //public static async Task RunGeminiOcrServiceTest()
+        //{
+        //	try
+        //	{
+        //		var sqlHelper = new SQLiteHelper();
+        //		sqlHelper.SetConnectionString(@".\catfood_test.db");
+        //		var repo = new CatFoodManager.Core.Repositories.CommonRepository(sqlHelper);
 
-		//		var aiConfig = new Twotwo.Agent.Configuration.AIConfig
-		//		{
-		//			ApiKey = "",
-		//			ModelName = "gemini-2.5-flash",
-		//			Proxy = new Twotwo.Agent.Configuration.ProxyConfig { Enabled = true, Address = "http://127.0.0.1:10808" }
-		//		};
+        //		var aiConfig = new Twotwo.Agent.Configuration.AIConfig
+        //		{
+        //			ApiKey = "AIzaSyCIl58VJ6MO4V-KyMktBrRGOAAfAdIFHPY",
+        //			ModelName = "gemini-2.5-flash",
+        //			Proxy = new Twotwo.Agent.Configuration.ProxyConfig { Enabled = true, Address = "http://127.0.0.1:10808" }
+        //		};
 
-		//		// Ensure prompts are loaded by caller if needed. Use a simple prompt here.
-		//		var prompt = "请识别图片中的购买信息并返回 JSON 列表，每项包含 Name, PurchasedAt(yyyy-MM-dd HH:mm:ss), FinalPrice";
+        //		// Ensure prompts are loaded by caller if needed. Use a simple prompt here.
+        //		var prompt = "请识别图片中的购买信息并返回 JSON 列表，每项包含 Name, PurchasedAt(yyyy-MM-dd HH:mm:ss), FinalPrice";
 
-		//		var service = await CatFoodManager.Core.Services.GeminiOcrService.CreateAsync(repo, aiConfig);
+        //		var service = await CatFoodManager.Core.Services.GeminiOcrService.CreateAsync(repo, aiConfig);
 
-		//		var folder = @"C:\Users\Lemony\Desktop"; // adjust if needed
-		//		var results = await service.ProcessPicAsync<BestPrice>(folder, prompt);
+        //		var folder = @"C:\Users\Lemony\Desktop"; // adjust if needed
+        //		var results = await service.ProcessPicAsync<BestPrice>(folder, prompt);
 
-		//		Console.WriteLine("Parsed DTOs:");
-		//		foreach (var r in results)
-		//		{
-		//			Console.WriteLine($"Name:{r.Name}, PurchasedAt:{r.PurchasedAt}, FinalPrice:{r.FinalPrice}");
-		//		}
+        //		Console.WriteLine("Parsed DTOs:");
+        //		foreach (var r in results)
+        //		{
+        //			Console.WriteLine($"Name:{r.Name}, PurchasedAt:{r.PurchasedAt}, FinalPrice:{r.FinalPrice}");
+        //		}
 
-		//		// verify DB insertion
-		//		var saved = repo.QueryList<CatFoodManager.Core.Models.GeminiResponseEntity>().ToList();
-		//		Console.WriteLine($"Saved GeminiResponseEntity count: {saved.Count}");
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		Console.WriteLine($"RunGeminiOcrServiceTest failed: {ex.Message}");
-		//	}
-		//}
+        //		// verify DB insertion
+        //		var saved = repo.QueryList<CatFoodManager.Core.Models.GeminiResponseEntity>().ToList();
+        //		Console.WriteLine($"Saved GeminiResponseEntity count: {saved.Count}");
+        //	}
+        //	catch (Exception ex)
+        //	{
+        //		Console.WriteLine($"RunGeminiOcrServiceTest failed: {ex.Message}");
+        //	}
+        //}
 
-		#region old tests
+        #region old tests
 
-		public static void TestLazy()
+        public static void TestLazy()
 		{
 			var lazyTest = new Lazy<Test>();
 			var test = lazyTest.Value;
