@@ -3,7 +3,7 @@ using SQLite;
 using System;
 using System.Threading;
 
-namespace CommonTools
+namespace CommonTools.Database
 {
     public class SQLiteHelper : DbBase, IDisposable
 	{

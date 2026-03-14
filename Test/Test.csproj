@@ -2,28 +2,34 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.22621.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <Platforms>AnyCPU;x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.32" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.250610002-experimental3" />
-    <PackageReference Include="PaddleOCRSharp" Version="5.0.0.1" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.31.0" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.1" />
+    <PackageReference Include="Google.GenAI" Version="1.3.0" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
+    <PackageReference Include="PaddleOCRSharp" Version="6.0.2" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="144.0.7559.13300" />
+
+    <PackageReference Include="System.Drawing.Common" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommonTools\CommonTools.csproj" />
-    <ProjectReference Include="..\HttpManager\HttpManager.csproj" />
+    <PackageReference Include="Twotwo.CommonTools" Version="1.0.15" />
     <ProjectReference Include="..\OcrApi\OcrApi.csproj" />
+    <ProjectReference Include="..\Twotwo.Agent\Twotwo.Agent.csproj" />
   </ItemGroup>
   <ItemGroup>
     <RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Paddle.Runtime.win_x64" Version="3.3.0.1" />
   </ItemGroup>
 </Project>

@@ -57,7 +57,7 @@ namespace Lemon.UI.Controls
             var form = new Form
             {
                 Text = caption,
-                Width = 400,
+                Width = 200,
                 Height = 200,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 StartPosition = FormStartPosition.CenterScreen,
@@ -70,11 +70,12 @@ namespace Lemon.UI.Controls
             {
                 Name = "messageLabel",
                 Text = text,
-                Left = 20,
+                Left = 12,
                 Top = 20,
-                Width = 360,
+                Width = 160,
                 Height = 60,
-                TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+                Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold)
             };
 
             // 倒计时标签
@@ -82,23 +83,22 @@ namespace Lemon.UI.Controls
             {
                 Name = "countdownLabel",
                 Text = "",
-                Left = 20,
+                Left = 12,
                 Top = 90,
-                Width = 360,
+                Width = 160,
                 Height = 20,
                 TextAlign = System.Drawing.ContentAlignment.MiddleLeft,
-                Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
-                    System.Drawing.FontStyle.Italic)
+                Font = new System.Drawing.Font("微软雅黑", 11F, System.Drawing.FontStyle.Bold)
             };
 
             // 按钮面板
             var buttonPanel = new FlowLayoutPanel
             {
                 FlowDirection = FlowDirection.RightToLeft,
-                Width = 360,
-                Height = 30,
-                Left = 20,
-                Top = 120
+                Width = 160,
+                Height = 48,
+                Left = 12,
+                Top = 115
             };
 
             // 根据按钮类型添加按钮

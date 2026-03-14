@@ -1,4 +1,4 @@
-﻿using CommonTools;
+﻿using CommonTools.Database;
 using SQLite.Core.interfaces;
 
 namespace SQLite.Core.Repositories

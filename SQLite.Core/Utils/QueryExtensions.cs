@@ -16,5 +16,7 @@ namespace SQLite.Core.Utils
 				db.GetChildren(entity, recursive);
 			}
 		}
+
+
 	}
 }
