@@ -15,40 +15,42 @@ namespace Test
     {
         public static async Task RunTest()
         {
-            var config = new AIConfig
-            {
-                ApiKey = "AIzaSyCIl58VJ6MO4V-KyMktBrRGOAAfAdIFHPY",
-                //ModelName = "gemini-3.1-flash-lite-preview",//model not found
-                ModelName = "gemini-2.5-flash",
-                Proxy = new ProxyConfig { Enabled = true, Address = "http://127.0.0.1:10808" }
-            };
+            var agent = new AgentTest();
+            await agent.ExecuteAsync();
+            //var config = new AIConfig
+            //{
+            //    ApiKey = "AIzaSyCIl58VJ6MO4V-KyMktBrRGOAAfAdIFHPY",
+            //    //ModelName = "gemini-3.1-flash-lite-preview",//model not found
+            //    ModelName = "gemini-2.5-flash",
+            //    Proxy = new ProxyConfig { Enabled = true, Address = "http://127.0.0.1:10808" }
+            //};
 
-            var services = new ServiceCollection();
-            services.AddGeminiAgent(config);
-            var serviceProvider = services.BuildServiceProvider();
-            
-            var agentService = serviceProvider.GetRequiredService<IGeminiAgentService>();
-            await agentService.ValidateModelAsync();
+            //var services = new ServiceCollection();
+            //services.AddGeminiAgent(config);
+            //var serviceProvider = services.BuildServiceProvider();
 
-            PromptLoader.Load("Prompts.json");
+            //var agentService = serviceProvider.GetRequiredService<IGeminiAgentService>();
+            //await agentService.ValidateModelAsync();
 
-            byte[] imageBytes1 = File.ReadAllBytes(@"C:\Users\Lemony\Desktop\PDD\testfood.jpg");
-            byte[] imageBytes2 = File.ReadAllBytes(@"C:\Users\Lemony\Desktop\PDD\catfood.jpg");
-            var request = new AIRequest(
-                Text: PromptLoader.Get(PromptConstants.OcrAssistantPrompt),
-                Files: new List<byte[]> { imageBytes1, imageBytes2 },
-                MimeType: "image/jpeg"
-            );
+            //PromptLoader.Load("Prompts.json");
 
-            try
-            {
-                var response = await agentService.GenerateContentAsync(request);
-                Console.WriteLine(response.Text);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
+            //byte[] imageBytes1 = File.ReadAllBytes(@"C:\Users\Lemony\Desktop\PDD\testfood.jpg");
+            //byte[] imageBytes2 = File.ReadAllBytes(@"C:\Users\Lemony\Desktop\PDD\catfood.jpg");
+            //var request = new AIRequest(
+            //    Text: PromptLoader.Get(PromptConstants.OcrAssistantPrompt),
+            //    Files: new List<byte[]> { imageBytes1, imageBytes2 },
+            //    MimeType: "image/jpeg"
+            //);
+
+            //try
+            //{
+            //    var response = await agentService.GenerateContentAsync(request);
+            //    Console.WriteLine(response.Text);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error: {ex.Message}");
+            //}
         }
     }
 }

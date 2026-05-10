@@ -334,5 +334,11 @@ namespace CommonTools.Tests
                 File.WriteAllText(_configFilePath, json.ToString(Newtonsoft.Json.Formatting.Indented));
             }
         }
+
+        public Task SetConnectionStringAsync(string name, string connectionString, CancellationToken cancellationToken = default)
+        {
+            SetConnectionString(name, connectionString);
+            return Task.CompletedTask;
+        }
     }
 }

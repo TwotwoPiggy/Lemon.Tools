@@ -1,11 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>10.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Twotwo.Agent</PackageId>
-    <Version>1.0.1</Version>
+    <Version>2.0.0</Version>
     <Authors>twotwo</Authors>
+    <Description>Provider-agnostic AI Agent library based on Microsoft Agent Framework</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
   </PropertyGroup>
@@ -29,12 +31,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.GenAI" Version="1.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0" />
+    <!-- Microsoft Agent Framework -->
+    <PackageReference Include="Microsoft.Agents.AI.Foundry" Version="1.1.0" />
+    
+    <!-- Provider SDKs -->
+    <PackageReference Include="Azure.AI.Projects" Version="2.0.0" />
+    <PackageReference Include="Azure.Identity" Version="1.21.0" />
+    <PackageReference Include="Google.GenAI" Version="1.6.1" />
+    
+    <!-- Microsoft.Extensions -->
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.5" />
+    
+    <!-- Resilience -->
     <PackageReference Include="Polly" Version="8.6.6" />
   </ItemGroup>
 

@@ -1,4 +1,7 @@
 ﻿using CommonTools;
+using CommonTools.Database;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Google.GenAI;
 using Google.GenAI.Types;
 using Microsoft.Data.SqlClient;
@@ -8,9 +11,11 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
 using Microsoft.Windows.AI;
 using Microsoft.Windows.AI.Imaging;
-using OcrApi;
-using OcrApi.Models;
 using PaddleOCRSharp;
+using Spire.Pdf;
+using Spire.Pdf.Actions;
+using Spire.Pdf.General;
+using Spire.Pdf.Tables;
 using SQLite;
 using System;
 using System.Collections;
@@ -52,47 +57,92 @@ namespace Test
 	{
 		public static async Task Main(string[] args)
 		{
+			//freeSpire.pdf
+			var pdfPath = @"";
+			var wordPath = @"";
+
+   //         ConvertPdfToWord(pdfPath,wordPath);
+			//var content = ReadWord(wordPath);
+   //         Console.WriteLine(content);
 			await AIPoc.RunTest();
 			// run the GeminiOcrService integration test
 			//await RunGeminiOcrServiceTest();
-            //var baseClass = new BaseClass();
-            //baseClass.Show();
-            //var extendClass = new ExtendClass();
-            //extendClass.Show();
-            //         BaseClass mixedClass = new ExtendClass();
-            //mixedClass.Show();
+			//var baseClass = new BaseClass();
+			//baseClass.Show();
+			//var extendClass = new ExtendClass();
+			//extendClass.Show();
+			//         BaseClass mixedClass = new ExtendClass();
+			//mixedClass.Show();
 
 
-            //string data = "2025C#高性能指南";
-            //var numberSpan = data.AsSpan(0,4);
-            //         //Console.WriteLine(typeof(numberSpan));
-            //Console.WriteLine(numberSpan);
+			//string data = "2025C#高性能指南";
+			//var numberSpan = data.AsSpan(0,4);
+			//         //Console.WriteLine(typeof(numberSpan));
+			//Console.WriteLine(numberSpan);
 
 
-            //var result = GetCmbcAccumulatedGoldPrice().ConfigureAwait(false).GetAwaiter().GetResult();
-            //TestNCMConverter();
+			//var result = GetCmbcAccumulatedGoldPrice().ConfigureAwait(false).GetAwaiter().GetResult();
+			//TestNCMConverter();
 
-            //Console.WriteLine(result);
-            //var result = SystemManager.GetServiceValue("i8042prt");
-            //if (result.Contains("4  RUNNING"))
-            //{
-            //             Console.WriteLine("Running");
-            //}
-            //         else
-            //         {
-            //	Console.WriteLine("STOPPED");
-            //}
-            //         Console.WriteLine(result);
+			//Console.WriteLine(result);
+			//var result = SystemManager.GetServiceValue("i8042prt");
+			//if (result.Contains("4  RUNNING"))
+			//{
+			//             Console.WriteLine("Running");
+			//}
+			//         else
+			//         {
+			//	Console.WriteLine("STOPPED");
+			//}
+			//         Console.WriteLine(result);
 
-            //ConnectWifi();
+			//ConnectWifi();
 
-            //var filePath  = @"C:\Users\Lemony\Desktop\test.jpg";
-            //var imageBuffer =LoadImageBufferFromFileAsync(filePath).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var text = RecognizeTextFromSoftwareBitmap(imageBuffer).ConfigureAwait(false).GetAwaiter().GetResult();
-            //Console.WriteLine(text);
-        }
+			//var filePath  = @"C:\Users\Lemony\Desktop\test.jpg";
+			//var imageBuffer =LoadImageBufferFromFileAsync(filePath).ConfigureAwait(false).GetAwaiter().GetResult();
+			//var text = RecognizeTextFromSoftwareBitmap(imageBuffer).ConfigureAwait(false).GetAwaiter().GetResult();
+			//Console.WriteLine(text);
+		}
 
         #region OCR
+        public static void ConvertPdfToWord(string pdfPath, string wordPath)
+        {
+            //freeSpire.pdf
+            PdfDocument doc = new PdfDocument();
+            doc.LoadFromFile(pdfPath);
+
+            //doc.ConvertOptions.SetPdfToDocOptions(false);
+            //StringBuilder sb = new StringBuilder();
+
+            //foreach (PdfPageBase page in doc.Pages)
+            //{
+            //    sb.AppendLine(page.);
+            //}
+
+            //doc.SaveToFile(wordPath, FileFormat.DOCX);
+            doc.SaveToFile(wordPath, FileFormat.HTML);
+            doc.Close();
+        }
+
+		public static string ReadWord(string wordPath)
+		{
+            using (WordprocessingDocument doc = WordprocessingDocument.Open(wordPath, false))
+            {
+                var body = doc.MainDocumentPart?.Document.Body;
+                if (body == null) return string.Empty;
+
+                var paragraphs = body.Descendants<Paragraph>();
+                var text = new StringBuilder();
+
+                foreach (var para in paragraphs)
+                {
+                    text.AppendLine(para.InnerText);
+                }
+
+                return text.ToString();
+            }
+        }
+
         public static async Task GenerateImageCaptionAsync()
         {
             // --- 在调用任何 Gemini 代码之前执行 ---
@@ -608,14 +658,14 @@ namespace Test
 		public static void TestOCRHelper()
 		{
 			//var picPath = @"V:\Screenshots\IMG_5816.PNG";
-			string picPath = @"D:\Computer\Projects\Lemon.Tools\FormTest\Photos\Screenshot1.jpg";
-			//var picPath = @"D:\Computer\Projects\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\IMG_5783.PNG";
-			var tessdata = @"D:\Computer\Projects\Lemon.Tools\OcrApi\tessdata";
-			var ocrHelper = new OCRHelper(tessdata);
-			picPath = ocrHelper.ReduceImageNoise(picPath);
-			var content = ocrHelper.GetTextFromPicture(picPath, Languages.Chinese_Simplified, Tesseract.EngineMode.TesseractAndLstm).Replace(" ", string.Empty);
+			//string picPath = @"D:\Computer\Projects\Lemon.Tools\FormTest\Photos\Screenshot1.jpg";
+			////var picPath = @"D:\Computer\Projects\Samples\OCR-tesseract\tesseract-samples\src\Tesseract.ConsoleDemo\IMG_5783.PNG";
+			//var tessdata = @"D:\Computer\Projects\Lemon.Tools\OcrApi\tessdata";
+			//var ocrHelper = new OCRHelper(tessdata);
+			//picPath = ocrHelper.ReduceImageNoise(picPath);
+			//var content = ocrHelper.GetTextFromPicture(picPath, Languages.Chinese_Simplified, Tesseract.EngineMode.TesseractAndLstm).Replace(" ", string.Empty);
 
-			Console.WriteLine(content);
+			//Console.WriteLine(content);
 		}
 
 		public static void TestHttpClientHelper()
